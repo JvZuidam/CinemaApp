@@ -5,15 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatStatus;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.logic.SeatSelector;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by JanBelterman on 28 March 2018
@@ -35,11 +30,11 @@ public class SeatSelectorActivity extends AppCompatActivity {
         }
 
         // Adapter to display a cinemaHall in a gridView
-        seatAdapter = new SeatAdapter(this, seatSelector.getCinemaHall());
+        seatAdapter = new SeatAdapter(this, seatSelector.getHallInstance());
 
         // GridView with properties
         GridView gridView = findViewById(R.id.hallGridView);
-        gridView.setNumColumns(seatSelector.getCinemaHall().amountOfSeatsInARow());
+        gridView.setNumColumns(seatSelector.getHallInstance().amountOfSeatsInARow());
         gridView.setAdapter(seatAdapter);
 
         // OnItemClickListener to select a given seat
@@ -48,9 +43,9 @@ public class SeatSelectorActivity extends AppCompatActivity {
                                     int position, long id) {
 
                 // Get clicked seat from adapter
-                Seat seatClicked = seatAdapter.getItem(position);
+                SeatInstance seatInstanceClicked = seatAdapter.getItem(position);
                 // Notify selector that seat has been clicked (also pass that seat)
-                seatSelector.seatClicked(seatClicked);
+                seatSelector.seatClicked(seatInstanceClicked);
                 // Notify the adapter that data has changes (display updated hall)
                 seatAdapter.notifyDataSetChanged();
 

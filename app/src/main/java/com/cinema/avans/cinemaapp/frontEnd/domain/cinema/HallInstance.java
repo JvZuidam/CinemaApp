@@ -3,19 +3,20 @@ package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CinemaHall implements Serializable {
+public class HallInstance implements Serializable {
 
-    private int hallId;
-    private ArrayList<SeatRow> rows;
+    private int hallInstanceId; // Done
+    private int hallId; // Done
+    private ArrayList<SeatRowInstance> rows; // Done
 
     // Returns the max. amount of seats in a row
     public int amountOfSeatsInARow() {
 
         int mostRowSeats = 0;
 
-        for (SeatRow seatRow : rows) {
+        for (SeatRowInstance seatRowInstance : rows) {
 
-            int currentRowSeats = seatRow.getAmountOfSeats();
+            int currentRowSeats = seatRowInstance.getAmountOfSeats();
 
             if (currentRowSeats > mostRowSeats) {
                 mostRowSeats = currentRowSeats;
@@ -29,17 +30,23 @@ public class CinemaHall implements Serializable {
     }
 
     // SETTERS
+    public void setHallInstanceId(int hallInstanceId) {
+        this.hallInstanceId = hallInstanceId;
+    }
     public void setHallId(int hallId) {
         this.hallId = hallId;
     }
-    public void setRows(ArrayList<SeatRow> rows) {
+    public void setRows(ArrayList<SeatRowInstance> rows) {
         this.rows = rows;
     }
     // GETTERS
+    public int getHallInstanceId() {
+        return hallInstanceId;
+    }
     public int getHallId() {
         return hallId;
     }
-    public ArrayList<SeatRow> getRows() {
+    public ArrayList<SeatRowInstance> getRows() {
         return this.rows;
     }
 

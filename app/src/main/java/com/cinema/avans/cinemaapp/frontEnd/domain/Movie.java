@@ -6,9 +6,9 @@ package com.cinema.avans.cinemaapp.frontEnd.domain;
 
 public class Movie {
 
-    private int movieId;
-    private String title;
-    private String description;
+    private int movieId; // Done
+    private String title; // Done
+    private String description; // Done
 
     // SETTERS
     public void setMovieId(int movieId) {

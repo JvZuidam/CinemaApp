@@ -5,7 +5,7 @@
     <color name="colorPrimaryDark">#00303f9f</color>
     <color name="colorAccent">#FF4081</color>
 
-    <!-- Colors to display seat information -->
+    <!-- Colors to dispseatInstanceseat information -->
     <color name="Available">#f5f54e</color>
     <color name="Reserved">#dc4040</color>
     <color name="Selected">#64aed6</color>

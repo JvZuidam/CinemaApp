@@ -1,76 +1,88 @@
 package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
-import java.io.Serializable;
+/**
+ * Created by JanBelterman on 28 March 2018
+ */
 
-public class Seat implements Serializable {
+public class Seat {
 
-    private int seatId;
-    private SeatRow row;
-    private int nr;
-    private SeatValue value;
+    private int seatId; // Done
+    private int rowId; // Done
+    private int seatNr; // Done
+    private SeatValue seatValue; // Done
 
-    // Test only (normally in SeatInstance)
-    private SeatStatus status;
-
-    // SETTERS
-    public void setSeatId(int seatId) {
-        this.seatId = seatId;
-    }
-    public void setRow(SeatRow row) {
-        this.row = row;
-    }
-    public void setNr(int nr) {
-        this.nr = nr;
-    }
-    public void setValue(SeatValue value) {
-        this.value = value;
-    }
-    // GETTERS
     public int getSeatId() {
         return seatId;
     }
-    public SeatRow getRow() {
-        return row;
-    }
-    public int getNr() {
-        return nr;
-    }
-    public SeatValue getValue() {
-        return value;
+
+    public void setSeatId(int seatId) {
+        this.seatId = seatId;
     }
 
-    // Test only (normally in SeatInstance)
-    public void setStatus(SeatStatus status) {
-        this.status = status;
-    }
-    public SeatStatus getStatus() {
-        return status;
+    public int getRowId() {
+        return rowId;
     }
 
-    // EQUALS AND HASHCODE
-    @Override
-    public boolean equals(Object o) {
-
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Seat seat = (Seat) o;
-
-        if (nr != seat.nr) return false;
-        return row != null ? row.equals(seat.row) : seat.row == null;
-    }
-    @Override
-    public int hashCode() {
-        int result = row != null ? row.hashCode() : 0;
-        result = 31 * result + nr;
-        return result;
+    public void setRowId(int rowId) {
+        this.rowId = rowId;
     }
 
-    // ToString (test method)
-    @Override
-    public String toString() {
-        return "Row: " + row.getRowNr() + " | Nr: " + this.nr + " | Status : " + status;
+    public int getSeatNr() {
+        return seatNr;
+    }
+
+    public void setSeatNr(int seatNr) {
+        this.seatNr = seatNr;
+    }
+
+    public SeatValue getSeatValue() {
+        return seatValue;
+    }
+
+    public void setSeatValue(SeatValue seatValue) {
+        this.seatValue = seatValue;
+    }
+    public int getSeatValueInt() {
+
+        if (seatValue == SeatValue.PERFECT) {
+            return 5;
+
+        } else if (seatValue == SeatValue.GOOD) {
+            return 4;
+
+        } else if (seatValue == SeatValue.OK) {
+            return 3;
+
+        } else if (seatValue == SeatValue.MODERATE) {
+            return 2;
+
+        } else if (seatValue == SeatValue.BAD) {
+            return 1;
+
+        }
+
+        return 0;
 
     }
 
+    public void setValue(int valueInt) {
+
+        if (valueInt == 5) {
+            seatValue = SeatValue.PERFECT;
+
+        } else if (valueInt == 4) {
+            seatValue = SeatValue.GOOD;
+
+        } else if (valueInt == 3) {
+            seatValue = SeatValue.OK;
+
+        } else if (valueInt == 2) {
+            seatValue = SeatValue.MODERATE;
+
+        } else if (valueInt == 1) {
+            seatValue = SeatValue.BAD;
+
+        }
+
+    }
 }

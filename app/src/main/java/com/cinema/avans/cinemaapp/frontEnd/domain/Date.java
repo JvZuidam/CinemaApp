@@ -12,6 +12,18 @@ public class Date {
     private int hours;
     private int minutes;
 
+    public void setDate(String date) {
+
+        String[] dateParts = date.split("-");
+
+        setYear(Integer.parseInt(dateParts[0]));
+        setMonth(Integer.parseInt(dateParts[1]));
+        setDay(Integer.parseInt(dateParts[2]));
+        setHours(Integer.parseInt(dateParts[3]));
+        setMinutes(Integer.parseInt(dateParts[4]));
+
+    }
+
     // SETTERS
     public void setDay(int day) {
         this.day = day;
@@ -44,6 +56,10 @@ public class Date {
     }
     public int getMinutes() {
         return minutes;
+    }
+
+    public String getDate() {
+        return year + "-" + month + "-" + day + "-" + hours + "-" + minutes;
     }
 
 }

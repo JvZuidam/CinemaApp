@@ -1,13 +1,12 @@
 package com.cinema.avans.cinemaapp.frontEnd.logic;
 
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.CinemaHall;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRowInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatStatus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by JanBelterman on 28 March 2018
@@ -15,46 +14,46 @@ import java.util.Random;
 
 public class SeatSelector implements Serializable {
 
-    private CinemaHall cinemaHall;
-    private ArrayList<Seat> selectedSeats;
+    private HallInstance hallInstance;
+    private ArrayList<SeatInstance> selectedSeatInstances;
     private int amountOfSeatsUserWants;
 
-    public SeatSelector(CinemaHall cinemaHall
+    public SeatSelector(HallInstance hallInstance
                         ,int amountOfSeatsUserWants) {
-        this.cinemaHall = cinemaHall;
+        this.hallInstance = hallInstance;
         this.amountOfSeatsUserWants = amountOfSeatsUserWants;
-        this.selectedSeats = new ArrayList<>();
+        this.selectedSeatInstances = new ArrayList<>();
 
         // Test code, remove when real data exists
         fakeCinemaHall();
 
     }
 
-    public CinemaHall getCinemaHall() {
-        return cinemaHall;
+    public HallInstance getHallInstance() {
+        return hallInstance;
 
     }
 
-    // Method called by UI when user clicks a seat
-    public void seatClicked(Seat seat) {
+    // Method called by UI when user clicks a seatInstance
+    public void seatClicked(SeatInstance seatInstance) {
 
-        // Remove seat is user already clicked it
-        if (selectedSeats.contains(seat)) {
-            selectedSeats.remove(seat);
-            seat.setStatus(SeatStatus.AVAILABLE);
+        // Remove seatInstance is user already clicked it
+        if (selectedSeatInstances.contains(seatInstance)) {
+            selectedSeatInstances.remove(seatInstance);
+            seatInstance.setStatus(SeatStatus.AVAILABLE);
 
-        // Add seat (only if the seat is available)
-        } else if (seat.getStatus() == SeatStatus.AVAILABLE) {
-            selectedSeats.add(seat);
-            seat.setStatus(SeatStatus.SELECTED);
+        // Add seatInstance (only if the seatInstance is available)
+        } else if (seatInstance.getStatus() == SeatStatus.AVAILABLE) {
+            selectedSeatInstances.add(seatInstance);
+            seatInstance.setStatus(SeatStatus.SELECTED);
 
         }
         // If to much seats are being selected:
         // - remove the first that user selected
         // - also set the status back to available
-        if (selectedSeats.size() > amountOfSeatsUserWants) {
-            selectedSeats.get(0).setStatus(SeatStatus.AVAILABLE);
-            selectedSeats.remove(0);
+        if (selectedSeatInstances.size() > amountOfSeatsUserWants) {
+            selectedSeatInstances.get(0).setStatus(SeatStatus.AVAILABLE);
+            selectedSeatInstances.remove(0);
         }
 
     }
@@ -63,65 +62,65 @@ public class SeatSelector implements Serializable {
     private void fakeCinemaHall() {
 
         // Cinema hall
-        cinemaHall = new CinemaHall();
-        cinemaHall.setHallId(1);
+        hallInstance = new HallInstance();
+        hallInstance.setHallId(1);
         // List of seat rows
-        ArrayList<SeatRow> seatRows = new ArrayList<>();
+        ArrayList<SeatRowInstance> seatRowInstances = new ArrayList<>();
         // Add seat rows
-        seatRows.add(createSeatRow(1, cinemaHall));
-        seatRows.add(createSeatRow(2, cinemaHall));
-        seatRows.add(createSeatRow(3, cinemaHall));
-        seatRows.add(createSeatRow(4, cinemaHall));
-        seatRows.add(createSeatRow(5, cinemaHall));
-        seatRows.add(createSeatRow(6, cinemaHall));
+        seatRowInstances.add(createSeatRow(1, hallInstance));
+        seatRowInstances.add(createSeatRow(2, hallInstance));
+        seatRowInstances.add(createSeatRow(3, hallInstance));
+        seatRowInstances.add(createSeatRow(4, hallInstance));
+        seatRowInstances.add(createSeatRow(5, hallInstance));
+        seatRowInstances.add(createSeatRow(6, hallInstance));
         // Set rows to cinema hall
-        cinemaHall.setRows(seatRows);
+        hallInstance.setRows(seatRowInstances);
 
     }
-    private SeatRow createSeatRow(int number, CinemaHall cinemaHall) {
+    private SeatRowInstance createSeatRow(int number, HallInstance hallInstance) {
 
-        // Create seatRow
-        SeatRow seatRow = new SeatRow();
-        seatRow.setRowNr(number);
-        seatRow.setCinemaHall(cinemaHall);
+        // Create seatRowInstance
+        SeatRowInstance seatRowInstance = new SeatRowInstance();
+        seatRowInstance.setRowNr(number);
+        seatRowInstance.setHallInstance(hallInstance);
 
-        // List with seats
-        ArrayList<Seat> seats = new ArrayList<>();
+        // List with seatInstances
+        ArrayList<SeatInstance> seatInstances = new ArrayList<>();
 
         // Seats and add
         for (int i = 1; i < 13; i ++) {
 
             if (i <= 2) {
-                seats.add(createSeat(i, SeatStatus.AVAILABLE, seatRow));
+                seatInstances.add(createSeat(i, SeatStatus.AVAILABLE, seatRowInstance));
             } else if (i == 3) {
-                seats.add(createSeat(i, SeatStatus.GAP, seatRow));
+                seatInstances.add(createSeat(i, SeatStatus.GAP, seatRowInstance));
 
             } else if (i <= 9) {
-                seats.add(createSeat(i, SeatStatus.AVAILABLE, seatRow));
+                seatInstances.add(createSeat(i, SeatStatus.AVAILABLE, seatRowInstance));
 
             } else if (i == 10){
-                seats.add(createSeat(i, SeatStatus.GAP, seatRow));
+                seatInstances.add(createSeat(i, SeatStatus.GAP, seatRowInstance));
 
             } else {
-                seats.add(createSeat(i, SeatStatus.AVAILABLE, seatRow));
+                seatInstances.add(createSeat(i, SeatStatus.AVAILABLE, seatRowInstance));
 
             }
 
         }
 
-        seatRow.setSeats(seats);
+        seatRowInstance.setSeatInstances(seatInstances);
 
-        return seatRow;
+        return seatRowInstance;
 
     }
-    private Seat createSeat(int number, SeatStatus status, SeatRow seatRow) {
+    private SeatInstance createSeat(int number, SeatStatus status, SeatRowInstance seatRowInstance) {
 
-        Seat seat = new Seat();
-        seat.setNr(number);
-        seat.setRow(seatRow);
-        seat.setStatus(status);
+        SeatInstance seatInstance = new SeatInstance();
+        seatInstance.setNr(number);
+        seatInstance.setSeatRowInstance(seatRowInstance);
+        seatInstance.setStatus(status);
 
-        return seat;
+        return seatInstance;
     }
 
 }

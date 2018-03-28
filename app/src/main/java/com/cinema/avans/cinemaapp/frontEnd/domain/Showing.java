@@ -1,6 +1,6 @@
 package com.cinema.avans.cinemaapp.frontEnd.domain;
 
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.CinemaHall;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 
 /**
  * Created by JanBelterman on 28 March 2018
@@ -8,17 +8,17 @@ import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.CinemaHall;
 
 public class Showing {
 
-    private int showingId;
-    private CinemaHall cinemaHall;
-    private Movie movie;
-    private Date date;
+    private int showingId; // Done
+    private HallInstance hallInstance; // Done
+    private Movie movie; // Done
+    private Date date; // Done
 
     // SETTERS
     public void setShowingId(int showingId) {
         this.showingId = showingId;
     }
-    public void setCinemaHall(CinemaHall cinemaHall) {
-        this.cinemaHall = cinemaHall;
+    public void setHallInstance(HallInstance hallInstance) {
+        this.hallInstance = hallInstance;
     }
     public void setMovie(Movie movie) {
         this.movie = movie;
@@ -26,13 +26,17 @@ public class Showing {
     public void setDate(Date date) {
         this.date = date;
     }
+    public void setDate(String date) {
+        this.date.setDate(date);
+
+    }
 
     // GETTERS
     public int getShowingId() {
         return showingId;
     }
-    public CinemaHall getCinemaHall() {
-        return cinemaHall;
+    public HallInstance getHallInstance() {
+        return hallInstance;
     }
     public Movie getMovie() {
         return movie;

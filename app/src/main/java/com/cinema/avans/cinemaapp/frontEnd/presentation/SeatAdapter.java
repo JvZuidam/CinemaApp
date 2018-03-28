@@ -7,9 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.cinema.avans.cinemaapp.R;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.CinemaHall;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRowInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatStatus;
 
 /**
@@ -19,14 +19,14 @@ import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatStatus;
 public class SeatAdapter extends BaseAdapter {
 
     private Context context;
-    private CinemaHall cinemaHall;
+    private HallInstance hallInstance;
 
     // Constructor, sets the context and hallItem
     public SeatAdapter(Context context
-            ,CinemaHall cinemaHall) {
+            ,HallInstance hallInstance) {
 
         this.context = context;
-        this.cinemaHall = cinemaHall;
+        this.hallInstance = hallInstance;
 
     }
 
@@ -35,9 +35,9 @@ public class SeatAdapter extends BaseAdapter {
 
         int count = 0;
 
-        for (SeatRow seatRow : cinemaHall.getRows()) {
+        for (SeatRowInstance seatRowInstance : hallInstance.getRows()) {
 
-            for (Seat seat : seatRow.getSeats()) {
+            for (SeatInstance seatInstance : seatRowInstance.getSeatInstances()) {
                 count ++;
 
             }
@@ -48,20 +48,20 @@ public class SeatAdapter extends BaseAdapter {
 
     }
 
-    // Method that returns a Seat item for a given position
+    // Method that returns a SeatInstance item for a given position
     // - Stats at row 1 and seat 1 (1.1) or the top, most left seat
     // - Ends at row (x.x) or the bottom most right seat
-    public Seat getItem(int position) {
+    public SeatInstance getItem(int position) {
 
-        Seat seatItem = null;
+        SeatInstance seatInstanceItem = null;
         int index = 0;
 
-        for (SeatRow seatRow : cinemaHall.getRows()) {
+        for (SeatRowInstance seatRowInstance : hallInstance.getRows()) {
 
-            for (Seat seat : seatRow.getSeats()) {
+            for (SeatInstance seatInstance : seatRowInstance.getSeatInstances()) {
 
                 if (index == position) {
-                    seatItem = seat;
+                    seatInstanceItem = seatInstance;
 
                 }
 
@@ -70,7 +70,7 @@ public class SeatAdapter extends BaseAdapter {
             }
         }
 
-        return seatItem;
+        return seatInstanceItem;
 
     }
 
