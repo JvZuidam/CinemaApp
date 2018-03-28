@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cinema.avans.cinemaapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +21,9 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MovieDetailedActivity"></activity>
+        <activity android:name=".MovieDetailedActivity" />
+        <activity android:name=".Paymentactivity" />
+        <activity android:name=".UserDetailedActivity" />
     </application>
 
 </manifest>
