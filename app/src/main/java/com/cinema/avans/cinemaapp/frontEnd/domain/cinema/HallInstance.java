@@ -29,6 +29,36 @@ public class HallInstance implements Serializable {
 
     }
 
+    // Returns the total amount of seats
+    public int amountOfSeats() {
+
+        int amountOfSeats = 0;
+
+        for (SeatRowInstance seatRowInstance : rows) {
+
+            amountOfSeats += seatRowInstance.getAmountOfActualSeats();
+
+        }
+
+        return amountOfSeats;
+
+    }
+
+    // Returns the available amount of seats
+    public int amountOfAvailableSeats() {
+
+        int amountOfAvailableSeats = 0;
+
+        for (SeatRowInstance row : rows) {
+
+            amountOfAvailableSeats += row.getAmountOfAvailableSeats();
+
+        }
+
+        return amountOfAvailableSeats;
+
+    }
+
     // SETTERS
     public void setHallInstanceId(int hallInstanceId) {
         this.hallInstanceId = hallInstanceId;

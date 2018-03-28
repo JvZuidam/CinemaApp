@@ -21,6 +21,43 @@ public class SeatRowInstance implements Serializable {
 
     }
 
+    // Returns the amount of actual seats (excluding gaps)
+    public int getAmountOfActualSeats() {
+
+        int amountOfActualSeats = 0;
+
+        for (SeatInstance seat : seatInstances) {
+
+            if (seat.getStatus() != SeatStatus.GAP) {
+
+                amountOfActualSeats ++;
+
+            }
+
+        }
+
+        return amountOfActualSeats;
+
+    }
+
+    // Returns the amount of available seats
+    public int getAmountOfAvailableSeats() {
+
+        int amountOfAvailableSeats = 0;
+
+        for (SeatInstance seatInstances : seatInstances) {
+
+            if (seatInstances.getStatus() == SeatStatus.AVAILABLE) {
+
+                amountOfAvailableSeats ++;
+
+            }
+        }
+
+        return amountOfAvailableSeats;
+
+    }
+
     // SETTERS
     public void setHallInstance(HallInstance hallInstance) {
         this.hallInstance = hallInstance;

@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.cinema.avans.cinemaapp.R;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.logic.SeatSelector;
 
@@ -27,13 +29,35 @@ public class SeatSelectorActivity extends AppCompatActivity {
         // Getting seat selector
         if (getIntent().getExtras() != null) {
             seatSelector = (SeatSelector) getIntent().getExtras().getSerializable("SEAT_SELECTOR");
+
+            if (seatSelector.getHallInstance() != null) {
+
+                displayHallInformation();
+
+                setUpGridView();
+            }
         }
+
+    }
+
+    private void displayHallInformation() {
+
+        HallInstance hall = seatSelector.getHallInstance();
+
+        TextView totalCapacity = findViewById(R.id.selectorCapacityText);
+        totalCapacity.setText("Total capacity: " + hall.amountOfSeats());
+        TextView availableSeats = findViewById(R.id.selectorAvailableText);
+        availableSeats.setText(hall.amountOfAvailableSeats() + " seats still available");
+
+    }
+
+    private void setUpGridView() {
 
         // Adapter to display a cinemaHall in a gridView
         seatAdapter = new SeatAdapter(this, seatSelector.getHallInstance());
 
         // GridView with properties
-        GridView gridView = findViewById(R.id.hallGridView);
+        GridView gridView = findViewById(R.id.selectorHallGridView);
         gridView.setNumColumns(seatSelector.getHallInstance().amountOfSeatsInARow());
         gridView.setAdapter(seatAdapter);
 

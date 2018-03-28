@@ -97,16 +97,16 @@ public class SeatAdapter extends BaseAdapter {
         // Adjust color
         SeatStatus seatStatus = getItem(position).getStatus();
         if (seatStatus == SeatStatus.AVAILABLE) {
-            imageView.setImageResource(R.color.Available);
+            imageView.setImageResource(R.color.available);
 
         } else if (seatStatus == SeatStatus.RESERVED) {
-            imageView.setImageResource(R.color.Reserved);
+            imageView.setImageResource(R.color.reserved);
 
         } else if (seatStatus == SeatStatus.SELECTED) {
-            imageView.setImageResource(R.color.Selected);
+            imageView.setImageResource(R.color.selected);
 
         } else {
-            imageView.setImageResource(R.color.Gap);
+            imageView.setImageResource(R.color.gap);
 
         }
 
