@@ -47,6 +47,25 @@ public class Seat implements Serializable {
         return status;
     }
 
+    // EQUALS AND HASHCODE
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Seat seat = (Seat) o;
+
+        if (nr != seat.nr) return false;
+        return row != null ? row.equals(seat.row) : seat.row == null;
+    }
+    @Override
+    public int hashCode() {
+        int result = row != null ? row.hashCode() : 0;
+        result = 31 * result + nr;
+        return result;
+    }
+
     // ToString (test method)
     @Override
     public String toString() {

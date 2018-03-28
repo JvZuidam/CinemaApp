@@ -8,6 +8,8 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatStatus;
 import com.cinema.avans.cinemaapp.frontEnd.logic.SeatSelector;
 
 import java.util.ArrayList;
@@ -45,8 +47,12 @@ public class SeatSelectorActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                // Test code
-                Toast.makeText(getApplicationContext(), seatAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
+                // Get clicked seat from adapter
+                Seat seatClicked = seatAdapter.getItem(position);
+                // Notify selector that seat has been clicked (also pass that seat)
+                seatSelector.seatClicked(seatClicked);
+                // Notify the adapter that data has changes (display updated hall)
+                seatAdapter.notifyDataSetChanged();
 
             }
         });

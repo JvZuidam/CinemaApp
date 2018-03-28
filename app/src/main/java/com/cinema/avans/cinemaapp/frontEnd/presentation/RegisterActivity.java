@@ -1,7 +1,9 @@
-package com.cinema.avans.cinemaapp;
+package com.cinema.avans.cinemaapp.frontEnd.presentation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.cinema.avans.cinemaapp.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

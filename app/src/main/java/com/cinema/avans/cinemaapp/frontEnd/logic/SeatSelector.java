@@ -16,9 +16,14 @@ import java.util.Random;
 public class SeatSelector implements Serializable {
 
     private CinemaHall cinemaHall;
+    private ArrayList<Seat> selectedSeats;
+    private int amountOfSeatsUserWants;
 
-    public SeatSelector(CinemaHall cinemaHall) {
+    public SeatSelector(CinemaHall cinemaHall
+                        ,int amountOfSeatsUserWants) {
         this.cinemaHall = cinemaHall;
+        this.amountOfSeatsUserWants = amountOfSeatsUserWants;
+        this.selectedSeats = new ArrayList<>();
 
         // Test code, remove when real data exists
         fakeCinemaHall();
@@ -27,6 +32,30 @@ public class SeatSelector implements Serializable {
 
     public CinemaHall getCinemaHall() {
         return cinemaHall;
+
+    }
+
+    // Method called by UI when user clicks a seat
+    public void seatClicked(Seat seat) {
+
+        // Remove seat is user already clicked it
+        if (selectedSeats.contains(seat)) {
+            selectedSeats.remove(seat);
+            seat.setStatus(SeatStatus.AVAILABLE);
+
+        // Add seat (only if the seat is available)
+        } else if (seat.getStatus() == SeatStatus.AVAILABLE) {
+            selectedSeats.add(seat);
+            seat.setStatus(SeatStatus.SELECTED);
+
+        }
+        // If to much seats are being selected:
+        // - remove the first that user selected
+        // - also set the status back to available
+        if (selectedSeats.size() > amountOfSeatsUserWants) {
+            selectedSeats.get(0).setStatus(SeatStatus.AVAILABLE);
+            selectedSeats.remove(0);
+        }
 
     }
 
