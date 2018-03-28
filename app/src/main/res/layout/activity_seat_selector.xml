@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/hallGridView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:columnWidth="30dp"
+        android:gravity="center"
+        android:stretchMode="columnWidth"
+        app:layout_constraintBottom_toTopOf="@+id/okButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectedColor" />
+
+    <TextView
+        android:id="@+id/availableInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/AVAILABLE"
+        app:layout_constraintBottom_toBottomOf="@+id/availableColor"
+        app:layout_constraintStart_toEndOf="@+id/availableColor"
+        app:layout_constraintTop_toTopOf="@+id/availableColor" />
+
+    <ImageView
+        android:id="@+id/availableColor"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/Available" />
+
+    <TextView
+        android:id="@+id/reservedInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/RESERVED"
+        app:layout_constraintBottom_toBottomOf="@+id/reservedColor"
+        app:layout_constraintStart_toEndOf="@+id/reservedColor"
+        app:layout_constraintTop_toTopOf="@+id/reservedColor" />
+
+    <ImageView
+        android:id="@+id/reservedColor"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/availableColor"
+        app:layout_constraintTop_toBottomOf="@+id/availableColor"
+        app:srcCompat="@color/Reserved" />
+
+    <TextView
+        android:id="@+id/selectedInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/SELECTED"
+        app:layout_constraintBottom_toBottomOf="@+id/selectedColor"
+        app:layout_constraintStart_toEndOf="@+id/selectedColor"
+        app:layout_constraintTop_toTopOf="@+id/selectedColor" />
+
+    <ImageView
+        android:id="@+id/selectedColor"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/availableColor"
+        app:layout_constraintTop_toBottomOf="@+id/reservedColor"
+        app:srcCompat="@color/Selected" />
+
+    <Button
+        android:id="@+id/okButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="OK"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
