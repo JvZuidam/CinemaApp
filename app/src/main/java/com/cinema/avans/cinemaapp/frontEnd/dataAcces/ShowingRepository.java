@@ -1,7 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Showing;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 
 import java.util.ArrayList;
 

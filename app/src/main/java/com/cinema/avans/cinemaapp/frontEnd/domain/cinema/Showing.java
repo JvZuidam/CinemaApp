@@ -1,5 +1,7 @@
-package com.cinema.avans.cinemaapp.frontEnd.domain;
+package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
+import com.cinema.avans.cinemaapp.frontEnd.domain.Date;
+import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 
 /**

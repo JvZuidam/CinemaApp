@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Showing;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Ticket;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
@@ -336,14 +336,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(SEAT_COLUMN_SEAT_ID, seat.getSeatId());
-        values.put(SEAT_COLUMN_ROW_ID, seat.getRowId());
+        values.put(SEAT_COLUMN_ROW_ID, seat.getSeatRow().getRowId());
         values.put(SEAT_COLUMN_SEAT_NR, seat.getSeatNr());
         values.put(SEAT_COLUMN_SEAT_VALUE, seat.getSeatValueInt());
 
         database.insert(TABLE_SEAT, null, values);
 
     }
-    public ArrayList<Seat> getSeat(int rowId) {
+    public ArrayList<Seat> getSeats(int rowId) {
 
         ArrayList<Seat> seats = new ArrayList<>();
 
@@ -365,7 +365,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 cursor.moveToFirst();
 
                 Seat seat = new Seat();
-                seat.setRowId(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_ROW_ID)));
                 seat.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_ID)));
                 seat.setSeatNr(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_NR)));
                 seat.setValue(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_VALUE)));

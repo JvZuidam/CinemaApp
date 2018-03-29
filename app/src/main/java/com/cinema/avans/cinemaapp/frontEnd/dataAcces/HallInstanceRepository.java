@@ -1,6 +1,6 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
 
-import com.cinema.avans.cinemaapp.frontEnd.domain.Showing;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 
 /**

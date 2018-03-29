@@ -9,15 +9,21 @@ import android.widget.ListView;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.DatabaseManager;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.HallRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.MovieRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatValue;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NewMovieListener {
 
-    MovieAdapter movieAdapter;
+    private MovieAdapter movieAdapter;
+    private ArrayList<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +31,7 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<Movie> movies = new ArrayList<>();
-
-        MovieRepository movieRepository = new MovieRepository(
-                new DatabaseManager(getApplicationContext(), "Cinema", null, 1)
-                ,this);
-        movieRepository.getNewMovie("war");
-        movieRepository.getNewMovie("time");
-        movieRepository.getNewMovie("bright");
-        movieRepository.getNewMovie("star");
-        movieRepository.getNewMovie("horse");
-        movieRepository.getNewMovie("sword");
-        movieRepository.getNewMovie("friend");
+        fakeDataIntoDatabase();
 
         ListView movieListView = findViewById(R.id.movieListView);
         movieAdapter = new MovieAdapter(getApplicationContext(), movies);
@@ -60,6 +55,57 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
 
         movieAdapter.add(movie);
         movieAdapter.notifyDataSetChanged();
+
+    }
+
+    // Test method to add some data to database
+    private void fakeDataIntoDatabase() {
+
+        // Creating database
+        DatabaseManager databaseManager = new DatabaseManager(getApplicationContext(), "Cinema", null, 1);
+
+        // Add a hall to the database, with seat rows and seats
+        HallRepository hallRepository = new HallRepository(databaseManager);
+
+        movies = new ArrayList<>();
+
+        MovieRepository movieRepository = new MovieRepository(
+                new DatabaseManager(getApplicationContext(), "Cinema", null, 1)
+                ,this);
+        movieRepository.getNewMovie("war");
+        movieRepository.getNewMovie("time");
+        movieRepository.getNewMovie("bright");
+        movieRepository.getNewMovie("star");
+        movieRepository.getNewMovie("horse");
+        movieRepository.getNewMovie("sword");
+        movieRepository.getNewMovie("friend");
+
+    }
+
+    private Hall createHall(int hallId) {
+
+        Hall hall = new Hall();
+        hall.setHallId(hallId); // PK
+        return hall;
+
+    }
+    private SeatRow createSeatRow(int rowId, int rowNr, Hall hall) {
+
+        SeatRow seatRow = new SeatRow();
+        seatRow.setRowId(rowId); // PK
+        seatRow.setHall(hall); // Link to hall
+        seatRow.setRowNr(rowNr); // Row nr
+        return seatRow;
+
+    }
+    private Seat createSeat(int seatId, SeatRow seatRow, int seatNr, SeatValue seatValue) {
+
+        Seat seat = new Seat();
+        seat.setSeatId(seatId);
+        seat.setSeatRow(seatRow);
+        seat.setSeatNr(seatNr);
+        seat.setSeatValue(seatValue);
+        return seat;
 
     }
 

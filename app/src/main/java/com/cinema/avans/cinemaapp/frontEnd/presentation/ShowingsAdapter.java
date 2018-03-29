@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.cinema.avans.cinemaapp.R;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Showing;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 
 import java.util.ArrayList;
 

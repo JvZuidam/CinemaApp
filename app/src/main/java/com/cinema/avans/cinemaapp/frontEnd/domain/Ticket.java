@@ -1,7 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.domain;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
-import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 
 /**
  * Created by JanBelterman on 28 March 2018

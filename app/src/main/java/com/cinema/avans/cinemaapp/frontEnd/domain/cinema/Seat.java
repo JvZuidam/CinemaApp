@@ -7,7 +7,7 @@ package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 public class Seat {
 
     private int seatId; // Done
-    private int rowId; // Done
+    private SeatRow seatRow; // Done
     private int seatNr; // Done
     private SeatValue seatValue; // Done
 
@@ -19,12 +19,12 @@ public class Seat {
         this.seatId = seatId;
     }
 
-    public int getRowId() {
-        return rowId;
+    public SeatRow getSeatRow() {
+        return seatRow;
     }
 
-    public void setRowId(int rowId) {
-        this.rowId = rowId;
+    public void setSeatRow(SeatRow seatRow) {
+        this.seatRow = seatRow;
     }
 
     public int getSeatNr() {

@@ -1,5 +1,6 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
 
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
 
 import java.util.ArrayList;
@@ -17,8 +18,17 @@ public class SeatRowRepository {
 
     }
 
-    public ArrayList<SeatRow> getSeatRows(int hallId) {
-        return databaseManager.getSeatRows(hallId);
+    public ArrayList<SeatRow> getSeatRows(Hall hall) {
+
+        ArrayList<SeatRow> seatRows = databaseManager.getSeatRows(hall.getHallId());
+
+        for (SeatRow seatRow : seatRows) {
+
+            seatRow.setSeats(databaseManager.getSeats(seatRow.getRowId()));
+
+        }
+
+        return seatRows;
 
     }
 
