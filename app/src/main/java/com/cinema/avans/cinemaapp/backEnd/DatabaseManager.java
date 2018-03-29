@@ -16,6 +16,9 @@ import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRowInstance;
+import com.cinema.avans.cinemaapp.frontEnd.domain.login.LogIn;
+import com.cinema.avans.cinemaapp.frontEnd.domain.login.Manager;
+import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 
 import java.util.ArrayList;
 
@@ -99,6 +102,22 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String TICKET_COLUMN_SHOWING_ID = "ShowingId";
     private static final String TICKET_COLUMN_SEAT_INSTANCE_ID = "SeatInstance";
 
+    // LogIn table
+    private static final String TABLE_LOG_IN = "LogIn";
+    // -------------------------------------------------------------------------------------------
+    private static final String LOG_IN_COLUMN_USERNAME = "Username";
+    private static final String LOG_IN_COLUMN_PASSWORD = "Password";
+
+    // User table
+    private static final String TABLE_USER = "User";
+    // -------------------------------------------------------------------------------------------
+    private static final String USER_COLUMN_USERNAME = "Username";
+
+    // Manager table
+    private static final String TABLE_MANAGER = "Manager";
+    // -------------------------------------------------------------------------------------------
+    private static final String MANAGER_COLUMN_USERNAME = "Username";
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     // CREATE QUERIES
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -158,6 +177,19 @@ public class DatabaseManager extends SQLiteOpenHelper {
                     + TICKET_COLUMN_SHOWING_ID + " INTEGER," + "\n"
                     + TICKET_COLUMN_SEAT_INSTANCE_ID + " INTEGER" + ");";
 
+    private static final String CREATE_TABLE_LOG_IN =
+            "CREATE TABLE " + TABLE_LOG_IN + " (" + "\n"
+                    + LOG_IN_COLUMN_USERNAME + " TEXT PRIMARY KEY," + "\n"
+                    + LOG_IN_COLUMN_PASSWORD + " TEXT" + ")";
+
+    private static final String CREATE_TABLE_USER =
+            "CREATE TABLE " + TABLE_USER + " (" + "\n"
+                    + USER_COLUMN_USERNAME + " TEXT PRIMARY KEY" + ")";
+
+    private static final String CREATE_TABLE_MANAGER =
+            "CREATE TABLE " + TABLE_MANAGER + " (" + "\n"
+                    + MANAGER_COLUMN_USERNAME + " TEXT PRIMARY KEY" + ")";
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     // Methods
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,6 +221,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
         Log.i("Database", CREATE_TABLE_SHOWING); // Print
         sqLiteDatabase.execSQL(CREATE_TABLE_TICKET); // Create
         Log.i("Database", CREATE_TABLE_TICKET); // Print
+        sqLiteDatabase.execSQL(CREATE_TABLE_LOG_IN); // Create
+        Log.i("Database", CREATE_TABLE_LOG_IN); // Print
+        sqLiteDatabase.execSQL(CREATE_TABLE_USER); // Create
+        Log.i("Database", CREATE_TABLE_USER); // Print
+        sqLiteDatabase.execSQL(CREATE_TABLE_MANAGER); // Create
+        Log.i("Database", CREATE_TABLE_MANAGER); // Print
 
     }
 
@@ -229,18 +267,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_HALL + "\n"
                         + "WHERE " + HALL_COLUMN_HALL_ID + " = " + hallId;
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
-
-            cursor.moveToFirst();
+        if (cursor.moveToFirst()) {
 
             Hall hall = new Hall();
             hall.setHallId(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_ID)));
-
-            cursor.close(); // ??
 
             return hall;
 
@@ -273,15 +307,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_SEAT_ROW + "\n"
                         + "WHERE " + SEAT_ROW_COLUMN_HALL_ID + " = " + hallId;
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
 
             while (!cursor.isLast()) {
-
-                cursor.moveToFirst();
 
                 SeatRow seatRow = new SeatRow();
                 seatRow.setHall(getHall(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_HALL_ID))));
@@ -293,8 +325,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 cursor.moveToNext();
 
             }
-
-            cursor.close(); // ??
 
         }
 
@@ -310,20 +340,16 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_SEAT_ROW + "\n"
                         + "WHERE " + SEAT_ROW_COLUMN_ROW_ID + " = " + rowId;
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
-
-            cursor.moveToFirst();
+        if (cursor.moveToFirst()) {
 
             SeatRow seatRow = new SeatRow();
             seatRow.setHall(getHall(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_HALL_ID))));
             seatRow.setRowId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_ID)));
             seatRow.setRowNr(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_NR)));
-
-            cursor.close(); // ??
 
             return seatRow.getRowNr();
 
@@ -338,7 +364,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(SEAT_COLUMN_SEAT_ID, seat.getSeatId());
         values.put(SEAT_COLUMN_ROW_ID, seat.getSeatRow().getRowId());
         values.put(SEAT_COLUMN_SEAT_NR, seat.getSeatNr());
         values.put(SEAT_COLUMN_SEAT_VALUE, seat.getSeatValueInt());
@@ -357,22 +382,18 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_SEAT + "\n"
                         + "WHERE " + SEAT_COLUMN_ROW_ID + " = " + rowId;
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
 
             while (!cursor.isLast()) {
-
-                cursor.moveToFirst();
 
                 Seat seat = new Seat();
                 seat.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_ID)));
                 seat.setSeatNr(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_NR)));
                 seat.setValue(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_VALUE)));
-
-                cursor.close(); // ??
 
                 seats.add(seat);
 
@@ -403,19 +424,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 + "FROM " + TABLE_HALL_INSTANCE + "\n"
                 + "WHERE " + HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID + " = " + hallInstanceId;
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
 
             cursor.moveToFirst();
 
             HallInstance hallInstance = new HallInstance();
             hallInstance.setHallInstanceId(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID)));
             hallInstance.setHallId(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_ID)));
-
-            cursor.close(); // ??
 
             return hallInstance;
 
@@ -447,15 +466,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_SEAT_ROW_INSTANCE + "\n"
                         + "WHERE " + SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID + " = " + hallInstance.getHallInstanceId();
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
 
             while (!cursor.isLast()) {
-
-                cursor.moveToFirst();
 
                 SeatRowInstance seatRowInstance = new SeatRowInstance();
                 seatRowInstance.setSeatRowInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID)));
@@ -466,8 +483,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 cursor.moveToNext();
 
             }
-
-            cursor.close(); // ??
 
         }
 
@@ -498,15 +513,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_SEAT_INSTANCE + "\n"
                         + "WHERE " + SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID + " = " + seatRowInstance.getSeatRowInstanceId();
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
 
             while (!cursor.isLast()) {
-
-                cursor.moveToFirst();
 
                 SeatInstance seatInstance = new SeatInstance();
                 seatInstance.setStatus(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_STATUS)));
@@ -518,8 +531,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 cursor.moveToNext();
 
             }
-
-            cursor.close(); // ??
 
         }
 
@@ -535,11 +546,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_SEAT_INSTANCE + "\n"
                         + "WHERE " + SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID + " = " + seatInstanceId;
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
 
             cursor.moveToFirst();
 
@@ -547,8 +558,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
             seatInstance.setStatus(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_STATUS)));
             seatInstance.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID)));
             seatInstance.setSeatInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID)));
-
-            cursor.close(); // ??
 
             return seatInstance;
 
@@ -562,8 +571,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         SQLiteDatabase database = getWritableDatabase();
 
+        Log.i("Database", "Adding movie: " + movie);
+
         ContentValues values = new ContentValues();
-        values.put(MOVIE_COLUMN_MOVIE_ID, movie.getMovieId());
         values.put(MOVIE_COLUMN_TITLE, movie.getTitle());
         values.put(MOVIE_COLUMN_DESCRIPTION, movie.getDescription());
         values.put(MOVIE_COLUMN_IMAGE_URL, movie.getImageUrl());
@@ -580,11 +590,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_MOVIE + "\n"
                         + "WHERE " + MOVIE_COLUMN_MOVIE_ID + " = " + movieId;
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
 
             cursor.moveToFirst();
 
@@ -594,13 +604,46 @@ public class DatabaseManager extends SQLiteOpenHelper {
             movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
             movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
 
-            cursor.close(); // ??
-
             return movie;
 
         }
 
         return null;
+
+    }
+    public ArrayList<Movie> getAllMovies() {
+
+        ArrayList<Movie> movies = new ArrayList<>();
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String query =
+                "SELECT *" + "\n"
+                + "FROM " + TABLE_MOVIE;
+
+        Log.i("Database", query);
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+
+            while (!cursor.isLast()) {
+
+                Movie movie = new Movie();
+                movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
+                movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
+                movie.setMovieId(cursor.getInt(cursor.getColumnIndex(MOVIE_COLUMN_MOVIE_ID)));
+                movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_TITLE)));
+
+                movies.add(movie);
+
+                cursor.moveToNext();
+
+            }
+
+        }
+
+        return movies;
 
     }
 
@@ -627,15 +670,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_SHOWING + "\n"
                         + "WHERE " + SHOWING_COLUMN_MOVIE_ID + " = " + movie.getMovieId();
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
 
             while (!cursor.isLast()) {
-
-                cursor.moveToFirst();
 
                 Showing showing = new Showing();
                 showing.setDate(cursor.getString(cursor.getColumnIndex(SHOWING_COLUMN_DATE)));
@@ -646,8 +687,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 cursor.moveToNext();
 
             }
-
-            cursor.close(); // ??
 
         }
 
@@ -663,19 +702,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_SHOWING + "\n"
                         + "WHERE " + SHOWING_COLUMN_SHOWING_ID + " = " + showingId;
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
 
             cursor.moveToFirst();
 
             Showing showing = new Showing();
             showing.setDate(cursor.getString(cursor.getColumnIndex(SHOWING_COLUMN_DATE)));
             showing.setShowingId(cursor.getInt(cursor.getColumnIndex(SHOWING_COLUMN_SHOWING_ID)));
-
-            cursor.close(); // ??
 
             return showing;
 
@@ -705,11 +742,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         + "FROM " + TABLE_TICKET + "\n"
                         + "WHERE " + TICKET_COLUMN_TICKET_ID + " = " + ticketId;
 
-        System.out.println(query);
+        Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor != null) {
+        if (cursor.moveToFirst()) {
 
             cursor.moveToFirst();
 
@@ -718,13 +755,131 @@ public class DatabaseManager extends SQLiteOpenHelper {
             ticket.setShowing(getShowing(cursor.getInt(cursor.getColumnIndex(TICKET_COLUMN_SHOWING_ID))));
             ticket.setSeatInstance(getSeatInstance(cursor.getInt(cursor.getColumnIndex(TICKET_COLUMN_SEAT_INSTANCE_ID))));
 
-            cursor.close(); // ??
-
             return ticket;
 
         }
 
         return null;
+
+    }
+
+    public void createUser(User user) {
+
+        Log.i("Database", "Inserting user: " + user);
+
+        SQLiteDatabase database = getWritableDatabase();
+
+        ContentValues logInValues = new ContentValues();
+        logInValues.put(LOG_IN_COLUMN_USERNAME, user.getUserId());
+        logInValues.put(LOG_IN_COLUMN_PASSWORD, user.getPassword());
+
+        database.insert(TABLE_LOG_IN, null, logInValues);
+
+        ContentValues userValues = new ContentValues();
+        userValues.put(LOG_IN_COLUMN_USERNAME, user.getUserId());
+
+        database.insert(TABLE_USER, null, userValues);
+
+    }
+    public User getUser(String username) {
+
+        User user = new User();
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String logInQuery =
+                "SELECT *" + "\n"
+                        + "FROM " + TABLE_LOG_IN + "\n"
+                        + "WHERE " + LOG_IN_COLUMN_USERNAME + " = '" + username + "'";
+
+        Log.i("Database", logInQuery);
+
+        Cursor logInCursor = database.rawQuery(logInQuery, null);
+
+        if (logInCursor.moveToFirst()) {
+
+            logInCursor.moveToFirst();
+
+            user.setUserId(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_USERNAME)));
+            user.setPassword(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_PASSWORD)));
+
+        }
+
+        String userQuery =
+                "SELECT *" + "\n"
+                        + "FROM " + TABLE_USER + "\n"
+                        + "WHERE " + USER_COLUMN_USERNAME + " = '" + username + "'";
+
+        Log.i("Database", userQuery);
+
+        Cursor userCursor = database.rawQuery(userQuery, null);
+
+        if (logInCursor.moveToFirst()) {
+
+            // Used if user gets more attributes
+
+        }
+
+        return user;
+
+    }
+
+    public void createManager(Manager manager) {
+
+        SQLiteDatabase database = getWritableDatabase();
+
+        ContentValues logInValues = new ContentValues();
+        logInValues.put(LOG_IN_COLUMN_USERNAME, manager.getUserId());
+        logInValues.put(LOG_IN_COLUMN_PASSWORD, manager.getPassword());
+
+        database.insert(TABLE_LOG_IN, null, logInValues);
+
+        ContentValues userValues = new ContentValues();
+        userValues.put(LOG_IN_COLUMN_USERNAME, manager.getUserId());
+
+        database.insert(TABLE_USER, null, userValues);
+
+    }
+    public Manager getManager(String username) {
+
+        Manager manager = new Manager();
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String logInQuery =
+                "SELECT *" + "\n"
+                        + "FROM " + TABLE_LOG_IN + "\n"
+                        + "WHERE " + LOG_IN_COLUMN_USERNAME + " = '" + username + "'";
+
+        Log.i("Database", logInQuery);
+
+        Cursor logInCursor = database.rawQuery(logInQuery, null);
+
+        if (logInCursor.moveToFirst()) {
+
+            logInCursor.moveToFirst();
+
+            manager.setUserId(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_USERNAME)));
+            manager.setPassword(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_PASSWORD)));
+
+        }
+
+        String managerQuery =
+                "SELECT *" + "\n"
+                        + "FROM " + TABLE_MANAGER + "\n"
+                        + "WHERE " + MANAGER_COLUMN_USERNAME + " = '" + username + "'";
+
+        Log.i("Database", managerQuery);
+
+        Cursor userCursor = database.rawQuery(managerQuery, null);
+
+        if (logInCursor.moveToFirst()) {
+
+            // Used if manager gets more attributes
+
+        }
+
+        return manager;
 
     }
 

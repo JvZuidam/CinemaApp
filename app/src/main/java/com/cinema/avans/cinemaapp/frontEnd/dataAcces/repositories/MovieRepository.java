@@ -5,6 +5,8 @@ import com.cinema.avans.cinemaapp.frontEnd.dataAcces.connections.MovieApiManager
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 
+import java.util.ArrayList;
+
 /**
  * Created by JanBelterman on 28 March 2018
  */
@@ -24,6 +26,20 @@ public class MovieRepository implements NewMovieListener {
 
         // Create the movie
         databaseManager.createMovie(movie);
+
+    }
+
+    public ArrayList<Movie> getAllMovies() {
+
+        ArrayList<Movie> movies =  databaseManager.getAllMovies();
+
+        for (Movie movie : movies) {
+
+            movie.setShowings(databaseManager.getShowings(movie));
+
+        }
+
+        return movies;
 
     }
 

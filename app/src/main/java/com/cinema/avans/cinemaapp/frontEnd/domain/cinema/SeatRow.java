@@ -1,12 +1,13 @@
 package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by JanBelterman on 28 March 2018
  */
 
-public class SeatRow {
+public class SeatRow implements Serializable {
 
     private Hall hall; // Done
     private int rowId; // Done

@@ -2,11 +2,13 @@ package com.cinema.avans.cinemaapp.frontEnd.domain;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 
+import java.io.Serializable;
+
 /**
  * Created by JanBelterman on 28 March 2018
  */
 
-public class Payment {
+public class Payment implements Serializable {
 
     private int paymentId;
     private User user;

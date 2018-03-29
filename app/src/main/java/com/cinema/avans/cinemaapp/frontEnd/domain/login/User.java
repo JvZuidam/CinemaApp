@@ -6,4 +6,16 @@ package com.cinema.avans.cinemaapp.frontEnd.domain.login;
 
 public class User extends LogIn {
 
+    public User() {
+
+        super();
+
+    }
+
+    public int getId() {
+
+        return 1;
+
+    }
+
 }

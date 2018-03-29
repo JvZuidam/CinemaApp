@@ -1,17 +1,18 @@
 package com.cinema.avans.cinemaapp.frontEnd.presentation;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.HallRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.MovieRepository;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
@@ -20,8 +21,13 @@ import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatValue;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NewMovieListener {
+/**
+ * Created by JanBelterman on 29 March 2018
+ */
 
+public class ActivityMovieList extends AppCompatActivity implements NewMovieListener {
+
+    private RepositoryFactory repositoryFactory;
     private MovieAdapter movieAdapter;
     private ArrayList<Movie> movies;
 
@@ -29,10 +35,21 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_movie_list);
 
+        // Create repository factory
+        repositoryFactory = new RepositoryFactory(
+                new DatabaseManager(
+                        getApplicationContext(),
+                        "Cinema",
+                        null,
+                        1));
+
+        // ALL OF THIS IS TESTING
         // Stores a bunch of fake date into database
-        fakeDataIntoDatabase();
+        addHalls();
+        // Add movies to database
+        getMovies();
 
         ListView movieListView = findViewById(R.id.movieListView);
         movieAdapter = new MovieAdapter(getApplicationContext(), movies);
@@ -41,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent intent = new Intent(MainActivity.this, MovieDetailedActivity.class);
+                Intent intent = new Intent(ActivityMovieList.this, MovieDetailedActivity.class);
                 intent.putExtra("MOVIE", movieAdapter.getItem(i));
                 startActivity(intent);
 
@@ -50,40 +67,16 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
 
     }
 
-    // Test only normally manager class
-    @Override
-    public void newApiMovie(Movie movie) {
-
-        movieAdapter.add(movie);
-        movieAdapter.notifyDataSetChanged();
-
-    }
-
     // Test method to add some data to database
-    private void fakeDataIntoDatabase() {
+    private void addHalls() {
 
         // Creating database
         DatabaseManager databaseManager = new DatabaseManager(getApplicationContext(), "Cinema", null, 1);
 
-        // Add a hall to the database, with seat rows and seats
+        // HALL 1 WITH ROWS AND SEATS
         HallRepository hallRepository = new HallRepository(databaseManager);
         Hall hall1 = createHall(1, 10, 12);
-        Hall hall2 = createHall(2, 14, 16);
         hallRepository.createHall(hall1);
-
-
-        movies = new ArrayList<>();
-
-        MovieRepository movieRepository = new MovieRepository(
-                new DatabaseManager(getApplicationContext(), "Cinema", null, 1)
-                ,this);
-        movieRepository.getNewMovie("war");
-        movieRepository.getNewMovie("time");
-        movieRepository.getNewMovie("bright");
-        movieRepository.getNewMovie("star");
-        movieRepository.getNewMovie("horse");
-        movieRepository.getNewMovie("sword");
-        movieRepository.getNewMovie("friend");
 
     }
 
@@ -136,6 +129,34 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
         seat.setSeatNr(seatNr);
         seat.setSeatValue(seatValue);
         return seat;
+
+    }
+
+    private void getMovies() {
+
+        // Movie code
+        MovieRepository movieRepository = new MovieRepository(
+                new DatabaseManager(getApplicationContext(), "Cinema", null, 1)
+                ,this);
+        movies = movieRepository.getAllMovies();
+        // ONE TIME
+        movieRepository.getNewMovie("war");
+        movieRepository.getNewMovie("time");
+        movieRepository.getNewMovie("bright");
+        movieRepository.getNewMovie("star");
+        movieRepository.getNewMovie("horse");
+        movieRepository.getNewMovie("sword");
+        movieRepository.getNewMovie("friend");
+
+    }
+
+    // Test only normally manager class
+    @Override
+    public void newApiMovie(Movie movie) {
+
+        repositoryFactory.getMovieRepository(this).createMovie(movie);
+        movieAdapter.add(movie);
+        movieAdapter.notifyDataSetChanged();
 
     }
 

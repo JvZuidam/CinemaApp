@@ -2,8 +2,6 @@ package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
 
 /**
  * Created by JanBelterman on 28 March 2018

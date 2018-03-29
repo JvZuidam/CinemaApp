@@ -3,11 +3,13 @@ package com.cinema.avans.cinemaapp.frontEnd.domain;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 
+import java.io.Serializable;
+
 /**
  * Created by JanBelterman on 28 March 2018
  */
 
-public class Ticket {
+public class Ticket implements Serializable {
 
     private int ticketId; // Done
     private Showing showing; // Done

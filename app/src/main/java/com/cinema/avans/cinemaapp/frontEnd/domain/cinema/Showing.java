@@ -3,11 +3,13 @@ package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Date;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 
+import java.io.Serializable;
+
 /**
  * Created by JanBelterman on 28 March 2018
  */
 
-public class Showing {
+public class Showing implements Serializable {
 
     private int showingId; // Done
     private HallInstance hallInstance; // Done

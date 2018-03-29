@@ -4,17 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cinema.avans.cinemaapp.frontEnd.presentation.RegisterActivity">
+    tools:context="com.cinema.avans.cinemaapp.frontEnd.presentation.register.RegisterActivity">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/registerGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
 
     <ImageView
-        android:id="@+id/ImageViewLogo"
+        android:id="@+id/registerLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/EditTextUsername"
+        app:layout_constraintBottom_toTopOf="@+id/registerGuideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,54 +29,53 @@
         app:srcCompat="@color/colorAccent" />
 
     <EditText
-        android:id="@+id/EditTextUsername"
+        android:id="@+id/registerUsernameInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Enter a username"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="244dp"
-        tools:text="John Smith" />
+        app:layout_constraintTop_toTopOf="@+id/registerGuideline1" />
 
     <EditText
-        android:id="@+id/EditTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="Password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditTextUsername" />
-
-    <EditText
-        android:id="@+id/EditTextPasswordConfirm"
+        android:id="@+id/registerPasswordInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="Enter a password"
         android:inputType="textPassword"
-        android:text="Password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditTextUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/registerUsernameInput" />
+
+    <EditText
+        android:id="@+id/registerPasswordConfirmInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:hint="Confirm password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerUsernameInput" />
 
     <Button
-        android:id="@+id/ButtonRegister"
+        android:id="@+id/registerRegisterButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Button"
-        app:layout_constraintEnd_toEndOf="@+id/EditTextPassword"
+        app:layout_constraintEnd_toEndOf="@+id/registerPasswordConfirmInput"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/EditTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/EditTextPassword"
+        app:layout_constraintStart_toStartOf="@+id/registerPasswordConfirmInput"
+        app:layout_constraintTop_toBottomOf="@+id/registerPasswordConfirmInput"
         tools:text="Register" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,13 +1,22 @@
 package com.cinema.avans.cinemaapp.frontEnd.domain.login;
 
+import java.io.Serializable;
+
 /**
  * Created by JanBelterman on 28,March,2018
  */
 
-public abstract class LogIn {
+public abstract class LogIn implements Serializable {
 
     private String userId;
     private String password;
+
+    public LogIn() {
+
+        this.userId = "";
+        this.password = "";
+
+    }
 
     // SETTERS
     public void setUserId(String userId) {
@@ -24,5 +33,13 @@ public abstract class LogIn {
     public String getPassword() {
         return password;
     }
+
+    public String toString() {
+
+        return "UserId: " + userId + ", password: " + password;
+
+    }
+
+    public abstract int getId();
 
 }
