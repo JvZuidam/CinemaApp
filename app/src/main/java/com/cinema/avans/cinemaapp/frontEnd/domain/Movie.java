@@ -1,10 +1,12 @@
 package com.cinema.avans.cinemaapp.frontEnd.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by JanBelterman on 28 March 2018
  */
 
-public class Movie {
+public class Movie implements Serializable {
 
     private int movieId; // Done
     private String title; // Done

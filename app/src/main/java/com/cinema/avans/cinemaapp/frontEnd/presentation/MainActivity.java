@@ -1,7 +1,10 @@
 package com.cinema.avans.cinemaapp.frontEnd.presentation;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.cinema.avans.cinemaapp.R;
@@ -34,6 +37,16 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
         ListView movieListView = findViewById(R.id.movieListView);
         movieAdapter = new MovieAdapter(getApplicationContext(), movies);
         movieListView.setAdapter(movieAdapter);
+        movieListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent intent = new Intent(MainActivity.this, MovieDetailedActivity.class);
+                intent.putExtra("MOVIE", movieAdapter.getItem(i));
+                startActivity(intent);
+
+            }
+        });
 
     }
 

@@ -6,59 +6,71 @@
     android:layout_height="match_parent"
     tools:context="com.cinema.avans.cinemaapp.frontEnd.presentation.MovieDetailedActivity">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/detailedMovieGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.32" />
+
     <ImageView
-        android:id="@+id/imageViewMovieDetailedImage"
+        android:id="@+id/detailedMovieHeaderImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/detailedMovieGuideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:color/holo_blue_bright" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.32" />
+    <ImageView
+        android:id="@+id/detailedMovieImage"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/detailedMovieGuideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detailedMovieGuideline1"
+        app:srcCompat="@color/available" />
 
     <TextView
-        android:id="@+id/TextViewMovieDetailedTitle"
+        android:id="@+id/detailedMovieTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/detailedMovieGuideline1"
         tools:text="Movie Title" />
 
     <TextView
-        android:id="@+id/TextViewMovieDetailedDesc"
-        android:layout_width="wrap_content"
+        android:id="@+id/detailedMovieDescription"
+        android:layout_width="336dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewMovieDetailedTitle"
+        app:layout_constraintTop_toBottomOf="@+id/detailedMovieImage"
         tools:text='"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam' />
 
     <ListView
-        android:id="@+id/ListViewMovieDetailedShowing"
+        android:id="@+id/detailedMovieShowingListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewMovieDetailedDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/detailedMovieDescription" />
 
 </android.support.constraint.ConstraintLayout>
