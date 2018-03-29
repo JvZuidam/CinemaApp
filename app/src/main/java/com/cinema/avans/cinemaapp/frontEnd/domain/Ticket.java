@@ -13,27 +13,34 @@ public class Ticket {
     private Showing showing; // Done
     private SeatInstance seatInstance; // Done
 
-    public int getTicketId() {
-        return ticketId;
+    public Ticket() {
+
+        this.ticketId = 0;
+        this.showing = null;
+        this.seatInstance = null;
+
     }
 
+    // SETTERS
     public void setTicketId(int ticketId) {
         this.ticketId = ticketId;
     }
-
-    public Showing getShowing() {
-        return showing;
-    }
-
     public void setShowing(Showing showing) {
         this.showing = showing;
     }
+    public void setSeatInstance(SeatInstance seatInstance) {
+        this.seatInstance = seatInstance;
+    }
 
+    // GETTERS
+    public int getTicketId() {
+        return ticketId;
+    }
+    public Showing getShowing() {
+        return showing;
+    }
     public SeatInstance getSeatInstance() {
         return seatInstance;
     }
 
-    public void setSeatInstance(SeatInstance seatInstance) {
-        this.seatInstance = seatInstance;
-    }
 }

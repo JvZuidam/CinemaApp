@@ -9,6 +9,14 @@ public class HallInstance implements Serializable {
     private int hallId; // Done
     private ArrayList<SeatRowInstance> rows; // Done
 
+    public HallInstance() {
+
+        this.hallInstanceId = 0;
+        this.hallId = 0;
+        this.rows = new ArrayList<>();
+
+    }
+
     // Returns the max. amount of seats in a row
     public int amountOfSeatsInARow() {
 
@@ -69,6 +77,7 @@ public class HallInstance implements Serializable {
     public void setRows(ArrayList<SeatRowInstance> rows) {
         this.rows = rows;
     }
+
     // GETTERS
     public int getHallInstanceId() {
         return hallInstanceId;

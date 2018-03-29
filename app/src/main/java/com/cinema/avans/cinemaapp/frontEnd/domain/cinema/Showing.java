@@ -2,7 +2,6 @@ package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.Date;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 
 /**
  * Created by JanBelterman on 28 March 2018
@@ -14,6 +13,15 @@ public class Showing {
     private HallInstance hallInstance; // Done
     private Movie movie; // Done
     private Date date; // Done
+
+    public Showing() {
+
+        this.showingId = 0;
+        this.hallInstance = null;
+        this.movie = null;
+        this.date = null;
+
+    }
 
     // SETTERS
     public void setShowingId(int showingId) {

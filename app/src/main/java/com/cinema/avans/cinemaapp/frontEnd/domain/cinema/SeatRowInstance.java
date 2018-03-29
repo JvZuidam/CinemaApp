@@ -15,6 +15,16 @@ public class SeatRowInstance implements Serializable {
     private int rowNr; // Done
     private ArrayList<SeatInstance> seatInstances; // Done
 
+    public SeatRowInstance() {
+
+        this.hallInstance = null;
+        this.seatRowInstanceId = 0;
+        this.seatRowId = 0;
+        this.rowNr = 0;
+        this.seatInstances = new ArrayList<>();
+
+    }
+
     // Returns the amount of seatInstances in the row
     public int getAmountOfSeats() {
         return seatInstances.size();

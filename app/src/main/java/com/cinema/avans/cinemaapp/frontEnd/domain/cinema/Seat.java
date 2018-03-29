@@ -11,37 +11,64 @@ public class Seat {
     private int seatNr; // Done
     private SeatValue seatValue; // Done
 
-    public int getSeatId() {
-        return seatId;
+    public Seat() {
+
+        this.seatId = 0;
+        this.seatRow = null;
+        this.seatNr = 0;
+        this.seatValue = SeatValue.OK;
+
     }
 
+    // SETTERS
     public void setSeatId(int seatId) {
         this.seatId = seatId;
     }
-
-    public SeatRow getSeatRow() {
-        return seatRow;
-    }
-
     public void setSeatRow(SeatRow seatRow) {
         this.seatRow = seatRow;
     }
-
     public int getSeatNr() {
         return seatNr;
     }
-
     public void setSeatNr(int seatNr) {
         this.seatNr = seatNr;
     }
-
-    public SeatValue getSeatValue() {
-        return seatValue;
-    }
-
     public void setSeatValue(SeatValue seatValue) {
         this.seatValue = seatValue;
     }
+    // ALTERED SETTERS
+    public void setValue(int valueInt) {
+
+        if (valueInt == 5) {
+            seatValue = SeatValue.PERFECT;
+
+        } else if (valueInt == 4) {
+            seatValue = SeatValue.GOOD;
+
+        } else if (valueInt == 3) {
+            seatValue = SeatValue.OK;
+
+        } else if (valueInt == 2) {
+            seatValue = SeatValue.MODERATE;
+
+        } else if (valueInt == 1) {
+            seatValue = SeatValue.BAD;
+
+        }
+
+    }
+
+    // GETTERS
+    public int getSeatId() {
+        return seatId;
+    }
+    public SeatRow getSeatRow() {
+        return seatRow;
+    }
+    public SeatValue getSeatValue() {
+        return seatValue;
+    }
+    // ALTERED GETTERS
     public int getSeatValueInt() {
 
         if (seatValue == SeatValue.PERFECT) {
@@ -65,24 +92,4 @@ public class Seat {
 
     }
 
-    public void setValue(int valueInt) {
-
-        if (valueInt == 5) {
-            seatValue = SeatValue.PERFECT;
-
-        } else if (valueInt == 4) {
-            seatValue = SeatValue.GOOD;
-
-        } else if (valueInt == 3) {
-            seatValue = SeatValue.OK;
-
-        } else if (valueInt == 2) {
-            seatValue = SeatValue.MODERATE;
-
-        } else if (valueInt == 1) {
-            seatValue = SeatValue.BAD;
-
-        }
-
-    }
 }

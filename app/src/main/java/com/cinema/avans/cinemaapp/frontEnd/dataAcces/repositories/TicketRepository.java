@@ -1,5 +1,6 @@
-package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
+package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Ticket;
 
 /**
@@ -12,6 +13,11 @@ public class TicketRepository {
 
     public TicketRepository(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
+
+    }
+
+    public void createTicket(Ticket ticket) {
+        databaseManager.createTicket(ticket);
 
     }
 

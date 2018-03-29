@@ -1,6 +1,8 @@
-package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
+package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
+import com.cinema.avans.cinemaapp.frontEnd.domain.Ticket;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 
 import java.util.ArrayList;
@@ -15,6 +17,12 @@ public class ShowingRepository {
 
     public ShowingRepository(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
+
+    }
+
+    public void createShowing(Showing showing) {
+
+        databaseManager.createShowing(showing);
 
     }
 

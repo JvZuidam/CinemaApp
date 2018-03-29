@@ -1,5 +1,8 @@
-package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
+package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.connections.MovieApiManager;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 
 /**
@@ -17,9 +20,21 @@ public class MovieRepository implements NewMovieListener {
 
     }
 
+    public void createMovie(Movie movie) {
+
+        // Create the movie
+        databaseManager.createMovie(movie);
+
+    }
+
     public Movie getMovie(int movieId) {
 
-        return databaseManager.getMovie(movieId);
+        // Get movie from database
+        Movie movie = databaseManager.getMovie(movieId);
+        // Get showings of the movie from database
+        movie.setShowings(new ShowingRepository(databaseManager).getShowings(movie));
+        // Return complete movie
+        return movie;
 
     }
 

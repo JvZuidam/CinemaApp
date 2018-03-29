@@ -8,9 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.cinema.avans.cinemaapp.R;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.DatabaseManager;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.HallRepository;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.MovieRepository;
+import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.HallRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.MovieRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Stores a bunch of fake date into database
         fakeDataIntoDatabase();
 
         ListView movieListView = findViewById(R.id.movieListView);
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
 
         // Add a hall to the database, with seat rows and seats
         HallRepository hallRepository = new HallRepository(databaseManager);
+        Hall hall1 = createHall(1, 10, 12);
+        Hall hall2 = createHall(2, 14, 16);
+        hallRepository.createHall(hall1);
+
 
         movies = new ArrayList<>();
 
@@ -82,19 +87,44 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
 
     }
 
-    private Hall createHall(int hallId) {
+    private Hall createHall(int hallId, int amountOfRows, int amountOfSeatsInARow) {
 
+        // Create hall
         Hall hall = new Hall();
         hall.setHallId(hallId); // PK
+
+        // Add seats
+        ArrayList<SeatRow> seatRows = new ArrayList<>();
+        for (int i = 0; i <= amountOfRows; i++) {
+
+            seatRows.add(createSeatRow(hallId * i, i, hall, amountOfSeatsInARow));
+
+        }
+
+        hall.setSeatRows(seatRows);
+
         return hall;
 
     }
-    private SeatRow createSeatRow(int rowId, int rowNr, Hall hall) {
+    private SeatRow createSeatRow(int rowId, int rowNr, Hall hall, int amountOfSeatsInARow) {
 
+        // Create seat row
         SeatRow seatRow = new SeatRow();
         seatRow.setRowId(rowId); // PK
         seatRow.setHall(hall); // Link to hall
         seatRow.setRowNr(rowNr); // Row nr
+
+        // Add seats
+        ArrayList<Seat> seats = new ArrayList<>();
+        for (int i = 0; i <= amountOfSeatsInARow; i++) {
+
+            seats.add(createSeat(i * rowId, seatRow, i, SeatValue.OK));
+
+        }
+
+        seatRow.setSeats(seats);
+
+        // Return complete seat row
         return seatRow;
 
     }

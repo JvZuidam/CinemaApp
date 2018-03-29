@@ -13,35 +13,40 @@ public class SeatRow {
     private int rowNr; // Done
     private ArrayList<Seat> seats; // Done
 
-    public ArrayList<Seat> getSeats() {
-        return seats;
+    public SeatRow() {
+
+        this.hall = null;
+        this.rowId = 0;
+        this.rowNr = 0;
+        this.seats = new ArrayList<>();
+
     }
 
-    public void setSeats(ArrayList<Seat> seats) {
-        this.seats = seats;
-    }
-
-    public Hall getHall() {
-        return hall;
-    }
-
+    // SETTERS
     public void setHall(Hall hall) {
         this.hall = hall;
     }
-
-    public int getRowId() {
-        return rowId;
-    }
-
     public void setRowId(int rowId) {
         this.rowId = rowId;
     }
+    public void setSeats(ArrayList<Seat> seats) {
+        this.seats = seats;
+    }
+    public void setRowNr(int rowNr) {
+        this.rowNr = rowNr;
+    }
 
+    // GETTERS
+    public Hall getHall() {
+        return hall;
+    }
+    public int getRowId() {
+        return rowId;
+    }
     public int getRowNr() {
         return rowNr;
     }
-
-    public void setRowNr(int rowNr) {
-        this.rowNr = rowNr;
+    public ArrayList<Seat> getSeats() {
+        return seats;
     }
 }

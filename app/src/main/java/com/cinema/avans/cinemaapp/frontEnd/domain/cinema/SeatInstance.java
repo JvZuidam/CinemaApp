@@ -11,6 +11,17 @@ public class SeatInstance implements Serializable {
     private SeatValue value;
     private SeatStatus status; // Done
 
+    public SeatInstance() {
+
+        this.seatInstanceId = 0;
+        this.seatId = 0;
+        this.seatRowInstance = null;
+        this.nr = 0;
+        this.value = SeatValue.OK;
+        this.status = SeatStatus.AVAILABLE;
+
+    }
+
     // SETTERS
     public void setSeatInstanceId(int seatInstanceId) {
         this.seatInstanceId = seatInstanceId;
@@ -30,6 +41,7 @@ public class SeatInstance implements Serializable {
     public void setStatus(SeatStatus status) {
         this.status = status;
     }
+    // ALTERED SETTERS
     public void setStatus(int statusInt) {
 
         if (statusInt == 1) {
@@ -47,6 +59,7 @@ public class SeatInstance implements Serializable {
         }
 
     }
+
     // GETTERS
     public int getSeatInstanceId() {
         return this.seatInstanceId;
@@ -66,6 +79,7 @@ public class SeatInstance implements Serializable {
     public SeatStatus getStatus() {
         return status;
     }
+    // ALTERED GETTERS
     public int getStatusInt() {
 
         if (status == SeatStatus.AVAILABLE) {

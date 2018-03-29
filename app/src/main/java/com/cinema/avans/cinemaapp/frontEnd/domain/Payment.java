@@ -12,6 +12,14 @@ public class Payment {
     private User user;
     private int amount;
 
+    public Payment() {
+
+        this.paymentId = 0;
+        this.user = null;
+        this.amount = 0;
+
+    }
+
     // SETTERS
     public void setPaymentId(int paymentId) {
         this.paymentId = paymentId;

@@ -1,6 +1,8 @@
-package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
+package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRowInstance;
 
 import java.util.ArrayList;
@@ -15,6 +17,13 @@ public class SeatRowInstanceRepository {
 
     public SeatRowInstanceRepository(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
+
+    }
+
+    public void createSeatRowInstance(SeatRowInstance seatRowInstance) {
+
+        // Add the seat row instance
+        databaseManager.createSeatRowInstance(seatRowInstance);
 
     }
 

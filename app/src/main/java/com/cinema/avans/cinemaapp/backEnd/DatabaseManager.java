@@ -1,10 +1,11 @@
-package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
+package com.cinema.avans.cinemaapp.backEnd;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
@@ -40,14 +41,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String HALL_COLUMN_HALL_ID = "HallId"; //PK
 
     // SeatRowInstance table
-    private static final String TABLE_SEAT_ROW = "SeatRowInstance";
+    private static final String TABLE_SEAT_ROW = "SeatRow";
     // -------------------------------------------------------------------------------------------
     private static final String SEAT_ROW_COLUMN_ROW_ID = "RowId"; //PK
     private static final String SEAT_ROW_COLUMN_HALL_ID = "HallId"; // Hall this seat row is part off
     private static final String SEAT_ROW_COLUMN_ROW_NR = "RowNr"; // Row number in hall
 
     // SeatInstance table
-    private static final String TABLE_SEAT = "SeatInstance";
+    private static final String TABLE_SEAT = "Seat";
     // -------------------------------------------------------------------------------------------
     private static final String SEAT_COLUMN_SEAT_ID = "SeatId"; //PK
     private static final String SEAT_COLUMN_ROW_ID = "RowId"; // Row this seat is part of (also stores which hall!)
@@ -81,6 +82,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String MOVIE_COLUMN_MOVIE_ID = "MovieId";
     private static final String MOVIE_COLUMN_TITLE = "Title";
     private static final String MOVIE_COLUMN_DESCRIPTION = "Description";
+    private static final String MOVIE_COLUMN_IMAGE_URL = "ImageUr";
 
     // Showing table
     private static final String TABLE_SHOWING = "Showing";
@@ -103,57 +105,58 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     private final String CREATE_TABLE_HALL =
             "CREATE TABLE " + TABLE_HALL + " (" + "\n"
-                    + HALL_COLUMN_HALL_ID + " INTEGER PRIMARY KEY," + ")";
+                    + HALL_COLUMN_HALL_ID + " INTEGER PRIMARY KEY" + ");";
 
     private final String CREATE_TABLE_SEAT_ROW =
             "CREATE TABLE " + TABLE_SEAT_ROW + " (" + "\n"
-                    + SEAT_ROW_COLUMN_ROW_ID + " INTEGER PRIMARY KEY AUTO INCREMENT," + "\n"
-                    + SEAT_ROW_COLUMN_HALL_ID + " INTEGER" + "\n"
-                    + SEAT_ROW_COLUMN_ROW_NR + " INTEGER" + ")";
+                    + SEAT_ROW_COLUMN_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + SEAT_ROW_COLUMN_HALL_ID + " INTEGER," + "\n"
+                    + SEAT_ROW_COLUMN_ROW_NR + " INTEGER" + ");";
 
     private final String CREATE_TABLE_SEAT =
             "CREATE TABLE " + TABLE_SEAT + " (" + "\n"
-                    + SEAT_COLUMN_SEAT_ID + " INTEGER PRIMARY KEY AUTO INCREMENT," + "\n"
-                    + SEAT_COLUMN_ROW_ID + " INTEGER" + "\n"
-                    + SEAT_COLUMN_SEAT_NR + " INTEGER" + "\n"
-                    + SEAT_COLUMN_SEAT_VALUE + " INTEGER" + ")";
+                    + SEAT_COLUMN_SEAT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + SEAT_COLUMN_ROW_ID + " INTEGER," + "\n"
+                    + SEAT_COLUMN_SEAT_NR + " INTEGER," + "\n"
+                    + SEAT_COLUMN_SEAT_VALUE + " INTEGER" + ");";
 
     private final String CREATE_TABLE_HALL_INSTANCE =
             "CREATE TABLE " + TABLE_HALL_INSTANCE + " (" + "\n"
-                    + HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID + " INTEGER PRIMARY KEY AUTO INCREMENT," + "\n"
-                    + HALL_INSTANCE_COLUMN_HALL_ID + " INTEGER" + ")";
+                    + HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + HALL_INSTANCE_COLUMN_HALL_ID + " INTEGER" + ");";
 
     private final String CREATE_TABLE_SEAT_ROW_INSTANCE =
             "CREATE TABLE " + TABLE_SEAT_ROW_INSTANCE + " (" + "\n"
-                    + SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID + " INTEGER PRIMARY KEY AUTO INCREMENT," + "\n"
-                    + SEAT_ROW_INSTANCE_COLUMN_ROW_ID + " INTEGER" + "\n"
-                    + SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID + " INTEGER" + ")";
+                    + SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + SEAT_ROW_INSTANCE_COLUMN_ROW_ID + " INTEGER," + "\n"
+                    + SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID + " INTEGER" + ");";
 
     private final String CREATE_TABLE_SEAT_INSTANCE =
             "CREATE TABLE " + TABLE_SEAT_INSTANCE + " (" + "\n"
-                    + SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID + " INTEGER PRIMARY KEY AUTO INCREMENT," + "\n"
-                    + SEAT_INSTANCE_COLUMN_SEAT_ID + " INTEGER" + "\n"
-                    + SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID + " INTEGER" + "\n"
-                    + SEAT_INSTANCE_COLUMN_STATUS + " INTEGER" + ")";
+                    + SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + SEAT_INSTANCE_COLUMN_SEAT_ID + " INTEGER," + "\n"
+                    + SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID + " INTEGER," + "\n"
+                    + SEAT_INSTANCE_COLUMN_STATUS + " INTEGER" + ");";
 
     private final String CREATE_TABLE_MOVIE =
             "CREATE TABLE " + TABLE_MOVIE + " (" + "\n"
-                    + MOVIE_COLUMN_MOVIE_ID + " INTEGER PRIMARY KEY AUTO INCREMENT," + "\n"
-                    + MOVIE_COLUMN_TITLE + " TEXT" + "\n"
-                    + MOVIE_COLUMN_DESCRIPTION + " TEXT" + ")";
+                    + MOVIE_COLUMN_MOVIE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + MOVIE_COLUMN_TITLE + " TEXT," + "\n"
+                    + MOVIE_COLUMN_DESCRIPTION + " TEXT," + "\n"
+                    + MOVIE_COLUMN_IMAGE_URL + " TEXT" + ");";
 
     private final String CREATE_TABLE_SHOWING =
             "CREATE TABLE " + TABLE_SHOWING + " (" + "\n"
-            + SHOWING_COLUMN_SHOWING_ID + " INTEGER PRIMARY KEY AUTO INCREMENT," + "\n"
-            + SHOWING_COLUMN_HALL_INSTANCE_ID + " INTEGER" + "\n"
-            + SHOWING_COLUMN_MOVIE_ID + " INTEGER" + "\n"
-            + SHOWING_COLUMN_DATE + " TEXT" + ")"; // YYYY-MM-DD-HH-MM
+            + SHOWING_COLUMN_SHOWING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+            + SHOWING_COLUMN_HALL_INSTANCE_ID + " INTEGER," + "\n"
+            + SHOWING_COLUMN_MOVIE_ID + " INTEGER," + "\n"
+            + SHOWING_COLUMN_DATE + " TEXT" + ");"; // YYYY-MM-DD-HH-MM
 
     private static final String CREATE_TABLE_TICKET =
             "CREATE TABLE " + TABLE_TICKET + " (" + "\n"
-                    + TICKET_COLUMN_TICKET_ID + " INTEGER PRIMARY KEY AUTO INCREMENT," + "\n"
-                    + TICKET_COLUMN_SHOWING_ID + " INTEGER" + "\n"
-                    + TICKET_COLUMN_SEAT_INSTANCE_ID + " INTEGER" + ")";
+                    + TICKET_COLUMN_TICKET_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + TICKET_COLUMN_SHOWING_ID + " INTEGER," + "\n"
+                    + TICKET_COLUMN_SEAT_INSTANCE_ID + " INTEGER" + ");";
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // Methods
@@ -169,23 +172,23 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         // Creating tables
         sqLiteDatabase.execSQL(CREATE_TABLE_HALL); // Create
-        System.out.println(CREATE_TABLE_HALL); // Print
+        Log.i("Database", CREATE_TABLE_HALL); // Print
         sqLiteDatabase.execSQL(CREATE_TABLE_SEAT_ROW); // Create
-        System.out.println(CREATE_TABLE_SEAT_ROW); // Print
+        Log.i("Database", CREATE_TABLE_SEAT_ROW); // Print
         sqLiteDatabase.execSQL(CREATE_TABLE_SEAT); // Create
-        System.out.println(CREATE_TABLE_SEAT); // Print
+        Log.i("Database", CREATE_TABLE_SEAT); // Print
         sqLiteDatabase.execSQL(CREATE_TABLE_HALL_INSTANCE); // Create
-        System.out.println(CREATE_TABLE_HALL_INSTANCE); // Print
+        Log.i("Database", CREATE_TABLE_HALL_INSTANCE); // Print
         sqLiteDatabase.execSQL(CREATE_TABLE_SEAT_ROW_INSTANCE); // Create
-        System.out.println(CREATE_TABLE_SEAT_ROW_INSTANCE); // Print
+        Log.i("Database", CREATE_TABLE_SEAT_ROW_INSTANCE); // Print
         sqLiteDatabase.execSQL(CREATE_TABLE_SEAT_INSTANCE); // Create
-        System.out.println(CREATE_TABLE_SEAT_INSTANCE); // Print
+        Log.i("Database", CREATE_TABLE_SEAT_INSTANCE); // Print
         sqLiteDatabase.execSQL(CREATE_TABLE_MOVIE); // Create
-        System.out.println(CREATE_TABLE_MOVIE); // Print
+        Log.i("Database", CREATE_TABLE_MOVIE); // Print
         sqLiteDatabase.execSQL(CREATE_TABLE_SHOWING); // Create
-        System.out.println(CREATE_TABLE_SHOWING); // Print
+        Log.i("Database", CREATE_TABLE_SHOWING); // Print
         sqLiteDatabase.execSQL(CREATE_TABLE_TICKET); // Create
-        System.out.println(CREATE_TABLE_TICKET); // Print
+        Log.i("Database", CREATE_TABLE_TICKET); // Print
 
     }
 
@@ -563,6 +566,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         values.put(MOVIE_COLUMN_MOVIE_ID, movie.getMovieId());
         values.put(MOVIE_COLUMN_TITLE, movie.getTitle());
         values.put(MOVIE_COLUMN_DESCRIPTION, movie.getDescription());
+        values.put(MOVIE_COLUMN_IMAGE_URL, movie.getImageUrl());
 
         database.insert(TABLE_MOVIE, null, values);
 
@@ -588,6 +592,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             movie.setMovieId(cursor.getInt(cursor.getColumnIndex(MOVIE_COLUMN_MOVIE_ID)));
             movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_TITLE)));
             movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
+            movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
 
             cursor.close(); // ??
 

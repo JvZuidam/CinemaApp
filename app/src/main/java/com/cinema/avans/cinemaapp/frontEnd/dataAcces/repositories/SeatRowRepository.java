@@ -1,5 +1,6 @@
-package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
+package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
 
@@ -15,6 +16,14 @@ public class SeatRowRepository {
 
     public SeatRowRepository(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
+
+    }
+
+    public void createSeatRow(SeatRow seatRow) {
+
+        // Add the seat row
+        databaseManager.createSeatRow(seatRow);
+
 
     }
 

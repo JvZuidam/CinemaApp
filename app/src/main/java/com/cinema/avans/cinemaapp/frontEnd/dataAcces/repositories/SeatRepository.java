@@ -1,5 +1,6 @@
-package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
+package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
 
@@ -18,6 +19,12 @@ public class SeatRepository {
 
     }
 
+    public void createSeat(Seat seat) {
+
+        databaseManager.createSeat(seat);
+
+    }
+
     public ArrayList<Seat> getSeats(SeatRow seatRow) {
 
         ArrayList<Seat> seats = databaseManager.getSeats(seatRow.getRowId());
@@ -29,12 +36,6 @@ public class SeatRepository {
         }
 
         return seats;
-
-    }
-
-    public void createSeat(Seat seat) {
-
-        databaseManager.createSeat(seat);
 
     }
 

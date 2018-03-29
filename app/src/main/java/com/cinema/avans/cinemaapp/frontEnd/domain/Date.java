@@ -12,6 +12,17 @@ public class Date {
     private int hours;
     private int minutes;
 
+    public Date() {
+
+        this.day = 0;
+        this.month = 0;
+        this.year = 0;
+        this.hours = 0;
+        this.minutes = 0;
+
+    }
+
+    // ALTERED SETTER
     public void setDate(String date) {
 
         String[] dateParts = date.split("-");
