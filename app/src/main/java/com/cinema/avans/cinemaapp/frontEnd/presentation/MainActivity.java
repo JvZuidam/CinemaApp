@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements NewMovieListener 
         movieRepository.getNewMovie("war");
         movieRepository.getNewMovie("time");
         movieRepository.getNewMovie("bright");
+        movieRepository.getNewMovie("star");
+        movieRepository.getNewMovie("horse");
+        movieRepository.getNewMovie("sword");
+        movieRepository.getNewMovie("friend");
 
         ListView movieListView = findViewById(R.id.movieListView);
         movieAdapter = new MovieAdapter(getApplicationContext(), movies);

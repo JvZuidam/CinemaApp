@@ -34,7 +34,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
         if (convertView == null) {
 
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_main_listview_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_movies, parent, false);
 
         }
 

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Showing;
+import com.cinema.avans.cinemaapp.frontEnd.domain.Ticket;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
@@ -89,6 +90,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String SHOWING_COLUMN_MOVIE_ID = "MovieId"; // Movie this showing shows
     private static final String SHOWING_COLUMN_DATE = "Date"; // Date of the showing
 
+    // Ticket table
+    private static final String TABLE_TICKET = "Ticket";
+    // -------------------------------------------------------------------------------------------
+    private static final String TICKET_COLUMN_TICKET_ID = "TicketId";
+    private static final String TICKET_COLUMN_SHOWING_ID = "ShowingId";
+    private static final String TICKET_COLUMN_SEAT_INSTANCE_ID = "SeatInstance";
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     // CREATE QUERIES
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,6 +149,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
             + SHOWING_COLUMN_MOVIE_ID + " INTEGER" + "\n"
             + SHOWING_COLUMN_DATE + " TEXT" + ")"; // YYYY-MM-DD-HH-MM
 
+    private static final String CREATE_TABLE_TICKET =
+            "CREATE TABLE " + TABLE_TICKET + " (" + "\n"
+                    + TICKET_COLUMN_TICKET_ID + " INTEGER PRIMARY KEY AUTO INCREMENT," + "\n"
+                    + TICKET_COLUMN_SHOWING_ID + " INTEGER" + "\n"
+                    + TICKET_COLUMN_SEAT_INSTANCE_ID + " INTEGER" + ")";
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     // Methods
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -170,6 +184,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         System.out.println(CREATE_TABLE_MOVIE); // Print
         sqLiteDatabase.execSQL(CREATE_TABLE_SHOWING); // Create
         System.out.println(CREATE_TABLE_SHOWING); // Print
+        sqLiteDatabase.execSQL(CREATE_TABLE_TICKET); // Create
+        System.out.println(CREATE_TABLE_TICKET); // Print
 
     }
 
@@ -508,6 +524,37 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return seatInstances;
 
     }
+    public SeatInstance getSeatInstance(int seatInstanceId) {
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String query =
+                "SELECT *" + "\n"
+                        + "FROM " + TABLE_SEAT_INSTANCE + "\n"
+                        + "WHERE " + SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID + " = " + seatInstanceId;
+
+        System.out.println(query);
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor != null) {
+
+            cursor.moveToFirst();
+
+            SeatInstance seatInstance = new SeatInstance();
+            seatInstance.setStatus(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_STATUS)));
+            seatInstance.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID)));
+            seatInstance.setSeatInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID)));
+
+            cursor.close(); // ??
+
+            return seatInstance;
+
+        }
+
+        return null;
+
+    }
 
     public void createMovie(Movie movie) {
 
@@ -601,6 +648,79 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
 
         return showings;
+
+    }
+    public Showing getShowing(int showingId) {
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String query =
+                "SELECT *" + "\n"
+                        + "FROM " + TABLE_SHOWING + "\n"
+                        + "WHERE " + SHOWING_COLUMN_SHOWING_ID + " = " + showingId;
+
+        System.out.println(query);
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor != null) {
+
+            cursor.moveToFirst();
+
+            Showing showing = new Showing();
+            showing.setDate(cursor.getString(cursor.getColumnIndex(SHOWING_COLUMN_DATE)));
+            showing.setShowingId(cursor.getInt(cursor.getColumnIndex(SHOWING_COLUMN_SHOWING_ID)));
+
+            cursor.close(); // ??
+
+            return showing;
+
+        }
+
+        return null;
+
+    }
+
+    public void createTicket(Ticket ticket) {
+
+        SQLiteDatabase database = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TICKET_COLUMN_SHOWING_ID, ticket.getShowing().getShowingId());
+        values.put(TICKET_COLUMN_SEAT_INSTANCE_ID, ticket.getSeatInstance().getSeatInstanceId());
+
+        database.insert(TABLE_TICKET, null, values);
+
+    }
+    public Ticket getTicket(int ticketId) {
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String query =
+                "SELECT *" + "\n"
+                        + "FROM " + TABLE_TICKET + "\n"
+                        + "WHERE " + TICKET_COLUMN_TICKET_ID + " = " + ticketId;
+
+        System.out.println(query);
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor != null) {
+
+            cursor.moveToFirst();
+
+            Ticket ticket = new Ticket();
+            ticket.setTicketId(cursor.getInt(cursor.getColumnIndex(TICKET_COLUMN_TICKET_ID)));
+            ticket.setShowing(getShowing(cursor.getInt(cursor.getColumnIndex(TICKET_COLUMN_SHOWING_ID))));
+            ticket.setSeatInstance(getSeatInstance(cursor.getInt(cursor.getColumnIndex(TICKET_COLUMN_SEAT_INSTANCE_ID))));
+
+            cursor.close(); // ??
+
+            return ticket;
+
+        }
+
+        return null;
 
     }
 
