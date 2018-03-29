@@ -9,8 +9,12 @@ public class Movie {
     private int movieId; // Done
     private String title; // Done
     private String description; // Done
+    private String imageUrl;
 
     // SETTERS
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
     public void setMovieId(int movieId) {
         this.movieId = movieId;
     }
@@ -22,6 +26,9 @@ public class Movie {
     }
 
     // GETTERS
+    public String getImageUrl() {
+        return imageUrl;
+    }
     public int getMovieId() {
         return movieId;
     }
@@ -30,6 +37,10 @@ public class Movie {
     }
     public String getDescription() {
         return description;
+    }
+
+    public String toString() {
+        return "MovieId: " + movieId + ", title: " + title + ", imageUrl: " + imageUrl;
     }
 
 }
