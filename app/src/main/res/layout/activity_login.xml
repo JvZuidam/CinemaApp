@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cinema.avans.cinemaapp.frontEnd.presentation.LoginActivity"
+    tools:context="com.cinema.avans.cinemaapp.frontEnd.presentation.logIn.MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <android.support.constraint.Guideline
@@ -14,100 +14,74 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.35" />
 
+    <EditText
+        android:id="@+id/loginUsernameInput"
+        android:layout_width="198dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginLogo" />
+
+
+    <EditText
+        android:id="@+id/loginPasswordConfirmInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Password.."
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/loginUsernameInput"
+        app:layout_constraintStart_toStartOf="@+id/loginUsernameInput"
+        app:layout_constraintTop_toBottomOf="@+id/loginUsernameInput" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordConfirmInput" />
+
+    <TextView
+        android:id="@+id/longInForgetLink"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:text="Wachtwoord vergeten"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/longInRegisterLink" />
+
     <ImageView
         android:id="@+id/loginLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-<<<<<<< HEAD
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-=======
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/logInGuideline1"
->>>>>>> b5dc154b8636fd77fe939f383220af510f3e7054
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/colorAccent" />
-
-    <EditText
-        android:id="@+id/registerUsernameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_marginTop="8dp"
-=======
-        android:layout_marginTop="16dp"
->>>>>>> b5dc154b8636fd77fe939f383220af510f3e7054
-        android:ems="10"
-        android:hint="Name.."
-        android:inputType="textPersonName"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/logInGuideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-<<<<<<< HEAD
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        tools:text="John Smith" />
-=======
-        app:layout_constraintTop_toTopOf="@+id/logInGuideline1" />
->>>>>>> b5dc154b8636fd77fe939f383220af510f3e7054
-
-    <EditText
-        android:id="@+id/registerPasswordConfirmInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Password.."
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/registerUsernameInput"
-        app:layout_constraintTop_toBottomOf="@+id/registerUsernameInput" />
-
-    <Button
-        android:id="@+id/registerRegisterButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        app:layout_constraintEnd_toEndOf="@+id/registerUsernameInput"
-        app:layout_constraintStart_toStartOf="@+id/registerUsernameInput"
-        app:layout_constraintTop_toBottomOf="@+id/registerPasswordConfirmInput" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/longInRegisterLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/ButtonRegister"
-        app:layout_constraintStart_toStartOf="@+id/ButtonRegister"
-        app:layout_constraintTop_toBottomOf="@+id/ButtonRegister"
-        tools:text="Registreer" />
-=======
         android:text="Registreer"
-        app:layout_constraintStart_toStartOf="@+id/registerRegisterButton"
-        app:layout_constraintTop_toBottomOf="@+id/registerRegisterButton" />
->>>>>>> b5dc154b8636fd77fe939f383220af510f3e7054
-
-    <TextView
-        android:id="@+id/longInForgetLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Wachtwoord vergeten"
-        app:layout_constraintStart_toStartOf="@+id/longInRegisterLink"
-        app:layout_constraintTop_toBottomOf="@+id/longInRegisterLink" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
 </android.support.constraint.ConstraintLayout>

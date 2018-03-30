@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.cinema.avans.cinemaapp.frontEnd.presentation.register.RegisterActivity;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -16,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
 
         TextView textView;
 
-        textView = (TextView) findViewById(R.id.TextViewRegister);
+        textView = (TextView) findViewById(R.id.longInRegisterLink);
         textView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent  =new Intent(getApplicationContext(), RegisterActivity.class);

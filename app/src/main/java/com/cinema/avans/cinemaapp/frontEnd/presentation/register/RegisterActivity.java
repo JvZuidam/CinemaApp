@@ -30,9 +30,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         //  Setup views
-        usernameInput = findViewById(R.id.registerUsernameInput);
+        usernameInput = findViewById(R.id.loginUsernameInput);
         passwordInput = findViewById(R.id.registerPasswordInput);
-        passwordConfirmInput = findViewById(R.id.registerPasswordConfirmInput);
+        passwordConfirmInput = findViewById(R.id.loginPasswordConfirmInput);
 
         // Get username that was already typed in
         if (getIntent().getExtras() != null) {

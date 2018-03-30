@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
                                 ,1)));
 
         // Setup views
-        usernameInput = findViewById(R.id.registerUsernameInput);
-        passwordInput = findViewById(R.id.registerPasswordConfirmInput);
+        usernameInput = findViewById(R.id.loginUsernameInput);
+        passwordInput = findViewById(R.id.loginPasswordConfirmInput);
 
         // Setup buttons
-        Button logInButton = findViewById(R.id.registerRegisterButton);
+        Button logInButton = findViewById(R.id.loginButton);
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
