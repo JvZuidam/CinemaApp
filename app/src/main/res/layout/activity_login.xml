@@ -4,17 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cinema.avans.cinemaapp.LoginActivity">
+    tools:context="com.cinema.avans.cinemaapp.frontEnd.presentation.LoginActivity"
+    tools:layout_editor_absoluteY="25dp">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/logInGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
 
     <ImageView
-        android:id="@+id/ImageViewLogo"
+        android:id="@+id/loginLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
+<<<<<<< HEAD
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
+=======
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/logInGuideline1"
+>>>>>>> b5dc154b8636fd77fe939f383220af510f3e7054
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,65 +37,71 @@
         app:srcCompat="@color/colorAccent" />
 
     <EditText
-        android:id="@+id/EditTextUsername"
+        android:id="@+id/registerUsernameInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginTop="8dp"
+=======
+        android:layout_marginTop="16dp"
+>>>>>>> b5dc154b8636fd77fe939f383220af510f3e7054
         android:ems="10"
+        android:hint="Name.."
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toTopOf="@+id/guideline5"
         tools:text="John Smith" />
+=======
+        app:layout_constraintTop_toTopOf="@+id/logInGuideline1" />
+>>>>>>> b5dc154b8636fd77fe939f383220af510f3e7054
 
     <EditText
-        android:id="@+id/EditTextPassword"
+        android:id="@+id/registerPasswordConfirmInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="Password.."
         android:inputType="textPassword"
-        android:text="Password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditTextUsername" />
+        app:layout_constraintStart_toStartOf="@+id/registerUsernameInput"
+        app:layout_constraintTop_toBottomOf="@+id/registerUsernameInput" />
 
     <Button
-        android:id="@+id/ButtonRegister"
+        android:id="@+id/registerRegisterButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="@+id/EditTextPassword"
-        app:layout_constraintStart_toStartOf="@+id/EditTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/EditTextPassword"
-        tools:text="Login" />
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="@+id/registerUsernameInput"
+        app:layout_constraintStart_toStartOf="@+id/registerUsernameInput"
+        app:layout_constraintTop_toBottomOf="@+id/registerPasswordConfirmInput" />
 
     <TextView
-        android:id="@+id/TextViewRegister"
-        android:layout_width="0dp"
+        android:id="@+id/longInRegisterLink"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="@+id/ButtonRegister"
         app:layout_constraintStart_toStartOf="@+id/ButtonRegister"
         app:layout_constraintTop_toBottomOf="@+id/ButtonRegister"
         tools:text="Registreer" />
+=======
+        android:text="Registreer"
+        app:layout_constraintStart_toStartOf="@+id/registerRegisterButton"
+        app:layout_constraintTop_toBottomOf="@+id/registerRegisterButton" />
+>>>>>>> b5dc154b8636fd77fe939f383220af510f3e7054
 
     <TextView
-        android:id="@+id/TextViewForgotPass"
-        android:layout_width="0dp"
+        android:id="@+id/longInForgetLink"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/ButtonRegister"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ButtonRegister"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewRegister"
-        tools:text="Wachtwoord vergeten" />
+        android:layout_marginTop="4dp"
+        android:text="Wachtwoord vergeten"
+        app:layout_constraintStart_toStartOf="@+id/longInRegisterLink"
+        app:layout_constraintTop_toBottomOf="@+id/longInRegisterLink" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline5"

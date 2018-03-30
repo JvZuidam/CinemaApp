@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CinemaApp</string>
+    <string name="AVAILABLE">BESCHIKBAAR</string>
+    <string name="SELECTED">GESELECTEERD</string>
+    <string name="RESERVED">GERESERVEERD</string>
+</resources>

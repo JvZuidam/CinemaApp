@@ -3,11 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CinemaApp.iml" filepath="$PROJECT_DIR$/CinemaApp.iml" />
-      <module fileurl="file://C:\Users\janbe\Desktop\School\Periode 3\Projectmanagement &amp; software engineering\AndroidProject\CinemaApp\CinemaApp.iml" filepath="C:\Users\janbe\Desktop\School\Periode 3\Projectmanagement &amp; software engineering\AndroidProject\CinemaApp\CinemaApp.iml" />
-      <module fileurl="file://C:\Users\flori\Documents\CinemaApp\CinemaApp.iml" filepath="C:\Users\flori\Documents\CinemaApp\CinemaApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\janbe\Desktop\School\Periode 3\Projectmanagement &amp; software engineering\AndroidProject\CinemaApp\app\app.iml" filepath="C:\Users\janbe\Desktop\School\Periode 3\Projectmanagement &amp; software engineering\AndroidProject\CinemaApp\app\app.iml" />
-      <module fileurl="file://C:\Users\flori\Documents\CinemaApp\app\app.iml" filepath="C:\Users\flori\Documents\CinemaApp\app\app.iml" />
     </modules>
   </component>
 </project>
