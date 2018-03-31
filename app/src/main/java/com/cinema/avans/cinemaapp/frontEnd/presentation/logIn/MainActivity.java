@@ -3,6 +3,7 @@ package com.cinema.avans.cinemaapp.frontEnd.presentation.logIn;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,11 +13,12 @@ import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.ManagerRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.UserRepository;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.Manager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInActivity;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInManager;
-import com.cinema.avans.cinemaapp.frontEnd.presentation.MovieListActivity;
+import com.cinema.avans.cinemaapp.frontEnd.presentation.user.MovieListActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.manager.ManagerHubActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.register.RegisterActivity;
 
@@ -35,25 +37,43 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Only first run
-        Manager manager = new Manager();
-        manager.setUserId("Manager");
-        manager.setPassword("12345");
-        new ManagerRepository(new DatabaseManager(getApplicationContext(), "Cinema", null, 1)).createManager(manager);
-
         //  Setup manager
         this.logInManager = new LogInManager(
                 this
                 ,new RepositoryFactory(
-                        new DatabaseManager(
-                                getApplicationContext()
-                                ,"Cinema"
-                                ,null
-                                ,1)));
+                new DatabaseManager(
+                        getApplicationContext()
+                        ,"Cinema"
+                        ,null
+                        ,1)));
+
+        insertFakeBackendDataToDatabase();
+
+        setUpButtons();
 
         // Setup views
         usernameInput = findViewById(R.id.loginUsernameInput);
         passwordInput = findViewById(R.id.loginPasswordConfirmInput);
+
+    }
+
+    private void insertFakeBackendDataToDatabase() {
+
+        Log.i("LogInActivity", "Inserting fake backend data into database");
+
+        // Backend data
+        Manager manager = new Manager();
+        manager.setUserId("Manager");
+        manager.setPassword("12345");
+        new ManagerRepository(new DatabaseManager(getApplicationContext(), "Cinema", null, 1)).createManager(manager);
+        User user = new User();
+        user.setUserId("User");
+        user.setPassword("12345");
+        new UserRepository(new DatabaseManager(getApplicationContext(), "Cinema", null, 1)).createUser(user);
+
+    }
+
+    private void setUpButtons() {
 
         // Setup buttons
         Button logInButton = findViewById(R.id.loginButton);

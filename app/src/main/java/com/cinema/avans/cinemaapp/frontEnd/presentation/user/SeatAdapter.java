@@ -1,4 +1,4 @@
-package com.cinema.avans.cinemaapp.frontEnd.presentation;
+package com.cinema.avans.cinemaapp.frontEnd.presentation.user;
 
 import android.content.Context;
 import android.view.View;

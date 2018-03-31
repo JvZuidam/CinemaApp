@@ -1,4 +1,4 @@
-package com.cinema.avans.cinemaapp.frontEnd.presentation;
+package com.cinema.avans.cinemaapp.frontEnd.presentation.user;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

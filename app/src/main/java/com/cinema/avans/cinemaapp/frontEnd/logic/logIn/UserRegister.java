@@ -1,4 +1,4 @@
-package com.cinema.avans.cinemaapp.frontEnd.logic.register;
+package com.cinema.avans.cinemaapp.frontEnd.logic.logIn;
 
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;

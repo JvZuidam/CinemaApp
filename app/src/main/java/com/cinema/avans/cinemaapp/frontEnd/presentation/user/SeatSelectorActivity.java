@@ -1,4 +1,4 @@
-package com.cinema.avans.cinemaapp.frontEnd.presentation;
+package com.cinema.avans.cinemaapp.frontEnd.presentation.user;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
-import com.cinema.avans.cinemaapp.frontEnd.logic.SeatSelector;
+import com.cinema.avans.cinemaapp.frontEnd.logic.user.SeatSelector;
 
 /**
  * Created by JanBelterman on 28 March 2018

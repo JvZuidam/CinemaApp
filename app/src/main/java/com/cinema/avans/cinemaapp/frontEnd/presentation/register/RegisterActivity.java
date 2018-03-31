@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
-import com.cinema.avans.cinemaapp.frontEnd.logic.register.UserRegister;
+import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.UserRegister;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.logIn.MainActivity;
 
 public class RegisterActivity extends AppCompatActivity {

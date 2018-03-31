@@ -23,7 +23,7 @@ public class Movie implements Serializable {
         this.title = "";
         this.description = "";
         this.imageUrl = "";
-        this.showings = new ArrayList<Showing>();
+        this.showings = new ArrayList<>();
 
     }
 

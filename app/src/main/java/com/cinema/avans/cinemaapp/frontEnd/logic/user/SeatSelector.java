@@ -1,4 +1,4 @@
-package com.cinema.avans.cinemaapp.frontEnd.logic;
+package com.cinema.avans.cinemaapp.frontEnd.logic.user;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;

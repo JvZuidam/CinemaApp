@@ -11,14 +11,12 @@ import java.util.ArrayList;
  * Created by JanBelterman on 28 March 2018
  */
 
-public class MovieRepository implements NewMovieListener {
+public class MovieRepository {
 
     private DatabaseManager databaseManager;
-    private NewMovieListener newMovieListener;
 
-    public MovieRepository(DatabaseManager databaseManager, NewMovieListener newMovieListener) {
+    public MovieRepository(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
-        this.newMovieListener = newMovieListener;
 
     }
 
@@ -51,19 +49,6 @@ public class MovieRepository implements NewMovieListener {
         movie.setShowings(new ShowingRepository(databaseManager).getShowings(movie));
         // Return complete movie
         return movie;
-
-    }
-
-    public void getNewMovie(String title) {
-
-        MovieApiManager movieApiManager = new MovieApiManager(this);
-        movieApiManager.execute("http://www.omdbapi.com/?apikey=556fd57f&plot=full&t=" + title);
-
-    }
-
-    public void newApiMovie(Movie movie) {
-
-        newMovieListener.newApiMovie(movie);
 
     }
 

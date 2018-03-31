@@ -47,8 +47,8 @@ public class RepositoryFactory {
 
     }
 
-    public MovieRepository getMovieRepository(NewMovieListener newMovieListener) {
-        return new MovieRepository(databaseManager, newMovieListener);
+    public MovieRepository getMovieRepository() {
+        return new MovieRepository(databaseManager);
 
     }
 
