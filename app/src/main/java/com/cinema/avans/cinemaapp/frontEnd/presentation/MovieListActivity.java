@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Created by JanBelterman on 29 March 2018
  */
 
-public class ActivityMovieList extends AppCompatActivity implements NewMovieListener {
+public class MovieListActivity extends AppCompatActivity implements NewMovieListener {
 
     private RepositoryFactory repositoryFactory;
     private MovieAdapter movieAdapter;
@@ -58,7 +58,7 @@ public class ActivityMovieList extends AppCompatActivity implements NewMovieList
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent intent = new Intent(ActivityMovieList.this, MovieDetailedActivity.class);
+                Intent intent = new Intent(MovieListActivity.this, MovieDetailedActivity.class);
                 intent.putExtra("MOVIE", movieAdapter.getItem(i));
                 startActivity(intent);
 

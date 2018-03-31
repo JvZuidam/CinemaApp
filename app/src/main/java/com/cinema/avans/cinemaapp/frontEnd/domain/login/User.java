@@ -18,4 +18,11 @@ public class User extends LogIn {
 
     }
 
+    @Override
+    public String toString() {
+
+        return "User, username: " + userId + ", password: " + password;
+
+    }
+
 }

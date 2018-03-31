@@ -776,47 +776,56 @@ public class DatabaseManager extends SQLiteOpenHelper {
         database.insert(TABLE_LOG_IN, null, logInValues);
 
         ContentValues userValues = new ContentValues();
-        userValues.put(LOG_IN_COLUMN_USERNAME, user.getUserId());
+        userValues.put(USER_COLUMN_USERNAME, user.getUserId());
 
         database.insert(TABLE_USER, null, userValues);
 
     }
     public User getUser(String username) {
 
+        // Create user
         User user = new User();
 
+        // Get database
         SQLiteDatabase database = getReadableDatabase();
 
+        // Look for user
+        String userQuery =
+                "SELECT *" + "\n"
+                        + "FROM " + TABLE_USER + "\n"
+                        + "WHERE " + USER_COLUMN_USERNAME + " = '" + username + "'";
+        // Log query
+        Log.i("Database", userQuery);
+        // Execute query and get result
+        Cursor userCursor = database.rawQuery(userQuery, null);
+        // Get values from user table
+        if (userCursor.moveToFirst()) {
+
+            user.setUserId(userCursor.getString(userCursor.getColumnIndex(USER_COLUMN_USERNAME)));
+
+        }
+
+        if (user.getUserId().isEmpty() || user.getUserId().length() == 0) {
+            return null;
+
+        }
+
+        // Look up the rest of the user values from logIn table
         String logInQuery =
                 "SELECT *" + "\n"
                         + "FROM " + TABLE_LOG_IN + "\n"
                         + "WHERE " + LOG_IN_COLUMN_USERNAME + " = '" + username + "'";
-
+        // Log query
         Log.i("Database", logInQuery);
-
+        // Execute query and get result
         Cursor logInCursor = database.rawQuery(logInQuery, null);
-
+        // Get values from logIn table
         if (logInCursor.moveToFirst()) {
 
             logInCursor.moveToFirst();
 
             user.setUserId(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_USERNAME)));
             user.setPassword(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_PASSWORD)));
-
-        }
-
-        String userQuery =
-                "SELECT *" + "\n"
-                        + "FROM " + TABLE_USER + "\n"
-                        + "WHERE " + USER_COLUMN_USERNAME + " = '" + username + "'";
-
-        Log.i("Database", userQuery);
-
-        Cursor userCursor = database.rawQuery(userQuery, null);
-
-        if (logInCursor.moveToFirst()) {
-
-            // Used if user gets more attributes
 
         }
 
@@ -834,10 +843,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         database.insert(TABLE_LOG_IN, null, logInValues);
 
-        ContentValues userValues = new ContentValues();
-        userValues.put(LOG_IN_COLUMN_USERNAME, manager.getUserId());
+        ContentValues managerValues = new ContentValues();
+        managerValues.put(MANAGER_COLUMN_USERNAME, manager.getUserId());
 
-        database.insert(TABLE_USER, null, userValues);
+        database.insert(TABLE_MANAGER, null, managerValues);
 
     }
     public Manager getManager(String username) {
@@ -845,6 +854,26 @@ public class DatabaseManager extends SQLiteOpenHelper {
         Manager manager = new Manager();
 
         SQLiteDatabase database = getReadableDatabase();
+
+        String managerQuery =
+                "SELECT *" + "\n"
+                        + "FROM " + TABLE_MANAGER + "\n"
+                        + "WHERE " + MANAGER_COLUMN_USERNAME + " = '" + username + "'";
+
+        Log.i("Database", managerQuery);
+
+        Cursor managerCursor = database.rawQuery(managerQuery, null);
+
+        if (managerCursor.moveToFirst()) {
+
+            manager.setUserId(managerCursor.getString(managerCursor.getColumnIndex(MANAGER_COLUMN_USERNAME)));
+
+        }
+
+        if (manager.getUserId().isEmpty() || manager.getUserId().length() == 0) {
+            return null;
+
+        }
 
         String logInQuery =
                 "SELECT *" + "\n"
@@ -861,21 +890,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
             manager.setUserId(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_USERNAME)));
             manager.setPassword(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_PASSWORD)));
-
-        }
-
-        String managerQuery =
-                "SELECT *" + "\n"
-                        + "FROM " + TABLE_MANAGER + "\n"
-                        + "WHERE " + MANAGER_COLUMN_USERNAME + " = '" + username + "'";
-
-        Log.i("Database", managerQuery);
-
-        Cursor userCursor = database.rawQuery(managerQuery, null);
-
-        if (logInCursor.moveToFirst()) {
-
-            // Used if manager gets more attributes
 
         }
 

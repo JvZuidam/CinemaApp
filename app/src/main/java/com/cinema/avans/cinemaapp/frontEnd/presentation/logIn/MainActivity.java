@@ -10,12 +10,14 @@ import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.ManagerRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.Manager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInActivity;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInManager;
-import com.cinema.avans.cinemaapp.frontEnd.presentation.ActivityMovieList;
+import com.cinema.avans.cinemaapp.frontEnd.presentation.MovieListActivity;
+import com.cinema.avans.cinemaapp.frontEnd.presentation.manager.ManagerHubActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.register.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity implements LogInActivity {
@@ -32,6 +34,12 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Only first run
+        Manager manager = new Manager();
+        manager.setUserId("Manager");
+        manager.setPassword("12345");
+        new ManagerRepository(new DatabaseManager(getApplicationContext(), "Cinema", null, 1)).createManager(manager);
 
         //  Setup manager
         this.logInManager = new LogInManager(
@@ -90,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
     public void managerLogIn(Manager manager) {
 
         // Go to manager screen
+        Intent intent = new Intent(MainActivity.this, ManagerHubActivity.class);
+        startActivity(intent);
 
     }
 
@@ -97,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
     public void userLogIn(User user) {
 
         // Go to movie list screen for user
-        Intent intent = new Intent(MainActivity.this, ActivityMovieList.class);
+        Intent intent = new Intent(MainActivity.this, MovieListActivity.class);
         intent.putExtra("USER", user);
         startActivity(intent);
         finish(); // Finish this, so user cant go back

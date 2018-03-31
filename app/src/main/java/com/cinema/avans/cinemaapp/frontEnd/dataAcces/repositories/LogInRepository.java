@@ -22,23 +22,33 @@ public class LogInRepository {
 
     public LogIn getLogIn(String username) {
 
-        LogIn login = null;
+        LogIn login;
 
         Log.i("LogInRepository", "Asking database for user and manager for a given userId");
 
         // First look for user
+        Log.i("LogInRepository", "Looking for user");
         login = databaseManager.getUser(username);
 
         if (login != null) {
+            Log.i("LogInRepository", "User found");
             return login;
 
         }
+
         // Than look for manager
+        Log.i("LogInRepository", "No user found, now looking for manager");
         login = databaseManager.getManager(username);
 
-        Log.i("LogInRepository", "LogInFound: " + login.toString());
+        if (login != null) {
+            Log.i("LogInRepository", "Manager found");
+            return login;
 
-        return login;
+        }
+
+        Log.i("LogInRepository", "Also no manager found");
+
+        return null;
 
     }
 

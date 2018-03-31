@@ -1,5 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import android.util.Log;
+
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.Manager;
 
@@ -19,6 +21,7 @@ public class ManagerRepository {
 
     public void createManager(Manager manager) {
 
+        Log.i("ManagerRepository", "Creating manager");
         databaseManager.createManager(manager);
 
     }

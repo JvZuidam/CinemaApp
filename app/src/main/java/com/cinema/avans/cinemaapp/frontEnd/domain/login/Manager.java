@@ -18,4 +18,11 @@ public class Manager extends LogIn {
 
     }
 
+    @Override
+    public String toString() {
+
+        return "Manager, username: " + userId + ", password: " + password;
+
+    }
+
 }

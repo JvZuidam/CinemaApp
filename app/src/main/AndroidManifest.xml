@@ -21,8 +21,13 @@
         </activity>
         <activity android:name=".frontEnd.presentation.SeatSelectorActivity"></activity>
         <activity android:name=".frontEnd.presentation.MovieDetailedActivity"></activity>
-        <activity android:name=".frontEnd.presentation.ActivityMovieList"></activity>
+        <activity android:name=".frontEnd.presentation.MovieListActivity"></activity>
         <activity android:name=".frontEnd.presentation.register.RegisterActivity"></activity>
+        <activity android:name=".frontEnd.presentation.manager.CreateMovieActivity"></activity>
+        <activity android:name=".frontEnd.presentation.manager.CreateShowingActivity"></activity>
+        <activity android:name=".frontEnd.presentation.manager.ManagerHubActivity"></activity>
+        <activity android:name=".frontEnd.presentation.Paymentactivity"></activity>
+        <activity android:name=".frontEnd.presentation.UserDetailedActivity"></activity>
     </application>
 
 </manifest>

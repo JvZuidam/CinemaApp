@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 public abstract class LogIn implements Serializable {
 
-    private String userId;
-    private String password;
+    protected String userId;
+    protected String password;
 
     public LogIn() {
 
