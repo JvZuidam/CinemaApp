@@ -19,7 +19,7 @@ public class Showing implements Serializable {
     public Showing() {
 
         this.showingId = 0;
-        this.hallInstance = null;
+        this.hallInstance = new HallInstance();
         this.movie = null;
         this.date = null;
 

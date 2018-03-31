@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cinema.avans.cinemaapp.R;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Date;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
@@ -39,32 +40,7 @@ public class MovieDetailedActivity extends AppCompatActivity {
         TextView movieDescription = findViewById(R.id.detailedMovieDescription);
         movieDescription.setText(movie.getDescription());
 
-        // Test for showing list view
-        ArrayList<Showing> showings = new ArrayList<>();
-        showings.add(new Showing());
-        showings.add(new Showing());
-        showings.add(new Showing());
-        showings.add(new Showing());
-        showings.add(new Showing());
-        showings.add(new Showing());
-        showings.add(new Showing());
-        showings.add(new Showing());
-        showings.add(new Showing());
-        showings.add(new Showing());
-        showings.add(new Showing());
-        int i = 1;
-        for (Showing showing : showings) {
-            showing.setHallInstance(new HallInstance());
-            showing.setMovie(movie);
-            showing.setDate(new Date());
-            showing.getDate().setYear(2018);
-            showing.getDate().setMonth(4);
-            showing.getDate().setDay(16);
-            showing.getDate().setHours(18);
-            showing.getDate().setMinutes(56);
-            showing.setShowingId(i);
-            i++;
-        }
+        ArrayList<Showing> showings = new RepositoryFactory(getApplicationContext()).getShowingRepository().getShowings(movie);
 
         // Sorter for time
         ListView movieShowingsListView = findViewById(R.id.detailedMovieShowingListView);
