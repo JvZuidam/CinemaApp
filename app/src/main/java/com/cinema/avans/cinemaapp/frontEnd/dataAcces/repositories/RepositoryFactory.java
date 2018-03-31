@@ -1,5 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import android.content.Context;
+
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
 
@@ -11,10 +13,9 @@ public class RepositoryFactory {
 
     DatabaseManager databaseManager;
 
-    public RepositoryFactory(DatabaseManager databaseManager) {
+    public RepositoryFactory(Context context) {
 
-        this.databaseManager = databaseManager;
-
+        this.databaseManager = new DatabaseManager(context, "Cinema", null, 0);
     }
 
     public HallRepository getHallRepository() {

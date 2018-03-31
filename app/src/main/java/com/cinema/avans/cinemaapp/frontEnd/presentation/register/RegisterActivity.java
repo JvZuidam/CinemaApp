@@ -44,12 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Setup manager
         this.userRegister = new UserRegister(
-                new RepositoryFactory(
-                        new DatabaseManager(
-                                getApplicationContext()
-                                ,"Cinema"
-                                ,null
-                                ,1)));
+                new RepositoryFactory(getApplicationContext()));
 
         // Setup button
         Button registerButton = findViewById(R.id.registerRegisterButton);

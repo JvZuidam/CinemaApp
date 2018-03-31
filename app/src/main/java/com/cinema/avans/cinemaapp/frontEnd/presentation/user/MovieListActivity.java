@@ -37,12 +37,7 @@ public class MovieListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_list);
 
         // Create repository factory and get movies
-        repositoryFactory = new RepositoryFactory(
-                new DatabaseManager(
-                        getApplicationContext(),
-                        "Cinema",
-                        null,
-                        1));
+        repositoryFactory = new RepositoryFactory(getApplicationContext());
         ArrayList<Movie> movies = repositoryFactory.getMovieRepository().getAllMovies();
         Log.i("MovieListActivity", "Movie 1, Title: " + movies.get(0).getTitle());
 

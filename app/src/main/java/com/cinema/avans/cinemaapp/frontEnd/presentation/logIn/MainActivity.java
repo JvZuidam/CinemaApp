@@ -40,12 +40,7 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
         //  Setup manager
         this.logInManager = new LogInManager(
                 this
-                ,new RepositoryFactory(
-                new DatabaseManager(
-                        getApplicationContext()
-                        ,"Cinema"
-                        ,null
-                        ,1)));
+                ,new RepositoryFactory(getApplicationContext()));
 
         insertFakeBackendDataToDatabase();
 

@@ -60,7 +60,7 @@ public class CreateMovieActivity extends AppCompatActivity implements NewMovieLi
     public void newApiMovie(Movie movie) {
 
         // Add movie to database
-        RepositoryFactory repositoryFactory = new RepositoryFactory(new DatabaseManager(getApplicationContext(), "Cinema", null, 1));
+        RepositoryFactory repositoryFactory = new RepositoryFactory(getApplicationContext());
         repositoryFactory.getMovieRepository().createMovie(movie);
 
     }
