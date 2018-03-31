@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
         Intent intent = new Intent(MainActivity.this, MovieListActivity.class);
         intent.putExtra("USER", user);
         startActivity(intent);
-        finish(); // Finish this, so user cant go back
 
     }
 

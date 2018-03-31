@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
@@ -12,6 +15,7 @@ import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.logic.manager.MovieFactory;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by JanBelterman on 31 March 2018
@@ -20,6 +24,7 @@ import com.cinema.avans.cinemaapp.frontEnd.logic.manager.MovieFactory;
 public class CreateMovieActivity extends AppCompatActivity implements NewMovieListener {
 
     private MovieFactory movieFactory;
+    private Movie movie;
     private EditText movieTitleInput;
 
     @Override
@@ -28,6 +33,7 @@ public class CreateMovieActivity extends AppCompatActivity implements NewMovieLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_movie);
 
+        // Set up movie factory
         movieFactory = new MovieFactory(this);
 
         setUpViews();
@@ -44,12 +50,31 @@ public class CreateMovieActivity extends AppCompatActivity implements NewMovieLi
 
     private void setUpButtons() {
 
+        Button searchButton = findViewById(R.id.createMovieSearchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                movieFactory.getNewMovie(movieTitleInput.getText().toString());
+
+            }
+        });
+
         Button saveButton = findViewById(R.id.createMovieSaveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                movieFactory.getNewMovie(movieTitleInput.getText().toString());
+                if (movie == null) {
+                    Toast.makeText(getApplicationContext(), "Choose a movie to add first", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    // Add movie to database
+                    RepositoryFactory repositoryFactory = new RepositoryFactory(getApplicationContext());
+                    repositoryFactory.getMovieRepository().createMovie(movie);
+                    Toast.makeText(getApplicationContext(), "Movie added", Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });
@@ -59,9 +84,18 @@ public class CreateMovieActivity extends AppCompatActivity implements NewMovieLi
     @Override
     public void newApiMovie(Movie movie) {
 
-        // Add movie to database
-        RepositoryFactory repositoryFactory = new RepositoryFactory(getApplicationContext());
-        repositoryFactory.getMovieRepository().createMovie(movie);
+        this.movie = movie;
+        displayMovie();
+
+
+    }
+
+    private void displayMovie() {
+
+        ImageView movieImage = findViewById(R.id.createMovieImage);
+        Picasso.with(getApplicationContext()).load(movie.getImageUrl()).into(movieImage);
+        TextView movieTitle = findViewById(R.id.createMovieTitleText);
+        movieTitle.setText(movie.getTitle());
 
     }
 
