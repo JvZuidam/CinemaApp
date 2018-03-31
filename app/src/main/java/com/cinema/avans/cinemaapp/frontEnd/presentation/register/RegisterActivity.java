@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
-import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.UserRegister;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.logIn.MainActivity;
@@ -30,9 +29,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         //  Setup views
-        usernameInput = findViewById(R.id.loginUsernameInput);
+        usernameInput = findViewById(R.id.registerUsernameInput);
         passwordInput = findViewById(R.id.registerPasswordInput);
-        passwordConfirmInput = findViewById(R.id.loginPasswordConfirmInput);
+        passwordConfirmInput = findViewById(R.id.registerPasswordConfirmInput);
 
         // Get username that was already typed in
         if (getIntent().getExtras() != null) {

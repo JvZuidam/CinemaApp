@@ -15,73 +15,74 @@
         app:layout_constraintGuide_percent="0.35" />
 
     <EditText
-        android:id="@+id/loginUsernameInput"
-        android:layout_width="198dp"
+        android:id="@+id/registerUsernameInput"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginLogo" />
+        android:layout_marginTop="8dp"
+        android:hint="Enter username.."
+        app:layout_constraintStart_toStartOf="@+id/logInLogInInfo"
+        app:layout_constraintTop_toBottomOf="@+id/logInLogInInfo" />
 
 
     <EditText
-        android:id="@+id/loginPasswordConfirmInput"
-        android:layout_width="0dp"
+        android:id="@+id/registerPasswordConfirmInput"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Password.."
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/loginUsernameInput"
-        app:layout_constraintStart_toStartOf="@+id/loginUsernameInput"
-        app:layout_constraintTop_toBottomOf="@+id/loginUsernameInput" />
+        app:layout_constraintStart_toStartOf="@+id/registerUsernameInput"
+        app:layout_constraintTop_toBottomOf="@+id/registerUsernameInput" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginPasswordConfirmInput" />
+        app:layout_constraintStart_toStartOf="@+id/logInLogInInfo"
+        app:layout_constraintTop_toBottomOf="@+id/registerPasswordConfirmInput" />
 
     <TextView
         android:id="@+id/longInForgetLink"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        android:text="Wachtwoord vergeten"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Forgot password"
+        app:layout_constraintStart_toStartOf="@+id/longInRegisterLink"
         app:layout_constraintTop_toBottomOf="@+id/longInRegisterLink" />
 
     <ImageView
         android:id="@+id/loginLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorAccent"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/logInGuideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cinema" />
 
     <TextView
         android:id="@+id/longInRegisterLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Registreer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Create an account"
+        app:layout_constraintStart_toStartOf="@+id/loginButton"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+    <TextView
+        android:id="@+id/logInLogInInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Log in"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginLogo" />
 
 </android.support.constraint.ConstraintLayout>

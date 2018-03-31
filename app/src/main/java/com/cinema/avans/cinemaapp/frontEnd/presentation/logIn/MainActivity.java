@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
         setUpButtons();
 
         // Setup views
-        usernameInput = findViewById(R.id.loginUsernameInput);
-        passwordInput = findViewById(R.id.loginPasswordConfirmInput);
+        usernameInput = findViewById(R.id.registerUsernameInput);
+        passwordInput = findViewById(R.id.registerPasswordConfirmInput);
 
     }
 
@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 intent.putExtra("USERNAME", usernameInput.getText().toString());
                 startActivity(intent);
-                finish(); // Finish this, so user cant go back
 
             }
         });
