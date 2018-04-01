@@ -1,7 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Ticket;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Ticket;
 
 /**
  * Created by JanBelterman on 29 March 2018

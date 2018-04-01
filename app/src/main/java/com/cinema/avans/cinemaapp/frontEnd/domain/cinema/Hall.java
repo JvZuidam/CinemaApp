@@ -19,6 +19,20 @@ public class Hall implements Serializable {
 
     }
 
+    public int amountOfSeats() {
+
+        int amountOfSeats = 0;
+
+        for (SeatRow seatRow : seatRows) {
+
+            amountOfSeats += seatRow.amountOfSeats();
+
+        }
+
+        return amountOfSeats;
+
+    }
+
     // SETTERS
     public void setHallId(int hallId) {
         this.hallId = hallId;

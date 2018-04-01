@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 
 import org.json.JSONObject;
 

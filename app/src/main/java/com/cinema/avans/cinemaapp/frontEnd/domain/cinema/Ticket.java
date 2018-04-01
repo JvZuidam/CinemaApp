@@ -1,4 +1,4 @@
-package com.cinema.avans.cinemaapp.frontEnd.domain;
+package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;

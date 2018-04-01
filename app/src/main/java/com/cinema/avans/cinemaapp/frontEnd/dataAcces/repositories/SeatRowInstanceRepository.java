@@ -33,7 +33,6 @@ public class SeatRowInstanceRepository {
 
         for (SeatRowInstance seatRowInstance : seatRowInstances) {
             seatRowInstance.setHallInstance(hallInstance);
-            seatRowInstance.setRowNr(databaseManager.getSeatRow(seatRowInstance.getSeatRowId()));
             seatRowInstance.setSeatInstances(databaseManager.getSeatInstances(seatRowInstance));
 
         }

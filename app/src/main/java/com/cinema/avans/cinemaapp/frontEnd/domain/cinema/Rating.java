@@ -1,4 +1,4 @@
-package com.cinema.avans.cinemaapp.frontEnd.domain;
+package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
 import java.io.Serializable;
 

@@ -11,10 +11,8 @@ import android.widget.TextView;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Date;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

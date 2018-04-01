@@ -1,7 +1,6 @@
 package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.Date;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
 
 import java.io.Serializable;
 
@@ -21,7 +20,7 @@ public class Showing implements Serializable {
         this.showingId = 0;
         this.hallInstance = new HallInstance();
         this.movie = null;
-        this.date = null;
+        this.date = new Date();
 
     }
 

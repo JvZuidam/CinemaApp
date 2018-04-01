@@ -23,6 +23,12 @@ public class SeatRow implements Serializable {
 
     }
 
+    public int amountOfSeats() {
+
+        return seats.size();
+
+    }
+
     // SETTERS
     public void setHall(Hall hall) {
         this.hall = hall;

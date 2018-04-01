@@ -7,16 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Ticket;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Ticket;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRowInstance;
-import com.cinema.avans.cinemaapp.frontEnd.domain.login.LogIn;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.Manager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 
@@ -27,168 +26,6 @@ import java.util.ArrayList;
  */
 
 public class DatabaseManager extends SQLiteOpenHelper {
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // DATABASE NAMES
-    //////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Database name
-    private static final String DATABASE_NAME = "Cinema";
-
-    // Database version
-    private static final int DATABASE_VERSION = 1;
-
-    // Hall Table
-    private static final String TABLE_HALL = "Hall";
-    // -------------------------------------------------------------------------------------------
-    private static final String HALL_COLUMN_HALL_ID = "HallId"; //PK
-
-    // SeatRowInstance table
-    private static final String TABLE_SEAT_ROW = "SeatRow";
-    // -------------------------------------------------------------------------------------------
-    private static final String SEAT_ROW_COLUMN_ROW_ID = "RowId"; //PK
-    private static final String SEAT_ROW_COLUMN_HALL_ID = "HallId"; // Hall this seat row is part off
-    private static final String SEAT_ROW_COLUMN_ROW_NR = "RowNr"; // Row number in hall
-
-    // SeatInstance table
-    private static final String TABLE_SEAT = "Seat";
-    // -------------------------------------------------------------------------------------------
-    private static final String SEAT_COLUMN_SEAT_ID = "SeatId"; //PK
-    private static final String SEAT_COLUMN_ROW_ID = "RowId"; // Row this seat is part of (also stores which hall!)
-    private static final String SEAT_COLUMN_SEAT_NR = "SeatNr"; // SeatInstance number in row
-    private static final String SEAT_COLUMN_SEAT_VALUE = "SeatValue"; // Value BAD, MODERATE, OK, GOOD, PERFECT
-
-    // HallInstance table
-    private static final String TABLE_HALL_INSTANCE = "HallInstance";
-    // -------------------------------------------------------------------------------------------
-    private static final String HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID = "HallInstanceId"; //PK
-    private static final String HALL_INSTANCE_COLUMN_HALL_ID = "HallId"; // Hall this instance originated from
-
-    // SeatRowInstance instance table
-    private static final String TABLE_SEAT_ROW_INSTANCE = "SeatRowInstance";
-    // -------------------------------------------------------------------------------------------
-    private static final String SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID = "RowInstanceId"; //PK
-    private static final String SEAT_ROW_INSTANCE_COLUMN_ROW_ID = "RowId"; // Row this instance originated from
-    private static final String SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID = "HallInstanceId"; // HallInstance this row instance is part off
-
-    // SeatInstanceTable
-    private static final String TABLE_SEAT_INSTANCE = "SeatInstance";
-    // -------------------------------------------------------------------------------------------
-    private static final String SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID = "SeatInstanceId"; //PK
-    private static final String SEAT_INSTANCE_COLUMN_SEAT_ID = "SeatId"; // SeatInstance this instance originated from
-    private static final String SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID = "SeatRowInstanceId";
-    private static final String SEAT_INSTANCE_COLUMN_STATUS = "Status"; // Status, RESERVED, AVAILABLE, GAP(no seat, just room)
-
-    // Movie table
-    private static final String TABLE_MOVIE = "Movie";
-    // -------------------------------------------------------------------------------------------
-    private static final String MOVIE_COLUMN_MOVIE_ID = "MovieId";
-    private static final String MOVIE_COLUMN_TITLE = "Title";
-    private static final String MOVIE_COLUMN_DESCRIPTION = "Description";
-    private static final String MOVIE_COLUMN_IMAGE_URL = "ImageUr";
-
-    // Showing table
-    private static final String TABLE_SHOWING = "Showing";
-    // -------------------------------------------------------------------------------------------
-    private static final String SHOWING_COLUMN_SHOWING_ID = "ShowingId"; // PK
-    private static final String SHOWING_COLUMN_HALL_INSTANCE_ID = "HallId"; // Hall this showing is in
-    private static final String SHOWING_COLUMN_MOVIE_ID = "MovieId"; // Movie this showing shows
-    private static final String SHOWING_COLUMN_DATE = "Date"; // Date of the showing
-
-    // Ticket table
-    private static final String TABLE_TICKET = "Ticket";
-    // -------------------------------------------------------------------------------------------
-    private static final String TICKET_COLUMN_TICKET_ID = "TicketId";
-    private static final String TICKET_COLUMN_SHOWING_ID = "ShowingId";
-    private static final String TICKET_COLUMN_SEAT_INSTANCE_ID = "SeatInstance";
-
-    // LogIn table
-    private static final String TABLE_LOG_IN = "LogIn";
-    // -------------------------------------------------------------------------------------------
-    private static final String LOG_IN_COLUMN_USERNAME = "Username";
-    private static final String LOG_IN_COLUMN_PASSWORD = "Password";
-
-    // User table
-    private static final String TABLE_USER = "User";
-    // -------------------------------------------------------------------------------------------
-    private static final String USER_COLUMN_USERNAME = "Username";
-
-    // Manager table
-    private static final String TABLE_MANAGER = "Manager";
-    // -------------------------------------------------------------------------------------------
-    private static final String MANAGER_COLUMN_USERNAME = "Username";
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // CREATE QUERIES
-    //////////////////////////////////////////////////////////////////////////////////////////////
-
-    private final String CREATE_TABLE_HALL =
-            "CREATE TABLE " + TABLE_HALL + " (" + "\n"
-                    + HALL_COLUMN_HALL_ID + " INTEGER PRIMARY KEY" + ");";
-
-    private final String CREATE_TABLE_SEAT_ROW =
-            "CREATE TABLE " + TABLE_SEAT_ROW + " (" + "\n"
-                    + SEAT_ROW_COLUMN_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-                    + SEAT_ROW_COLUMN_HALL_ID + " INTEGER," + "\n"
-                    + SEAT_ROW_COLUMN_ROW_NR + " INTEGER" + ");";
-
-    private final String CREATE_TABLE_SEAT =
-            "CREATE TABLE " + TABLE_SEAT + " (" + "\n"
-                    + SEAT_COLUMN_SEAT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-                    + SEAT_COLUMN_ROW_ID + " INTEGER," + "\n"
-                    + SEAT_COLUMN_SEAT_NR + " INTEGER," + "\n"
-                    + SEAT_COLUMN_SEAT_VALUE + " INTEGER" + ");";
-
-    private final String CREATE_TABLE_HALL_INSTANCE =
-            "CREATE TABLE " + TABLE_HALL_INSTANCE + " (" + "\n"
-                    + HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-                    + HALL_INSTANCE_COLUMN_HALL_ID + " INTEGER" + ");";
-
-    private final String CREATE_TABLE_SEAT_ROW_INSTANCE =
-            "CREATE TABLE " + TABLE_SEAT_ROW_INSTANCE + " (" + "\n"
-                    + SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-                    + SEAT_ROW_INSTANCE_COLUMN_ROW_ID + " INTEGER," + "\n"
-                    + SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID + " INTEGER" + ");";
-
-    private final String CREATE_TABLE_SEAT_INSTANCE =
-            "CREATE TABLE " + TABLE_SEAT_INSTANCE + " (" + "\n"
-                    + SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-                    + SEAT_INSTANCE_COLUMN_SEAT_ID + " INTEGER," + "\n"
-                    + SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID + " INTEGER," + "\n"
-                    + SEAT_INSTANCE_COLUMN_STATUS + " INTEGER" + ");";
-
-    private final String CREATE_TABLE_MOVIE =
-            "CREATE TABLE " + TABLE_MOVIE + " (" + "\n"
-                    + MOVIE_COLUMN_MOVIE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-                    + MOVIE_COLUMN_TITLE + " TEXT," + "\n"
-                    + MOVIE_COLUMN_DESCRIPTION + " TEXT," + "\n"
-                    + MOVIE_COLUMN_IMAGE_URL + " TEXT" + ");";
-
-    private final String CREATE_TABLE_SHOWING =
-            "CREATE TABLE " + TABLE_SHOWING + " (" + "\n"
-            + SHOWING_COLUMN_SHOWING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-            + SHOWING_COLUMN_HALL_INSTANCE_ID + " INTEGER," + "\n"
-            + SHOWING_COLUMN_MOVIE_ID + " INTEGER," + "\n"
-            + SHOWING_COLUMN_DATE + " TEXT" + ");"; // YYYY-MM-DD-HH-MM
-
-    private static final String CREATE_TABLE_TICKET =
-            "CREATE TABLE " + TABLE_TICKET + " (" + "\n"
-                    + TICKET_COLUMN_TICKET_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-                    + TICKET_COLUMN_SHOWING_ID + " INTEGER," + "\n"
-                    + TICKET_COLUMN_SEAT_INSTANCE_ID + " INTEGER" + ");";
-
-    private static final String CREATE_TABLE_LOG_IN =
-            "CREATE TABLE " + TABLE_LOG_IN + " (" + "\n"
-                    + LOG_IN_COLUMN_USERNAME + " TEXT PRIMARY KEY," + "\n"
-                    + LOG_IN_COLUMN_PASSWORD + " TEXT" + ")";
-
-    private static final String CREATE_TABLE_USER =
-            "CREATE TABLE " + TABLE_USER + " (" + "\n"
-                    + USER_COLUMN_USERNAME + " TEXT PRIMARY KEY" + ")";
-
-    private static final String CREATE_TABLE_MANAGER =
-            "CREATE TABLE " + TABLE_MANAGER + " (" + "\n"
-                    + MANAGER_COLUMN_USERNAME + " TEXT PRIMARY KEY" + ")";
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // Methods
@@ -205,26 +42,37 @@ public class DatabaseManager extends SQLiteOpenHelper {
         // Creating tables
         sqLiteDatabase.execSQL(CREATE_TABLE_HALL); // Create
         Log.i("Database", CREATE_TABLE_HALL); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_SEAT_ROW); // Create
         Log.i("Database", CREATE_TABLE_SEAT_ROW); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_SEAT); // Create
         Log.i("Database", CREATE_TABLE_SEAT); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_HALL_INSTANCE); // Create
         Log.i("Database", CREATE_TABLE_HALL_INSTANCE); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_SEAT_ROW_INSTANCE); // Create
         Log.i("Database", CREATE_TABLE_SEAT_ROW_INSTANCE); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_SEAT_INSTANCE); // Create
         Log.i("Database", CREATE_TABLE_SEAT_INSTANCE); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_MOVIE); // Create
         Log.i("Database", CREATE_TABLE_MOVIE); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_SHOWING); // Create
         Log.i("Database", CREATE_TABLE_SHOWING); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_TICKET); // Create
         Log.i("Database", CREATE_TABLE_TICKET); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_LOG_IN); // Create
         Log.i("Database", CREATE_TABLE_LOG_IN); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_USER); // Create
         Log.i("Database", CREATE_TABLE_USER); // Print
+
         sqLiteDatabase.execSQL(CREATE_TABLE_MANAGER); // Create
         Log.i("Database", CREATE_TABLE_MANAGER); // Print
 
@@ -241,7 +89,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_SEAT_ROW_INSTANCE);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_SEAT_INSTANCE);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVIE);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_MANAGER);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_LOG_IN);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_SHOWING);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TICKET);
 
         // create new tables
         onCreate(sqLiteDatabase);
@@ -283,6 +135,38 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return null;
 
     }
+    public ArrayList<Hall> getAllHalls() {
+
+        ArrayList<Hall> halls = new ArrayList<>();
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String query =
+                "SELECT *" + "\n"
+                + "FROM " + TABLE_HALL;
+
+        Log.i("Database", query);
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+
+            if (!cursor.isAfterLast()) {
+
+                Hall hall = new Hall();
+
+                hall.setHallId(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_ID)));
+                hall.setSeatRows(getSeatRows(hall.getHallId()));
+
+                halls.add(hall);
+
+            }
+
+        }
+
+        return halls;
+
+    }
 
     public void createSeatRow(SeatRow seatRow) {
 
@@ -313,7 +197,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
 
-            while (!cursor.isLast()) {
+            while (!cursor.isAfterLast()) {
 
                 SeatRow seatRow = new SeatRow();
                 seatRow.setHall(getHall(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_HALL_ID))));
@@ -331,7 +215,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return seatRows;
 
     }
-    public int getSeatRow(int rowId) {
+    public SeatRow getSeatRow(int rowId) {
 
         SQLiteDatabase database = getReadableDatabase();
 
@@ -351,11 +235,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
             seatRow.setRowId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_ID)));
             seatRow.setRowNr(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_NR)));
 
-            return seatRow.getRowNr();
+            return seatRow;
 
         }
 
-        return 0;
+        return null;
 
     }
 
@@ -388,7 +272,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
 
-            while (!cursor.isLast()) {
+            while (!cursor.isAfterLast()) {
 
                 Seat seat = new Seat();
                 seat.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_ID)));
@@ -402,6 +286,37 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
 
         return seats;
+
+    }
+    public Seat getSeat(int seatId) {
+
+        Seat seat = new Seat();
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String query =
+                "SELECT *" + "\n"
+                + "FROM " + TABLE_SEAT + "\n"
+                + "WHERE " + SEAT_COLUMN_SEAT_ID + " = " + seatId;
+
+        Log.i("Database", query);
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+
+            while (!cursor.isLast()) {
+
+                seat.setSeatNr(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_NR)));
+                seat.setValue(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_VALUE)));
+                seat.setSeatRow(getSeatRow(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_ROW_ID))));
+                seat.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_ID)));
+
+            }
+
+        }
+
+        return seat;
 
     }
 
@@ -450,7 +365,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID, seatRowInstance.getHallInstance().getHallInstanceId());
-        values.put(SEAT_ROW_INSTANCE_COLUMN_ROW_ID, seatRowInstance.getSeatRowId());
+        values.put(SEAT_ROW_INSTANCE_COLUMN_ROW_ID, seatRowInstance.getSeatRow().getRowId());
 
         database.insert(TABLE_SEAT_ROW_INSTANCE, null, values);
 
@@ -472,11 +387,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
 
-            while (!cursor.isLast()) {
+            while (!cursor.isAfterLast()) {
 
                 SeatRowInstance seatRowInstance = new SeatRowInstance();
                 seatRowInstance.setSeatRowInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID)));
-                seatRowInstance.setSeatRowId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_INSTANCE_COLUMN_ROW_ID)));
+                seatRowInstance.setSeatRow(getSeatRow(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_INSTANCE_COLUMN_ROW_ID))));
 
                 seatRowInstances.add(seatRowInstance);
 
@@ -495,7 +410,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(SEAT_INSTANCE_COLUMN_SEAT_ID, seatInstance.getSeatId());
+        values.put(SEAT_INSTANCE_COLUMN_SEAT_ID, seatInstance.getSeat().getSeatId());
         values.put(SEAT_INSTANCE_COLUMN_STATUS, seatInstance.getStatusInt()); // 1 = Available, 2 = Reserved, 3 = Gap
         values.put(SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID, seatInstance.getSeatInstanceId());
 
@@ -519,11 +434,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
 
-            while (!cursor.isLast()) {
+            while (!cursor.isAfterLast()) {
 
                 SeatInstance seatInstance = new SeatInstance();
                 seatInstance.setStatus(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_STATUS)));
-                seatInstance.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID)));
+                seatInstance.setSeat(getSeat(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID))));
                 seatInstance.setSeatInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID)));
 
                 seatInstances.add(seatInstance);
@@ -556,7 +471,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
             SeatInstance seatInstance = new SeatInstance();
             seatInstance.setStatus(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_STATUS)));
-            seatInstance.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID)));
+            seatInstance.setSeat(getSeat(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID))));
             seatInstance.setSeatInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID)));
 
             return seatInstance;
@@ -627,7 +542,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
 
-            while (!cursor.isLast()) {
+            while (!cursor.isAfterLast()) {
 
                 Movie movie = new Movie();
                 movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
@@ -676,7 +591,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
 
-            while (!cursor.isLast()) {
+            while (!cursor.isAfterLast()) {
 
                 Showing showing = new Showing();
                 showing.setDate(cursor.getString(cursor.getColumnIndex(SHOWING_COLUMN_DATE)));
@@ -896,5 +811,167 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return manager;
 
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // DATABASE NAMES
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Database name
+    private static final String DATABASE_NAME = "Cinema";
+
+    // Database version
+    private static final int DATABASE_VERSION = 1;
+
+    // Hall Table
+    private static final String TABLE_HALL = "Hall";
+    // -------------------------------------------------------------------------------------------
+    private static final String HALL_COLUMN_HALL_ID = "HallId"; //PK
+
+    // SeatRowInstance table
+    private static final String TABLE_SEAT_ROW = "SeatRow";
+    // -------------------------------------------------------------------------------------------
+    private static final String SEAT_ROW_COLUMN_ROW_ID = "RowId"; //PK
+    private static final String SEAT_ROW_COLUMN_HALL_ID = "HallId"; // Hall this seat row is part off
+    private static final String SEAT_ROW_COLUMN_ROW_NR = "RowNr"; // Row number in hall
+
+    // SeatInstance table
+    private static final String TABLE_SEAT = "Seat";
+    // -------------------------------------------------------------------------------------------
+    private static final String SEAT_COLUMN_SEAT_ID = "SeatId"; //PK
+    private static final String SEAT_COLUMN_ROW_ID = "RowId"; // Row this seat is part of (also stores which hall!)
+    private static final String SEAT_COLUMN_SEAT_NR = "SeatNr"; // SeatInstance number in row
+    private static final String SEAT_COLUMN_SEAT_VALUE = "SeatValue"; // Value BAD, MODERATE, OK, GOOD, PERFECT
+
+    // HallInstance table
+    private static final String TABLE_HALL_INSTANCE = "HallInstance";
+    // -------------------------------------------------------------------------------------------
+    private static final String HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID = "HallInstanceId"; //PK
+    private static final String HALL_INSTANCE_COLUMN_HALL_ID = "HallId"; // Hall this instance originated from
+
+    // SeatRowInstance instance table
+    private static final String TABLE_SEAT_ROW_INSTANCE = "SeatRowInstance";
+    // -------------------------------------------------------------------------------------------
+    private static final String SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID = "RowInstanceId"; //PK
+    private static final String SEAT_ROW_INSTANCE_COLUMN_ROW_ID = "RowId"; // Row this instance originated from
+    private static final String SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID = "HallInstanceId"; // HallInstance this row instance is part off
+
+    // SeatInstanceTable
+    private static final String TABLE_SEAT_INSTANCE = "SeatInstance";
+    // -------------------------------------------------------------------------------------------
+    private static final String SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID = "SeatInstanceId"; //PK
+    private static final String SEAT_INSTANCE_COLUMN_SEAT_ID = "SeatId"; // SeatInstance this instance originated from
+    private static final String SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID = "SeatRowInstanceId";
+    private static final String SEAT_INSTANCE_COLUMN_STATUS = "Status"; // Status, RESERVED, AVAILABLE, GAP(no seat, just room)
+
+    // Movie table
+    private static final String TABLE_MOVIE = "Movie";
+    // -------------------------------------------------------------------------------------------
+    private static final String MOVIE_COLUMN_MOVIE_ID = "MovieId";
+    private static final String MOVIE_COLUMN_TITLE = "Title";
+    private static final String MOVIE_COLUMN_DESCRIPTION = "Description";
+    private static final String MOVIE_COLUMN_IMAGE_URL = "ImageUr";
+
+    // Showing table
+    private static final String TABLE_SHOWING = "Showing";
+    // -------------------------------------------------------------------------------------------
+    private static final String SHOWING_COLUMN_SHOWING_ID = "ShowingId"; // PK
+    private static final String SHOWING_COLUMN_HALL_INSTANCE_ID = "HallId"; // Hall this showing is in
+    private static final String SHOWING_COLUMN_MOVIE_ID = "MovieId"; // Movie this showing shows
+    private static final String SHOWING_COLUMN_DATE = "Date"; // Date of the showing
+
+    // Ticket table
+    private static final String TABLE_TICKET = "Ticket";
+    // -------------------------------------------------------------------------------------------
+    private static final String TICKET_COLUMN_TICKET_ID = "TicketId";
+    private static final String TICKET_COLUMN_SHOWING_ID = "ShowingId";
+    private static final String TICKET_COLUMN_SEAT_INSTANCE_ID = "SeatInstance";
+
+    // LogIn table
+    private static final String TABLE_LOG_IN = "LogIn";
+    // -------------------------------------------------------------------------------------------
+    private static final String LOG_IN_COLUMN_USERNAME = "Username";
+    private static final String LOG_IN_COLUMN_PASSWORD = "Password";
+
+    // User table
+    private static final String TABLE_USER = "User";
+    // -------------------------------------------------------------------------------------------
+    private static final String USER_COLUMN_USERNAME = "Username";
+
+    // Manager table
+    private static final String TABLE_MANAGER = "Manager";
+    // -------------------------------------------------------------------------------------------
+    private static final String MANAGER_COLUMN_USERNAME = "Username";
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // CREATE QUERIES
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    private final String CREATE_TABLE_HALL =
+            "CREATE TABLE " + TABLE_HALL + " (" + "\n"
+                    + HALL_COLUMN_HALL_ID + " INTEGER PRIMARY KEY" + ");";
+
+    private final String CREATE_TABLE_SEAT_ROW =
+            "CREATE TABLE " + TABLE_SEAT_ROW + " (" + "\n"
+                    + SEAT_ROW_COLUMN_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + SEAT_ROW_COLUMN_HALL_ID + " INTEGER," + "\n"
+                    + SEAT_ROW_COLUMN_ROW_NR + " INTEGER" + ");";
+
+    private final String CREATE_TABLE_SEAT =
+            "CREATE TABLE " + TABLE_SEAT + " (" + "\n"
+                    + SEAT_COLUMN_SEAT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + SEAT_COLUMN_ROW_ID + " INTEGER," + "\n"
+                    + SEAT_COLUMN_SEAT_NR + " INTEGER," + "\n"
+                    + SEAT_COLUMN_SEAT_VALUE + " INTEGER" + ");";
+
+    private final String CREATE_TABLE_HALL_INSTANCE =
+            "CREATE TABLE " + TABLE_HALL_INSTANCE + " (" + "\n"
+                    + HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + HALL_INSTANCE_COLUMN_HALL_ID + " INTEGER" + ");";
+
+    private final String CREATE_TABLE_SEAT_ROW_INSTANCE =
+            "CREATE TABLE " + TABLE_SEAT_ROW_INSTANCE + " (" + "\n"
+                    + SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + SEAT_ROW_INSTANCE_COLUMN_ROW_ID + " INTEGER," + "\n"
+                    + SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID + " INTEGER" + ");";
+
+    private final String CREATE_TABLE_SEAT_INSTANCE =
+            "CREATE TABLE " + TABLE_SEAT_INSTANCE + " (" + "\n"
+                    + SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + SEAT_INSTANCE_COLUMN_SEAT_ID + " INTEGER," + "\n"
+                    + SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID + " INTEGER," + "\n"
+                    + SEAT_INSTANCE_COLUMN_STATUS + " INTEGER" + ");";
+
+    private final String CREATE_TABLE_MOVIE =
+            "CREATE TABLE " + TABLE_MOVIE + " (" + "\n"
+                    + MOVIE_COLUMN_MOVIE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + MOVIE_COLUMN_TITLE + " TEXT," + "\n"
+                    + MOVIE_COLUMN_DESCRIPTION + " TEXT," + "\n"
+                    + MOVIE_COLUMN_IMAGE_URL + " TEXT" + ");";
+
+    private final String CREATE_TABLE_SHOWING =
+            "CREATE TABLE " + TABLE_SHOWING + " (" + "\n"
+                    + SHOWING_COLUMN_SHOWING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + SHOWING_COLUMN_HALL_INSTANCE_ID + " INTEGER," + "\n"
+                    + SHOWING_COLUMN_MOVIE_ID + " INTEGER," + "\n"
+                    + SHOWING_COLUMN_DATE + " TEXT" + ");"; // YYYY-MM-DD-HH-MM
+
+    private static final String CREATE_TABLE_TICKET =
+            "CREATE TABLE " + TABLE_TICKET + " (" + "\n"
+                    + TICKET_COLUMN_TICKET_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + TICKET_COLUMN_SHOWING_ID + " INTEGER," + "\n"
+                    + TICKET_COLUMN_SEAT_INSTANCE_ID + " INTEGER" + ");";
+
+    private static final String CREATE_TABLE_LOG_IN =
+            "CREATE TABLE " + TABLE_LOG_IN + " (" + "\n"
+                    + LOG_IN_COLUMN_USERNAME + " TEXT PRIMARY KEY," + "\n"
+                    + LOG_IN_COLUMN_PASSWORD + " TEXT" + ")";
+
+    private static final String CREATE_TABLE_USER =
+            "CREATE TABLE " + TABLE_USER + " (" + "\n"
+                    + USER_COLUMN_USERNAME + " TEXT PRIMARY KEY" + ")";
+
+    private static final String CREATE_TABLE_MANAGER =
+            "CREATE TABLE " + TABLE_MANAGER + " (" + "\n"
+                    + MANAGER_COLUMN_USERNAME + " TEXT PRIMARY KEY" + ")";
 
 }

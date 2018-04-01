@@ -1,9 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.connections.MovieApiManager;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 
 import java.util.ArrayList;
 

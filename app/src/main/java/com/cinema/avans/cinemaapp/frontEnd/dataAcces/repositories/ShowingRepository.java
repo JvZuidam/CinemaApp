@@ -1,8 +1,9 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import android.util.Log;
+
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Ticket;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class ShowingRepository {
 
     public void createShowing(Showing showing) {
 
+        Log.i("ShowingRepository", "Adding showing: MovieTitle: " + showing.getMovie().getTitle());
         databaseManager.createShowing(showing);
 
     }

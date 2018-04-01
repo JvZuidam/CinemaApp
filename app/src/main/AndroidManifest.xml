@@ -28,6 +28,8 @@
         <activity android:name=".frontEnd.presentation.manager.ManagerHubActivity"></activity>
         <activity android:name=".frontEnd.presentation.user.Paymentactivity"></activity>
         <activity android:name=".frontEnd.presentation.UserDetailedActivity"></activity>
+        <activity android:name=".frontEnd.presentation.manager.CreateShowingSelectMovieActivity"></activity>
+        <activity android:name=".frontEnd.presentation.manager.CreateShowingSelectHallActivity"></activity>
     </application>
 
 </manifest>

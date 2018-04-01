@@ -14,6 +14,10 @@ import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.ManagerRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.UserRepository;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatValue;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.Manager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInActivity;
@@ -21,6 +25,8 @@ import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInManager;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.user.MovieListActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.manager.ManagerHubActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.register.RegisterActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LogInActivity {
 
@@ -56,15 +62,42 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
 
         Log.i("LogInActivity", "Inserting fake backend data into database");
 
+        RepositoryFactory repositoryFactory = new RepositoryFactory(getApplicationContext());
+
         // Backend data
         Manager manager = new Manager();
         manager.setUserId("Manager");
         manager.setPassword("12345");
-        new ManagerRepository(new DatabaseManager(getApplicationContext(), "Cinema", null, 1)).createManager(manager);
+        repositoryFactory.getManagerRepository().createManager(manager);
         User user = new User();
         user.setUserId("User");
         user.setPassword("12345");
-        new UserRepository(new DatabaseManager(getApplicationContext(), "Cinema", null, 1)).createUser(user);
+        repositoryFactory.getUserRepository().createUser(user);
+
+        Hall hall = new Hall();
+        hall.setHallId(1);
+        ArrayList<SeatRow> seatRows = new ArrayList<>();
+        for (int i = 0; i <= 10; i++) {
+
+            SeatRow seatRow = new SeatRow();
+            seatRow.setRowNr(i + 1);
+            seatRow.setHall(hall);
+            ArrayList<Seat> seats = new ArrayList<>();
+            for (int j = 0; j <= 12; j++ ) {
+
+                Seat seat = new Seat();
+                seat.setSeatRow(seatRow);
+                seat.setSeatValue(SeatValue.OK);
+                seat.setSeatNr(j + 1);
+                seats.add(seat);
+
+            }
+            seatRow.setSeats(seats);
+
+        }
+
+        repositoryFactory.getHallRepository().createEntireHall(hall);
+
 
     }
 

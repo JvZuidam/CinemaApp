@@ -81,7 +81,6 @@ public class SeatSelector implements Serializable {
 
         // Create seatRowInstance
         SeatRowInstance seatRowInstance = new SeatRowInstance();
-        seatRowInstance.setRowNr(number);
         seatRowInstance.setHallInstance(hallInstance);
 
         // List with seatInstances
@@ -116,7 +115,6 @@ public class SeatSelector implements Serializable {
     private SeatInstance createSeat(int number, SeatStatus status, SeatRowInstance seatRowInstance) {
 
         SeatInstance seatInstance = new SeatInstance();
-        seatInstance.setNr(number);
         seatInstance.setSeatRowInstance(seatRowInstance);
         seatInstance.setStatus(status);
 

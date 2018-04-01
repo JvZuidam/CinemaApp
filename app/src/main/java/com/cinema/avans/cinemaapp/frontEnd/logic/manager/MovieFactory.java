@@ -2,7 +2,7 @@ package com.cinema.avans.cinemaapp.frontEnd.logic.manager;
 
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.connections.MovieApiManager;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Movie;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 
 /**
  * Created by JanBelterman on 31 March 2018

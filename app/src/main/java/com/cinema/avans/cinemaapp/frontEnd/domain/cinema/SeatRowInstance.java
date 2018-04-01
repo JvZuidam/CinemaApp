@@ -11,16 +11,14 @@ public class SeatRowInstance implements Serializable {
 
     private HallInstance hallInstance; // Done
     private int seatRowInstanceId; // Done
-    private int seatRowId; // Done
-    private int rowNr; // Done
+    private SeatRow seatRow; // Done
     private ArrayList<SeatInstance> seatInstances; // Done
 
     public SeatRowInstance() {
 
         this.hallInstance = null;
         this.seatRowInstanceId = 0;
-        this.seatRowId = 0;
-        this.rowNr = 0;
+        this.seatRow = null;
         this.seatInstances = new ArrayList<>();
 
     }
@@ -75,11 +73,9 @@ public class SeatRowInstance implements Serializable {
     public void setSeatRowInstanceId(int seatRowInstanceId) {
         this.seatRowInstanceId = seatRowInstanceId;
     }
-    public void setSeatRowId(int seatRowId) {
-        this.seatRowId = seatRowId;
-    }
-    public void setRowNr(int rowNr) {
-        this.rowNr = rowNr;
+    public void setSeatRow(SeatRow seatRow) {
+        this.seatRow = seatRow;
+
     }
     public void setSeatInstances(ArrayList<SeatInstance> seatInstances) {
         this.seatInstances = seatInstances;
@@ -92,14 +88,11 @@ public class SeatRowInstance implements Serializable {
     public int getSeatRowInstanceId() {
         return seatRowInstanceId;
     }
-    public int getSeatRowId() {
-        return seatRowId;
+    public SeatRow getSeatRow() {
+        return seatRow;
     }
     public ArrayList<SeatInstance> getSeatInstances() {
         return this.seatInstances;
-    }
-    public int getRowNr() {
-        return rowNr;
     }
 
 }
