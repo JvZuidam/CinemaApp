@@ -128,9 +128,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
             Hall hall = new Hall();
             hall.setHallId(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_ID)));
 
+            cursor.close();
+
             return hall;
 
         }
+
+        cursor.close();
 
         return null;
 
@@ -163,6 +167,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
             }
 
         }
+
+        cursor.close();
 
         return halls;
 
@@ -212,10 +218,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         }
 
+        cursor.close();
+
         return seatRows;
 
     }
-    public SeatRow getSeatRow(int rowId) {
+    private SeatRow getSeatRow(int rowId) {
 
         SQLiteDatabase database = getReadableDatabase();
 
@@ -235,9 +243,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
             seatRow.setRowId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_ID)));
             seatRow.setRowNr(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_NR)));
 
+            cursor.close();
+
             return seatRow;
 
         }
+
+        cursor.close();
 
         return null;
 
@@ -285,12 +297,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         }
 
+        cursor.close();
+
         return seats;
 
     }
-    public Seat getSeat(int seatId) {
-
-        Seat seat = new Seat();
+    private Seat getSeat(int seatId) {
 
         SQLiteDatabase database = getReadableDatabase();
 
@@ -303,18 +315,19 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         Cursor cursor = database.rawQuery(query, null);
 
+        Seat seat = new Seat();
+
         if (cursor.moveToFirst()) {
 
-            while (!cursor.isLast()) {
+            seat.setSeatNr(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_NR)));
+            seat.setValue(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_VALUE)));
+            seat.setSeatRow(getSeatRow(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_ROW_ID))));
+            seat.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_ID)));
 
-                seat.setSeatNr(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_NR)));
-                seat.setValue(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_VALUE)));
-                seat.setSeatRow(getSeatRow(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_ROW_ID))));
-                seat.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_ID)));
-
-            }
 
         }
+
+        cursor.close();
 
         return seat;
 
@@ -351,9 +364,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
             hallInstance.setHallInstanceId(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID)));
             hallInstance.setHallId(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_ID)));
 
+            cursor.close();
+
             return hallInstance;
 
         }
+
+        cursor.close();
 
         return null;
 
@@ -400,6 +417,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
             }
 
         }
+
+        cursor.close();
 
         return seatRowInstances;
 
@@ -449,10 +468,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         }
 
+        cursor.close();
+
         return seatInstances;
 
     }
-    public SeatInstance getSeatInstance(int seatInstanceId) {
+    private SeatInstance getSeatInstance(int seatInstanceId) {
 
         SQLiteDatabase database = getReadableDatabase();
 
@@ -474,9 +495,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
             seatInstance.setSeat(getSeat(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID))));
             seatInstance.setSeatInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID)));
 
+            cursor.close();
+
             return seatInstance;
 
         }
+
+        cursor.close();
 
         return null;
 
@@ -519,9 +544,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
             movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
             movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
 
+            cursor.close();
+
             return movie;
 
         }
+
+        cursor.close();
 
         return null;
 
@@ -557,6 +586,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
             }
 
         }
+
+        cursor.close();
 
         return movies;
 
@@ -605,10 +636,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         }
 
+        cursor.close();
+
         return showings;
 
     }
-    public Showing getShowing(int showingId) {
+    private Showing getShowing(int showingId) {
 
         SQLiteDatabase database = getReadableDatabase();
 
@@ -629,9 +662,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
             showing.setDate(cursor.getString(cursor.getColumnIndex(SHOWING_COLUMN_DATE)));
             showing.setShowingId(cursor.getInt(cursor.getColumnIndex(SHOWING_COLUMN_SHOWING_ID)));
 
+            cursor.close();
+
             return showing;
 
         }
+
+        cursor.close();
 
         return null;
 
@@ -673,6 +710,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
             return ticket;
 
         }
+
+        cursor.close();
 
         return null;
 
@@ -725,6 +764,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         }
 
+        userCursor.close();
+
         // Look up the rest of the user values from logIn table
         String logInQuery =
                 "SELECT *" + "\n"
@@ -743,6 +784,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
             user.setPassword(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_PASSWORD)));
 
         }
+
+        logInCursor.close();
 
         return user;
 
@@ -790,6 +833,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         }
 
+        managerCursor.close();
+
         String logInQuery =
                 "SELECT *" + "\n"
                         + "FROM " + TABLE_LOG_IN + "\n"
@@ -807,6 +852,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
             manager.setPassword(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_PASSWORD)));
 
         }
+
+        logInCursor.close();
 
         return manager;
 
@@ -906,49 +953,49 @@ public class DatabaseManager extends SQLiteOpenHelper {
     // CREATE QUERIES
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    private final String CREATE_TABLE_HALL =
+    private static final String CREATE_TABLE_HALL =
             "CREATE TABLE " + TABLE_HALL + " (" + "\n"
                     + HALL_COLUMN_HALL_ID + " INTEGER PRIMARY KEY" + ");";
 
-    private final String CREATE_TABLE_SEAT_ROW =
+    private static final String CREATE_TABLE_SEAT_ROW =
             "CREATE TABLE " + TABLE_SEAT_ROW + " (" + "\n"
                     + SEAT_ROW_COLUMN_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
                     + SEAT_ROW_COLUMN_HALL_ID + " INTEGER," + "\n"
                     + SEAT_ROW_COLUMN_ROW_NR + " INTEGER" + ");";
 
-    private final String CREATE_TABLE_SEAT =
+    private static final String CREATE_TABLE_SEAT =
             "CREATE TABLE " + TABLE_SEAT + " (" + "\n"
                     + SEAT_COLUMN_SEAT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
                     + SEAT_COLUMN_ROW_ID + " INTEGER," + "\n"
                     + SEAT_COLUMN_SEAT_NR + " INTEGER," + "\n"
                     + SEAT_COLUMN_SEAT_VALUE + " INTEGER" + ");";
 
-    private final String CREATE_TABLE_HALL_INSTANCE =
+    private static final String CREATE_TABLE_HALL_INSTANCE =
             "CREATE TABLE " + TABLE_HALL_INSTANCE + " (" + "\n"
                     + HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
                     + HALL_INSTANCE_COLUMN_HALL_ID + " INTEGER" + ");";
 
-    private final String CREATE_TABLE_SEAT_ROW_INSTANCE =
+    private static final String CREATE_TABLE_SEAT_ROW_INSTANCE =
             "CREATE TABLE " + TABLE_SEAT_ROW_INSTANCE + " (" + "\n"
                     + SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
                     + SEAT_ROW_INSTANCE_COLUMN_ROW_ID + " INTEGER," + "\n"
                     + SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID + " INTEGER" + ");";
 
-    private final String CREATE_TABLE_SEAT_INSTANCE =
+    private static final String CREATE_TABLE_SEAT_INSTANCE =
             "CREATE TABLE " + TABLE_SEAT_INSTANCE + " (" + "\n"
                     + SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
                     + SEAT_INSTANCE_COLUMN_SEAT_ID + " INTEGER," + "\n"
                     + SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID + " INTEGER," + "\n"
                     + SEAT_INSTANCE_COLUMN_STATUS + " INTEGER" + ");";
 
-    private final String CREATE_TABLE_MOVIE =
+    private static final String CREATE_TABLE_MOVIE =
             "CREATE TABLE " + TABLE_MOVIE + " (" + "\n"
                     + MOVIE_COLUMN_MOVIE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
                     + MOVIE_COLUMN_TITLE + " TEXT," + "\n"
                     + MOVIE_COLUMN_DESCRIPTION + " TEXT," + "\n"
                     + MOVIE_COLUMN_IMAGE_URL + " TEXT" + ");";
 
-    private final String CREATE_TABLE_SHOWING =
+    private static final String CREATE_TABLE_SHOWING =
             "CREATE TABLE " + TABLE_SHOWING + " (" + "\n"
                     + SHOWING_COLUMN_SHOWING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
                     + SHOWING_COLUMN_HALL_INSTANCE_ID + " INTEGER," + "\n"
