@@ -1,5 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import android.util.Log;
+
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 
@@ -19,6 +21,7 @@ public class UserRepository {
 
     public void createUser(User user) {
 
+        Log.i("UserRepository", "Creating user:" + "\n" + user);
         databaseManager.createUser(user);
 
     }

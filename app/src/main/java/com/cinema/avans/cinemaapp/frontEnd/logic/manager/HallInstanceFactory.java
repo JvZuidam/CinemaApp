@@ -29,7 +29,7 @@ public class HallInstanceFactory {
             seatRowInstances.add(createSeatRowInstance(seatRow));
 
         }
-        hallInstance.setRows(seatRowInstances);
+        hallInstance.setSeatRowInstances(seatRowInstances);
 
         // Return hall instance
         return hallInstance;

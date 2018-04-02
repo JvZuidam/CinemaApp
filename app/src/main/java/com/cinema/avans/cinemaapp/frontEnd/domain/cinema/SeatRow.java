@@ -16,7 +16,7 @@ public class SeatRow implements Serializable {
 
     public SeatRow() {
 
-        this.hall = null;
+        this.hall = new Hall();
         this.rowId = 0;
         this.rowNr = 0;
         this.seats = new ArrayList<>();
@@ -24,7 +24,6 @@ public class SeatRow implements Serializable {
     }
 
     public int amountOfSeats() {
-
         return seats.size();
 
     }
@@ -56,4 +55,15 @@ public class SeatRow implements Serializable {
     public ArrayList<Seat> getSeats() {
         return seats;
     }
+
+    @Override
+    public String toString() {
+
+        return "SeatRowId: " + rowId + "\n" +
+                "- Hall: " + getHall().getHallId() + "\n" +
+                "- RowNr: " + rowNr + "\n" +
+                "- Amount of Seats: " + seats.size();
+
+    }
+
 }

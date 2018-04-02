@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
-import com.cinema.avans.cinemaapp.frontEnd.domain.Date;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Date;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
@@ -149,7 +149,7 @@ public class CreateShowingActivity extends AppCompatActivity {
         }
 
         if (showing.getHallInstance() != null) {
-            hallText.setText(String.valueOf(showing.getHallInstance().getHallId()));
+            hallText.setText(String.valueOf(showing.getHallInstance().getHall().getHallId()));
 
         }
 

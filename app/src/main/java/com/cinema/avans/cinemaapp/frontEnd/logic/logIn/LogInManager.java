@@ -1,7 +1,5 @@
 package com.cinema.avans.cinemaapp.frontEnd.logic.logIn;
 
-import android.widget.Toast;
-
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.LogIn;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.Manager;
@@ -34,14 +32,14 @@ public class LogInManager {
 
         if (logIn.getId() == 2) {
 
-            if (logIn.getUserId().equals(userName) && logIn.getPassword().equals(password)) {
+            if (logIn.getUsername().equals(userName) && logIn.getPassword().equals(password)) {
                 logInActivity.managerLogIn((Manager) logIn);
                 return;
             }
 
         } if (logIn.getId() == 1) {
 
-            if (logIn.getUserId().equals(userName) && logIn.getPassword().equals(password)) {
+            if (logIn.getUsername().equals(userName) && logIn.getPassword().equals(password)) {
                 logInActivity.userLogIn((User) logIn);
                 return;
             }

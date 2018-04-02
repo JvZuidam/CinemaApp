@@ -27,15 +27,7 @@ public class SeatRepository {
 
     public ArrayList<Seat> getSeats(SeatRow seatRow) {
 
-        ArrayList<Seat> seats = databaseManager.getSeats(seatRow.getRowId());
-
-        for (Seat seat : seats) {
-
-            seat.setSeatRow(seatRow);
-
-        }
-
-        return seats;
+        return databaseManager.getSeats(seatRow.getRowId());
 
     }
 

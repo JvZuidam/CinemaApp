@@ -43,4 +43,13 @@ public class Review implements Serializable {
         return comment;
     }
 
+    @Override
+    public String toString() {
+
+        return "Review: " + "\n" +
+                "Movie: " + movie.getTitle() + "\n" +
+                "User: " + user.getUsername();
+
+    }
+
 }

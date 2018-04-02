@@ -10,10 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
-import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.ManagerRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.UserRepository;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
@@ -66,26 +63,26 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
 
         // Backend data
         Manager manager = new Manager();
-        manager.setUserId("Manager");
+        manager.setUsername("Manager");
         manager.setPassword("12345");
         repositoryFactory.getManagerRepository().createManager(manager);
 
         User user = new User();
-        user.setUserId("User");
+        user.setUsername("User");
         user.setPassword("12345");
         repositoryFactory.getUserRepository().createUser(user);
 
         Hall hall = new Hall();
-        hall.setHallId(1);
+        hall.setHallNr(1);
 
         ArrayList<SeatRow> seatRows = new ArrayList<>();
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i < 10; i++) {
 
             SeatRow seatRow = new SeatRow();
             seatRow.setRowNr(i + 1);
             seatRow.setHall(hall);
             ArrayList<Seat> seats = new ArrayList<>();
-            for (int j = 0; j <= 12; j++ ) {
+            for (int j = 0; j < 12; j++ ) {
 
                 Seat seat = new Seat();
                 seat.setSeatRow(seatRow);

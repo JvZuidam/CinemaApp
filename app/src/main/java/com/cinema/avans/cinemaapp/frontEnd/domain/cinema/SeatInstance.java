@@ -81,4 +81,13 @@ public class SeatInstance implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+
+        return "SeatInstance: " + seatInstanceId + "\n" +
+                "SeatId: " + seat.getSeatId() + "\n" +
+                "SeatRow: " + seatRowInstance.getSeatRow().getRowNr();
+
+    }
+
 }

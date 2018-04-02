@@ -21,10 +21,16 @@ public class ShowingRepository {
 
     }
 
+    // Entire Showing object has to be stored that concludes all of the following things:
+    // - Showing
+    // - Complete HallInstance with its SeatRowInstances and SeatInstances
     public void createShowing(Showing showing) {
 
-        Log.i("ShowingRepository", "Adding showing: MovieTitle: " + showing.getMovie().getTitle() + ", in hall: " + showing.getHallInstance().getHallId());
+        Log.i("ShowingRepository", "Adding showing:" + "\n" + showing);
+
         databaseManager.createShowing(showing);
+
+        new HallInstanceRepository(databaseManager).createHallInstance(showing.getHallInstance());
 
     }
 

@@ -24,9 +24,6 @@ public class SeatSelector implements Serializable {
         this.amountOfSeatsUserWants = amountOfSeatsUserWants;
         this.selectedSeatInstances = new ArrayList<>();
 
-        // Test code, remove when real data exists
-        fakeCinemaHall();
-
     }
 
     public HallInstance getHallInstance() {
@@ -56,69 +53,6 @@ public class SeatSelector implements Serializable {
             selectedSeatInstances.remove(0);
         }
 
-    }
-
-    // Test methods, create fake data
-    private void fakeCinemaHall() {
-
-        // Cinema hall
-        hallInstance = new HallInstance();
-        hallInstance.setHallId(1);
-        // List of seat rows
-        ArrayList<SeatRowInstance> seatRowInstances = new ArrayList<>();
-        // Add seat rows
-        seatRowInstances.add(createSeatRow(1, hallInstance));
-        seatRowInstances.add(createSeatRow(2, hallInstance));
-        seatRowInstances.add(createSeatRow(3, hallInstance));
-        seatRowInstances.add(createSeatRow(4, hallInstance));
-        seatRowInstances.add(createSeatRow(5, hallInstance));
-        seatRowInstances.add(createSeatRow(6, hallInstance));
-        // Set rows to cinema hall
-        hallInstance.setRows(seatRowInstances);
-
-    }
-    private SeatRowInstance createSeatRow(int number, HallInstance hallInstance) {
-
-        // Create seatRowInstance
-        SeatRowInstance seatRowInstance = new SeatRowInstance();
-        seatRowInstance.setHallInstance(hallInstance);
-
-        // List with seatInstances
-        ArrayList<SeatInstance> seatInstances = new ArrayList<>();
-
-        // Seats and add
-        for (int i = 1; i < 13; i ++) {
-
-            if (i <= 2) {
-                seatInstances.add(createSeat(i, SeatStatus.AVAILABLE, seatRowInstance));
-            } else if (i == 3) {
-                seatInstances.add(createSeat(i, SeatStatus.GAP, seatRowInstance));
-
-            } else if (i <= 9) {
-                seatInstances.add(createSeat(i, SeatStatus.AVAILABLE, seatRowInstance));
-
-            } else if (i == 10){
-                seatInstances.add(createSeat(i, SeatStatus.GAP, seatRowInstance));
-
-            } else {
-                seatInstances.add(createSeat(i, SeatStatus.AVAILABLE, seatRowInstance));
-
-            }
-
-        }
-
-        seatRowInstance.setSeatInstances(seatInstances);
-
-        return seatRowInstance;
-
-    }
-    private SeatInstance createSeat(int number, SeatStatus status, SeatRowInstance seatRowInstance) {
-
-        SeatInstance seatInstance = new SeatInstance();
-        seatInstance.setSeatRowInstance(seatRowInstance);
-        seatInstance.setStatus(status);
-
-        return seatInstance;
     }
 
 }

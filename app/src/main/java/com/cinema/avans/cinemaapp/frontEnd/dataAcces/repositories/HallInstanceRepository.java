@@ -1,6 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRowInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
@@ -14,6 +15,7 @@ public class HallInstanceRepository {
     private DatabaseManager databaseManager;
 
     public HallInstanceRepository(DatabaseManager databaseManager) {
+
         this.databaseManager = databaseManager;
 
     }
@@ -21,18 +23,30 @@ public class HallInstanceRepository {
     // When a hall instance is added to the database:
     // - The HallInstance itself has to be added
     // - All of the SeatRowInstances have to be added
-    // - All of the SeatInstances have to be added, but that is handles by the SeatRowInstanceRepository
+    // - All of the SeatInstances per SeatRowInstance have to be added
     public void createHallInstance(HallInstance hallInstance) {
 
         // Add HallInstance
         databaseManager.createHallInstance(hallInstance);
+
+        // Add all SeatRow instances
+        for (SeatRowInstance seatRowInstance : hallInstance.getSeatRowInstances()) {
+            databaseManager.createSeatRowInstance(seatRowInstance);
+
+            // Add all SeatInstances for a given SeatRow
+            for (SeatInstance seatInstance : seatRowInstance.getSeatInstances()) {
+                databaseManager.createSeatInstance(seatInstance);
+
+            }
+
+        }
 
     }
 
     public HallInstance getHallInstance(Showing showing) {
 
         HallInstance hallInstance = databaseManager.getHallInstance(showing.getHallInstance().getHallInstanceId());
-        hallInstance.setRows(new SeatRowInstanceRepository(databaseManager).getSeatRowInstances(hallInstance));
+        hallInstance.setSeatRowInstances(new SeatRowInstanceRepository(databaseManager).getSeatRowInstances(hallInstance));
 
         return hallInstance;
 

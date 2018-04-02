@@ -44,4 +44,13 @@ public class Payment implements Serializable {
         return amount;
     }
 
+    @Override
+    public String toString() {
+
+        return "Payment:" + "\n" +
+                "- User: " + user.getUsername() + "\n" +
+                "- Amount: " + amount;
+
+    }
+
 }

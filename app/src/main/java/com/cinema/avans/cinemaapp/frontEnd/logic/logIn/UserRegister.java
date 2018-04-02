@@ -20,7 +20,7 @@ public class UserRegister {
     public boolean createUser(String username, String password) {
 
         User user = new User();
-        user.setUserId(username);
+        user.setUsername(username);
         user.setPassword(password);
 
         repositoryFactory.getUserRepository().createUser(user);

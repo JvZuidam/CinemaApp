@@ -8,27 +8,27 @@ import java.io.Serializable;
 
 public abstract class LogIn implements Serializable {
 
-    protected String userId;
+    protected String username;
     protected String password;
 
     public LogIn() {
 
-        this.userId = "";
+        this.username = "";
         this.password = "";
 
     }
 
     // SETTERS
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
     public void setPassword(String password) {
         this.password = password;
     }
 
     // GETTERS
-    public String getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
     public String getPassword() {
         return password;
@@ -36,7 +36,7 @@ public abstract class LogIn implements Serializable {
 
     public String toString() {
 
-        return "UserId: " + userId + ", password: " + password;
+        return "UserId: " + username + ", password: " + password;
 
     }
 

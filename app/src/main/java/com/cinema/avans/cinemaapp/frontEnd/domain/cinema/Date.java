@@ -1,4 +1,4 @@
-package com.cinema.avans.cinemaapp.frontEnd.domain;
+package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
 import java.io.Serializable;
 
@@ -73,6 +73,12 @@ public class Date implements Serializable {
 
     public String getDate() {
         return year + "-" + month + "-" + day + "-" + hours + "-" + minutes;
+    }
+
+    @Override
+    public String toString() {
+        return getDate();
+
     }
 
 }

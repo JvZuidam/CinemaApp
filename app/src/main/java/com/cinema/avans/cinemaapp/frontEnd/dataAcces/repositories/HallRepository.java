@@ -24,48 +24,26 @@ public class HallRepository {
 
     // Creates an entire Hall (SeatRows and Seats included)
     public void createHall(Hall hall) {
+
+        // Add Hall
         databaseManager.createHall(hall);
 
-        for (SeatRow seatRow : hall.getSeatRows()) {
-            databaseManager.createSeatRow(seatRow);
-
-            for (Seat seat : seatRow.getSeats()) {
-                databaseManager.createSeat(seat);
-                // Seats from SeatRow added
-            }
-            // SeatRow with seats added
-        }
-        // Hall with SeatRows added
     }
 
     // Returns a single Hall from the database
+    // All SeatRows and Seats within each SeatRow included
     public Hall getHall(int hallId) {
 
-        Hall hall = databaseManager.getHall(hallId);
-        // Also get seatRows! with seat row repository, otherwise seats will nog be added
-        hall.setSeatRows(new SeatRowRepository(databaseManager).getSeatRows(hall));
-
-        return hall;
+        Log.i("Database", "Asking database for Hall with hallId: " + hallId);
+        return databaseManager.getHall(hallId);
 
     }
 
     // Returns all Halls from database
     public ArrayList<Hall> getAllHalls() {
 
-        ArrayList<Hall> halls = databaseManager.getAllHalls();
-
-        for (Hall hall : halls) {
-            hall.setSeatRows(databaseManager.getSeatRows(hall.getHallId()));
-
-            for (SeatRow seatRow : hall.getSeatRows()) {
-                seatRow.setSeats(databaseManager.getSeats(seatRow.getRowId()));
-                Log.i("HallRepository", "Amount of seats in row: " + seatRow.getSeats().size());
-
-            }
-
-        }
-
-        return halls;
+        Log.i("HallRepository", "Asking database for all Halls");
+        return databaseManager.getAllHalls();
 
     }
 

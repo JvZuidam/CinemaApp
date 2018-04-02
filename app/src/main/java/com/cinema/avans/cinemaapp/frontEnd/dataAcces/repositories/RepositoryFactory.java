@@ -16,6 +16,7 @@ public class RepositoryFactory {
     public RepositoryFactory(Context context) {
 
         this.databaseManager = new DatabaseManager(context, "Cinema", null, 0);
+
     }
 
     public HallRepository getHallRepository() {

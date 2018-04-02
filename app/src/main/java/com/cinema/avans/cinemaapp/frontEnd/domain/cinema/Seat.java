@@ -16,7 +16,7 @@ public class Seat implements Serializable {
     public Seat() {
 
         this.seatId = 0;
-        this.seatRow = null;
+        this.seatRow = new SeatRow();
         this.seatNr = 0;
         this.seatValue = SeatValue.OK;
 
@@ -91,6 +91,17 @@ public class Seat implements Serializable {
         }
 
         return 0;
+
+    }
+
+    @Override
+    public String toString() {
+
+        return "Seat:" + "\n" +
+                "- SeatId: " + seatId + "\n" +
+                "- Seat in " + seatRow.getHall() + "\n" +
+                "- Seat in SeatRow: " + seatRow + "\n" +
+                "- SeatNr: " + seatNr;
 
     }
 

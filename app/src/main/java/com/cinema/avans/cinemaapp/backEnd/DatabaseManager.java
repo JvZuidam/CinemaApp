@@ -102,12 +102,26 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void createHall(Hall hall) {
 
+        Log.i("Database", "Creating Hall:" + "\n" + hall);
+
         SQLiteDatabase database = getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(HALL_COLUMN_HALL_ID, hall.getHallId());
+        ContentValues hallValues = new ContentValues();
+        hallValues.put(HALL_COLUMN_HALL_NR, hall.getHallNr());
 
-        database.insert(TABLE_HALL, null, values);
+        database.insert(TABLE_HALL, null, hallValues);
+
+        for (SeatRow seatRow : hall.getSeatRows()) {
+
+            createSeatRow(seatRow);
+
+            for (Seat seat : seatRow.getSeats()) {
+
+                createSeat(seat);
+
+            }
+
+        }
 
     }
     public Hall getHall(int hallId) {
@@ -127,8 +141,19 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
             Hall hall = new Hall();
             hall.setHallId(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_ID)));
+            hall.setHallNr(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_NR)));
+
+            hall.setSeatRows(getSeatRows(hall.getHallId()));
+
+            for (SeatRow seatRow : hall.getSeatRows()) {
+
+                seatRow.setSeats(getSeats(seatRow.getRowId()));
+
+            }
 
             cursor.close();
+
+            Log.i("Database", "Hall found:" + "\n" + hall);
 
             return hall;
 
@@ -160,9 +185,19 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 Hall hall = new Hall();
 
                 hall.setHallId(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_ID)));
+                hall.setHallNr(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_NR)));
+
                 hall.setSeatRows(getSeatRows(hall.getHallId()));
 
+                for (SeatRow seatRow : hall.getSeatRows()) {
+
+                    seatRow.setSeats(getSeats(seatRow.getRowId()));
+
+                }
+
                 halls.add(hall);
+
+                Log.i("Database", "Hall found:" + "\n" + hall);
 
             }
 
@@ -176,6 +211,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void createSeatRow(SeatRow seatRow) {
 
+        Log.i("Database", "Creating SeatRow:" + "\n" + seatRow);
+
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -186,6 +223,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
     public ArrayList<SeatRow> getSeatRows(int hallId) {
+
+        Log.i("Database", "Getting SeatRows for hall: " + hallId);
 
         ArrayList<SeatRow> seatRows = new ArrayList<>();
 
@@ -256,6 +295,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void createSeat(Seat seat) {
 
+        Log.i("Database", "Creating " + seat);
+
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -268,8 +309,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
     public ArrayList<Seat> getSeats(int rowId) {
 
-        ArrayList<Seat> seats = new ArrayList<>();
-
         SQLiteDatabase database = getReadableDatabase();
 
         String query =
@@ -281,6 +320,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         Cursor cursor = database.rawQuery(query, null);
 
+        ArrayList<Seat> seats = new ArrayList<>();
+
         if (cursor.moveToFirst()) {
 
             while (!cursor.isAfterLast()) {
@@ -289,8 +330,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 seat.setSeatId(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_ID)));
                 seat.setSeatNr(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_NR)));
                 seat.setValue(cursor.getInt(cursor.getColumnIndex(SEAT_COLUMN_SEAT_VALUE)));
+                seat.setSeatRow(getSeatRow(rowId));
 
                 seats.add(seat);
+
+                Log.i("Database", "Seat found: " + "\n" + seat);
+
+                cursor.moveToNext();
 
             }
 
@@ -334,10 +380,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void createHallInstance(HallInstance hallInstance) {
 
+        Log.i("Database", "Creating HallInstance:" + "\n" + hallInstance);
+
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(HALL_INSTANCE_COLUMN_HALL_ID, hallInstance.getHallId());
+        values.put(HALL_INSTANCE_COLUMN_HALL_ID, hallInstance.getHall().getHallId());
 
         database.insert(TABLE_HALL_INSTANCE, null, values);
 
@@ -361,7 +409,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
             HallInstance hallInstance = new HallInstance();
             hallInstance.setHallInstanceId(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID)));
-            hallInstance.setHallId(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_ID)));
+            hallInstance.setHall(getHall(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_ID))));
 
             cursor.close();
 
@@ -376,6 +424,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     public void createSeatRowInstance(SeatRowInstance seatRowInstance) {
+
+        Log.i("Database", "Creating SeatRowInstance:" + "\n" + seatRowInstance);
 
         SQLiteDatabase database = getWritableDatabase();
 
@@ -424,6 +474,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     public void createSeatInstance(SeatInstance seatInstance) {
+
+        Log.i("Database", "Creating SeatInstance" + "\n" + seatInstance);
 
         SQLiteDatabase database = getWritableDatabase();
 
@@ -508,9 +560,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void createMovie(Movie movie) {
 
-        SQLiteDatabase database = getWritableDatabase();
+        Log.i("Database", "Creating Movie:" + "\n" + movie);
 
-        Log.i("Database", "Adding movie: " + movie);
+        SQLiteDatabase database = getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(MOVIE_COLUMN_TITLE, movie.getTitle());
@@ -594,6 +646,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void createShowing(Showing showing) {
 
+        Log.i("Database", "Creating Showing:" + "\n" + showing);
+
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -675,6 +729,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void createTicket(Ticket ticket) {
 
+        Log.i("Database", "Creating Ticket" + "\n" + ticket);
+
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -718,18 +774,18 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void createUser(User user) {
 
-        Log.i("Database", "Inserting user: " + user);
+        Log.i("Database", "Creating User:" + "\n" + user);
 
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues logInValues = new ContentValues();
-        logInValues.put(LOG_IN_COLUMN_USERNAME, user.getUserId());
+        logInValues.put(LOG_IN_COLUMN_USERNAME, user.getUsername());
         logInValues.put(LOG_IN_COLUMN_PASSWORD, user.getPassword());
 
         database.insert(TABLE_LOG_IN, null, logInValues);
 
         ContentValues userValues = new ContentValues();
-        userValues.put(USER_COLUMN_USERNAME, user.getUserId());
+        userValues.put(USER_COLUMN_USERNAME, user.getUsername());
 
         database.insert(TABLE_USER, null, userValues);
 
@@ -754,11 +810,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         // Get values from user table
         if (userCursor.moveToFirst()) {
 
-            user.setUserId(userCursor.getString(userCursor.getColumnIndex(USER_COLUMN_USERNAME)));
+            user.setUsername(userCursor.getString(userCursor.getColumnIndex(USER_COLUMN_USERNAME)));
 
         }
 
-        if (user.getUserId().isEmpty() || user.getUserId().length() == 0) {
+        if (user.getUsername().isEmpty() || user.getUsername().length() == 0) {
             return null;
 
         }
@@ -779,7 +835,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
             logInCursor.moveToFirst();
 
-            user.setUserId(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_USERNAME)));
+            user.setUsername(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_USERNAME)));
             user.setPassword(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_PASSWORD)));
 
         }
@@ -792,16 +848,18 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void createManager(Manager manager) {
 
+        Log.i("Database", "Creating Manager" + "\n" + manager);
+
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues logInValues = new ContentValues();
-        logInValues.put(LOG_IN_COLUMN_USERNAME, manager.getUserId());
+        logInValues.put(LOG_IN_COLUMN_USERNAME, manager.getUsername());
         logInValues.put(LOG_IN_COLUMN_PASSWORD, manager.getPassword());
 
         database.insert(TABLE_LOG_IN, null, logInValues);
 
         ContentValues managerValues = new ContentValues();
-        managerValues.put(MANAGER_COLUMN_USERNAME, manager.getUserId());
+        managerValues.put(MANAGER_COLUMN_USERNAME, manager.getUsername());
 
         database.insert(TABLE_MANAGER, null, managerValues);
 
@@ -823,11 +881,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         if (managerCursor.moveToFirst()) {
 
-            manager.setUserId(managerCursor.getString(managerCursor.getColumnIndex(MANAGER_COLUMN_USERNAME)));
+            manager.setUsername(managerCursor.getString(managerCursor.getColumnIndex(MANAGER_COLUMN_USERNAME)));
 
         }
 
-        if (manager.getUserId().isEmpty() || manager.getUserId().length() == 0) {
+        if (manager.getUsername().isEmpty() || manager.getUsername().length() == 0) {
             return null;
 
         }
@@ -847,7 +905,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
             logInCursor.moveToFirst();
 
-            manager.setUserId(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_USERNAME)));
+            manager.setUsername(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_USERNAME)));
             manager.setPassword(logInCursor.getString(logInCursor.getColumnIndex(LOG_IN_COLUMN_PASSWORD)));
 
         }
@@ -872,6 +930,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String TABLE_HALL = "Hall";
     // -------------------------------------------------------------------------------------------
     private static final String HALL_COLUMN_HALL_ID = "HallId"; //PK
+    private static final String HALL_COLUMN_HALL_NR = "HallNr"; // Hall number in cinema
 
     // SeatRowInstance table
     private static final String TABLE_SEAT_ROW = "SeatRow";
@@ -954,7 +1013,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_HALL =
             "CREATE TABLE " + TABLE_HALL + " (" + "\n"
-                    + HALL_COLUMN_HALL_ID + " INTEGER PRIMARY KEY" + ");";
+                    + HALL_COLUMN_HALL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
+                    + HALL_COLUMN_HALL_NR + " INTEGER" + ");";
 
     private static final String CREATE_TABLE_SEAT_ROW =
             "CREATE TABLE " + TABLE_SEAT_ROW + " (" + "\n"

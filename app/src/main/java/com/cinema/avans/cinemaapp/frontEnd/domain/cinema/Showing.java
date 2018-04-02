@@ -1,7 +1,5 @@
 package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
-import com.cinema.avans.cinemaapp.frontEnd.domain.Date;
-
 import java.io.Serializable;
 
 /**
@@ -54,6 +52,16 @@ public class Showing implements Serializable {
     }
     public Date getDate() {
         return date;
+    }
+
+    @Override
+    public String toString() {
+
+        return "Showing: " + showingId + "\n" +
+                "Movie: " + movie.getTitle() + "\n" +
+                hallInstance.getHall().getHallId() + "\n" +
+                "Date: " + date.getDate();
+
     }
 
 }

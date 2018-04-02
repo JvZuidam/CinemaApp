@@ -21,7 +21,7 @@ public class ManagerRepository {
 
     public void createManager(Manager manager) {
 
-        Log.i("ManagerRepository", "Creating manager");
+        Log.i("ManagerRepository", "Creating manager:" + "\n" + manager);
         databaseManager.createManager(manager);
 
     }

@@ -95,4 +95,12 @@ public class SeatRowInstance implements Serializable {
         return this.seatInstances;
     }
 
+    @Override
+    public String toString() {
+
+        return "SeatRowInstance: " + seatRowInstanceId + "\n" +
+                seatRow;
+
+    }
+
 }

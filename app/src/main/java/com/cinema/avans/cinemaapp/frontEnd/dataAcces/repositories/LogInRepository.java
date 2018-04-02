@@ -24,7 +24,7 @@ public class LogInRepository {
 
         LogIn login;
 
-        Log.i("LogInRepository", "Asking database for user and manager for a given userId");
+        Log.i("LogInRepository", "Asking database for user and manager for a given username");
 
         // First look for user
         Log.i("LogInRepository", "Looking for user");

@@ -35,7 +35,7 @@ public class SeatAdapter extends BaseAdapter {
 
         int count = 0;
 
-        for (SeatRowInstance seatRowInstance : hallInstance.getRows()) {
+        for (SeatRowInstance seatRowInstance : hallInstance.getSeatRowInstances()) {
 
             for (SeatInstance seatInstance : seatRowInstance.getSeatInstances()) {
                 count ++;
@@ -56,7 +56,7 @@ public class SeatAdapter extends BaseAdapter {
         SeatInstance seatInstanceItem = null;
         int index = 0;
 
-        for (SeatRowInstance seatRowInstance : hallInstance.getRows()) {
+        for (SeatRowInstance seatRowInstance : hallInstance.getSeatRowInstances()) {
 
             for (SeatInstance seatInstance : seatRowInstance.getSeatInstances()) {
 
