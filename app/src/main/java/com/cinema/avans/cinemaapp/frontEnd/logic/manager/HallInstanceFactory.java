@@ -21,11 +21,11 @@ public class HallInstanceFactory {
 
         // Create hall instance
         HallInstance hallInstance = new HallInstance();
+        hallInstance.setHall(hall);
 
         // Fill hall instance with seats
         ArrayList<SeatRowInstance> seatRowInstances = new ArrayList<>();
         for (SeatRow seatRow : hall.getSeatRows()) {
-
             seatRowInstances.add(createSeatRowInstance(seatRow));
 
         }
@@ -41,11 +41,11 @@ public class HallInstanceFactory {
 
         // Create seat row instance
         SeatRowInstance seatRowInstance = new SeatRowInstance();
+        seatRowInstance.setSeatRow(seatRow);
 
         // Create seat row instance its seat instances
         ArrayList<SeatInstance> seatInstances = new ArrayList<>();
         for (Seat seat : seatRow.getSeats()) {
-
             seatInstances.add(createSeatInstance(seatRowInstance, seat));
 
         }

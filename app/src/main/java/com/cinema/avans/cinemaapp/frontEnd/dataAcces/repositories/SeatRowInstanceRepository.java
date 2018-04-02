@@ -25,6 +25,12 @@ public class SeatRowInstanceRepository {
         // Add the seat row instance
         databaseManager.createSeatRowInstance(seatRowInstance);
 
+        // Add the SeatInstances within the SeatRow
+        for (SeatInstance seatInstance : seatRowInstance.getSeatInstances()) {
+            new SeatInstanceRepository(databaseManager).createSeatInstance(seatInstance);
+
+        }
+
     }
 
     public ArrayList<SeatRowInstance> getSeatRowInstances(HallInstance hallInstance) {

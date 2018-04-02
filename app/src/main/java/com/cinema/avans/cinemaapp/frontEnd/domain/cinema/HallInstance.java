@@ -7,12 +7,14 @@ public class HallInstance implements Serializable {
 
     private int hallInstanceId; // Done
     private Hall hall; // Done
+    private Showing showing; // Done
     private ArrayList<SeatRowInstance> seatRowInstances; // Done
 
     public HallInstance() {
 
         this.hallInstanceId = 0;
         this.hall = new Hall();
+        this.showing = new Showing();
         this.seatRowInstances = new ArrayList<>();
 
     }
@@ -68,6 +70,9 @@ public class HallInstance implements Serializable {
     }
 
     // SETTERS
+    public void setShowing(Showing showing) {
+        this.showing = showing;
+    }
     public void setHallInstanceId(int hallInstanceId) {
         this.hallInstanceId = hallInstanceId;
     }
@@ -79,6 +84,9 @@ public class HallInstance implements Serializable {
     }
 
     // GETTERS
+    public Showing getShowing() {
+        return showing;
+    }
     public int getHallInstanceId() {
         return hallInstanceId;
     }
@@ -93,9 +101,10 @@ public class HallInstance implements Serializable {
     public String toString() {
 
         return "HallInstance: " + hallInstanceId + "\n" +
-                "- Hall: " + hall.getHallNr() + "\n" +
-                "- Amount of rows: " + seatRowInstances.size() + "\n" +
-                "- Amount of seats: " + amountOfSeats();
+                "Is an instance of Hall: " + hall.getHallNr() + "\n" +
+                "Amount of rows: " + seatRowInstances.size() + "\n" +
+                "Amount of seats: " + amountOfSeats() + "\n" +
+                "ShowingId: " + showing.getShowingId();
 
     }
 

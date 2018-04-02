@@ -47,15 +47,4 @@ public class MovieRepository {
 
     }
 
-    public Movie getFirstMovie() {
-
-        if (databaseManager.getAllMovies().size() != 0) {
-            return databaseManager.getAllMovies().get(0);
-
-        }
-
-        return null;
-
-    }
-
 }

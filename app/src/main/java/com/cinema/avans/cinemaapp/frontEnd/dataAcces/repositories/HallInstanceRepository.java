@@ -27,7 +27,7 @@ public class HallInstanceRepository {
     public void createHallInstance(HallInstance hallInstance) {
 
         // Add HallInstance
-        databaseManager.createHallInstance(hallInstance);
+        hallInstance = databaseManager.createHallInstance(hallInstance);
 
         // Add all SeatRow instances
         for (SeatRowInstance seatRowInstance : hallInstance.getSeatRowInstances()) {

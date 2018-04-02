@@ -3,6 +3,7 @@ package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 import android.util.Log;
 
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 
@@ -28,7 +29,9 @@ public class ShowingRepository {
 
         Log.i("ShowingRepository", "Adding showing:" + "\n" + showing);
 
-        databaseManager.createShowing(showing);
+        showing.setShowingId(databaseManager.createShowing(showing).getShowingId());
+
+        showing.getHallInstance().setShowing(showing);
 
         new HallInstanceRepository(databaseManager).createHallInstance(showing.getHallInstance());
 

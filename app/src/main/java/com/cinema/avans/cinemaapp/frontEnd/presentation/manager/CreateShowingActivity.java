@@ -36,17 +36,6 @@ public class CreateShowingActivity extends AppCompatActivity {
     // Showing
     private Showing showing;
 
-    // Movie
-    private ImageView movieImage;
-    private TextView movieTitle;
-    private Button movieSelectButton;
-
-    // Hall
-    private TextView hallText;
-    private Button hallSelectButton;
-
-    // Date
-    private TextView dateText;
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
     // Time
@@ -63,23 +52,17 @@ public class CreateShowingActivity extends AppCompatActivity {
         // Create showing
         showing = new Showing();
 
-        createMovieStuff();
-        createHallStuff();
+        createSelectMovieButton();
+        createSelectHallButton();
         createDateStuff();
-
-        showing.setMovie(repositoryFactory.getMovieRepository().getFirstMovie());
-        updateShowing();
 
         createSaveButton();
 
     }
 
-    private void createMovieStuff() {
+    private void createSelectMovieButton() {
 
-        movieImage = findViewById(R.id.createShowingMovieImage);
-        movieTitle = findViewById(R.id.createShowingMovieTitle);
-
-        movieSelectButton = findViewById(R.id.createShowingSelectMovieButton);
+        Button movieSelectButton = findViewById(R.id.createShowingSelectMovieButton);
         movieSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,10 +75,9 @@ public class CreateShowingActivity extends AppCompatActivity {
 
     }
 
-    private void createHallStuff() {
+    private void createSelectHallButton() {
 
-        hallText = findViewById(R.id.createShowingHallText);
-        hallSelectButton = findViewById(R.id.createShowingSelectHallButton);
+        Button hallSelectButton = findViewById(R.id.createShowingSelectHallButton);
         hallSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,6 +124,11 @@ public class CreateShowingActivity extends AppCompatActivity {
 
     private void updateShowing() {
 
+        ImageView movieImage = findViewById(R.id.createShowingMovieImage);
+        TextView movieTitle = findViewById(R.id.createShowingMovieTitle);
+
+        TextView hallText = findViewById(R.id.createShowingHallText);
+
         if (showing.getMovie() != null) {
             Picasso.with(getApplicationContext()).load(showing.getMovie().getImageUrl()).into(movieImage);
             movieTitle.setText(showing.getMovie().getTitle());
@@ -158,7 +145,7 @@ public class CreateShowingActivity extends AppCompatActivity {
     private void createDateStuff() {
 
         // Date stuff
-        dateText = findViewById(R.id.createShowingDateText);
+        final TextView dateText = findViewById(R.id.createShowingDateText);
         Button changeDateButton = findViewById(R.id.createShowingSelectDateButton);
         changeDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +193,14 @@ public class CreateShowingActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (showing.getMovie() == null) {
+                    Toast.makeText(getApplicationContext(), "Select a movie first", Toast.LENGTH_SHORT).show();
+
+                } else if (showing.getHallInstance() == null) {
+                    Toast.makeText(getApplicationContext(), "Select a hall first", Toast.LENGTH_SHORT).show();
+
+                }
 
                 // Create showing and finish
                 repositoryFactory.getShowingRepository().createShowing(showing);

@@ -40,7 +40,7 @@ public class HallAdapter extends ArrayAdapter<Hall> {
             TextView hallText = convertView.findViewById(R.id.hallItemHallText);
             hallText.setText("Hall: " + hall.getHallNr());
             TextView amountOfSeatsText = convertView.findViewById(R.id.hallItemAmountOfSeatsText);
-            amountOfSeatsText.setText(String.valueOf(hall.amountOfSeats()));
+            amountOfSeatsText.setText("Amount of seats: " + hall.amountOfSeats());
 
         }
 

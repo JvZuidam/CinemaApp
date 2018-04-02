@@ -16,7 +16,7 @@ public class Showing implements Serializable {
     public Showing() {
 
         this.showingId = 0;
-        this.hallInstance = new HallInstance();
+        this.hallInstance = null;
         this.movie = null;
         this.date = new Date();
 
@@ -59,7 +59,7 @@ public class Showing implements Serializable {
 
         return "Showing: " + showingId + "\n" +
                 "Movie: " + movie.getTitle() + "\n" +
-                hallInstance.getHall().getHallNr() + "\n" +
+                "HallNr: " + hallInstance.getHall().getHallNr() + "\n" +
                 "Date: " + date.getDate();
 
     }

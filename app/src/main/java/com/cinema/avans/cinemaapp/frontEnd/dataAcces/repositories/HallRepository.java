@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
 
