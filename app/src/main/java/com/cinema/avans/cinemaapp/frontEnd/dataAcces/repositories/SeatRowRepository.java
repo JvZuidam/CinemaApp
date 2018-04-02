@@ -1,7 +1,10 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import android.util.Log;
+
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
 
 import java.util.ArrayList;
@@ -21,19 +24,27 @@ public class SeatRowRepository {
 
     public void createSeatRow(SeatRow seatRow) {
 
-        // Add the seat row
-        databaseManager.createSeatRow(seatRow);
+        Log.i("SeatRowRepository", "Creating SeatRow:\n" + seatRow);
 
+        // Add the seat row
+        seatRow = databaseManager.createSeatRow(seatRow);
+
+        // Also add the Seats within the SeatRow
+        for (Seat seat : seatRow.getSeats()) {
+            new SeatRepository(databaseManager).createSeat(seat);
+
+        }
 
     }
 
     public ArrayList<SeatRow> getSeatRows(Hall hall) {
 
-        ArrayList<SeatRow> seatRows = databaseManager.getSeatRows(hall.getHallId());
+        // Get SeatRows without Seats
+        ArrayList<SeatRow> seatRows = databaseManager.getSeatRows(hall.getHallNr());
 
+        // Getting the Seats
         for (SeatRow seatRow : seatRows) {
-
-            seatRow.setSeats(databaseManager.getSeats(seatRow.getRowId()));
+            seatRow.setSeats(new SeatRepository(databaseManager).getSeats(seatRow));
 
         }
 

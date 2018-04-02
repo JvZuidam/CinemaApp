@@ -97,11 +97,10 @@ public class Seat implements Serializable {
     @Override
     public String toString() {
 
-        return "Seat:" + "\n" +
-                "- SeatId: " + seatId + "\n" +
-                "- Seat in " + seatRow.getHall() + "\n" +
-                "- Seat in SeatRow: " + seatRow + "\n" +
-                "- SeatNr: " + seatNr;
+        return "SeatId:" + seatId + "\n" +
+                "Seat in hall:\n" + seatRow.getHall() + "\n" +
+                "Seat in SeatRow:\n" + seatRow + "\n" +
+                "SeatNr: " + seatNr;
 
     }
 

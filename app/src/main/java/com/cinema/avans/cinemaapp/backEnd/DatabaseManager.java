@@ -102,66 +102,43 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void createHall(Hall hall) {
 
-        Log.i("Database", "Creating Hall:" + "\n" + hall);
+        Log.i("Database", "Creating " + "\n" + hall);
 
         SQLiteDatabase database = getWritableDatabase();
 
+        // Create Hall
         ContentValues hallValues = new ContentValues();
         hallValues.put(HALL_COLUMN_HALL_NR, hall.getHallNr());
 
         database.insert(TABLE_HALL, null, hallValues);
 
-        for (SeatRow seatRow : hall.getSeatRows()) {
-
-            createSeatRow(seatRow);
-
-            for (Seat seat : seatRow.getSeats()) {
-
-                createSeat(seat);
-
-            }
-
-        }
-
     }
-    public Hall getHall(int hallId) {
+    public Hall getHall(int hallNr) {
 
         SQLiteDatabase database = getReadableDatabase();
 
         String query =
                 "SELECT *" + "\n"
                         + "FROM " + TABLE_HALL + "\n"
-                        + "WHERE " + HALL_COLUMN_HALL_ID + " = " + hallId;
+                        + "WHERE " + HALL_COLUMN_HALL_NR + " = " + hallNr;
 
         Log.i("Database", query);
 
         Cursor cursor = database.rawQuery(query, null);
 
+        Hall hall = new Hall();
+
         if (cursor.moveToFirst()) {
 
-            Hall hall = new Hall();
-            hall.setHallId(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_ID)));
             hall.setHallNr(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_NR)));
-
-            hall.setSeatRows(getSeatRows(hall.getHallId()));
-
-            for (SeatRow seatRow : hall.getSeatRows()) {
-
-                seatRow.setSeats(getSeats(seatRow.getRowId()));
-
-            }
-
-            cursor.close();
-
-            Log.i("Database", "Hall found:" + "\n" + hall);
-
-            return hall;
 
         }
 
         cursor.close();
 
-        return null;
+        Log.i("Database", "Hall found:" + "\n" + hall);
+
+        return hall;
 
     }
     public ArrayList<Hall> getAllHalls() {
@@ -184,16 +161,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
                 Hall hall = new Hall();
 
-                hall.setHallId(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_ID)));
+                // Get hall
                 hall.setHallNr(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_NR)));
-
-                hall.setSeatRows(getSeatRows(hall.getHallId()));
-
-                for (SeatRow seatRow : hall.getSeatRows()) {
-
-                    seatRow.setSeats(getSeats(seatRow.getRowId()));
-
-                }
 
                 halls.add(hall);
 
@@ -209,22 +178,26 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
-    public void createSeatRow(SeatRow seatRow) {
+    public SeatRow createSeatRow(SeatRow seatRow) {
 
         Log.i("Database", "Creating SeatRow:" + "\n" + seatRow);
 
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(SEAT_ROW_COLUMN_HALL_ID, seatRow.getHall().getHallId());
+        values.put(SEAT_ROW_COLUMN_HALL_NR, seatRow.getHall().getHallNr());
         values.put(SEAT_ROW_COLUMN_ROW_NR, seatRow.getRowNr());
 
         database.insert(TABLE_SEAT_ROW, null, values);
 
-    }
-    public ArrayList<SeatRow> getSeatRows(int hallId) {
+        seatRow.setRowId(getSeatRowWithHallAndRowNr(seatRow.getHall().getHallNr(), seatRow.getRowNr()).getRowId());
 
-        Log.i("Database", "Getting SeatRows for hall: " + hallId);
+        return seatRow;
+
+    }
+    public ArrayList<SeatRow> getSeatRows(int hallNr) {
+
+        Log.i("Database", "Getting SeatRows for hall: " + hallNr);
 
         ArrayList<SeatRow> seatRows = new ArrayList<>();
 
@@ -233,7 +206,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String query =
                 "SELECT *" + "\n"
                         + "FROM " + TABLE_SEAT_ROW + "\n"
-                        + "WHERE " + SEAT_ROW_COLUMN_HALL_ID + " = " + hallId;
+                        + "WHERE " + SEAT_ROW_COLUMN_HALL_NR + " = " + hallNr;
 
         Log.i("Database", query);
 
@@ -244,9 +217,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
             while (!cursor.isAfterLast()) {
 
                 SeatRow seatRow = new SeatRow();
-                seatRow.setHall(getHall(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_HALL_ID))));
+                seatRow.setHall(getHall(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_HALL_NR))));
                 seatRow.setRowId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_ID)));
                 seatRow.setRowNr(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_NR)));
+                seatRow.setSeats(getSeats(seatRow.getRowId()));
 
                 seatRows.add(seatRow);
 
@@ -277,7 +251,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
 
             SeatRow seatRow = new SeatRow();
-            seatRow.setHall(getHall(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_HALL_ID))));
+            seatRow.setHall(getHall(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_HALL_NR))));
             seatRow.setRowId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_ID)));
             seatRow.setRowNr(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_NR)));
 
@@ -290,6 +264,40 @@ public class DatabaseManager extends SQLiteOpenHelper {
         cursor.close();
 
         return null;
+
+    }
+    private SeatRow getSeatRowWithHallAndRowNr(int hallNr, int rowNr) {
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String query =
+                "SELECT *" + "\n"
+                        + "FROM " + TABLE_SEAT_ROW + "\n"
+                        + "WHERE " + SEAT_ROW_COLUMN_ROW_NR + " = " + rowNr + "\n"
+                        + "AND " + SEAT_ROW_COLUMN_HALL_NR + " = " + hallNr;
+
+        Log.i("Database", query);
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        SeatRow seatRow = new SeatRow();
+
+        if (cursor.moveToFirst()) {
+
+            seatRow.setHall(getHall(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_HALL_NR))));
+            seatRow.setRowId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_ID)));
+            seatRow.setRowNr(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_NR)));
+            seatRow.setSeats(getSeats(seatRow.getRowId()));
+
+            cursor.close();
+
+            return seatRow;
+
+        }
+
+        cursor.close();
+
+        return seatRow;
 
     }
 
@@ -385,7 +393,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         SQLiteDatabase database = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(HALL_INSTANCE_COLUMN_HALL_ID, hallInstance.getHall().getHallId());
+        values.put(HALL_INSTANCE_COLUMN_HALL_ID, hallInstance.getHall().getHallNr());
 
         database.insert(TABLE_HALL_INSTANCE, null, values);
 
@@ -929,14 +937,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
     // Hall Table
     private static final String TABLE_HALL = "Hall";
     // -------------------------------------------------------------------------------------------
-    private static final String HALL_COLUMN_HALL_ID = "HallId"; //PK
-    private static final String HALL_COLUMN_HALL_NR = "HallNr"; // Hall number in cinema
+    private static final String HALL_COLUMN_HALL_NR = "HallNr"; // PK Hall number in cinema
 
     // SeatRowInstance table
     private static final String TABLE_SEAT_ROW = "SeatRow";
     // -------------------------------------------------------------------------------------------
     private static final String SEAT_ROW_COLUMN_ROW_ID = "RowId"; //PK
-    private static final String SEAT_ROW_COLUMN_HALL_ID = "HallId"; // Hall this seat row is part off
+    private static final String SEAT_ROW_COLUMN_HALL_NR = "HallId"; // Hall this seat row is part off
     private static final String SEAT_ROW_COLUMN_ROW_NR = "RowNr"; // Row number in hall
 
     // SeatInstance table
@@ -1013,13 +1020,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_HALL =
             "CREATE TABLE " + TABLE_HALL + " (" + "\n"
-                    + HALL_COLUMN_HALL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-                    + HALL_COLUMN_HALL_NR + " INTEGER" + ");";
+                    + HALL_COLUMN_HALL_NR + " INTEGER PRIMARY KEY" + ");";
 
     private static final String CREATE_TABLE_SEAT_ROW =
             "CREATE TABLE " + TABLE_SEAT_ROW + " (" + "\n"
                     + SEAT_ROW_COLUMN_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-                    + SEAT_ROW_COLUMN_HALL_ID + " INTEGER," + "\n"
+                    + SEAT_ROW_COLUMN_HALL_NR + " INTEGER," + "\n"
                     + SEAT_ROW_COLUMN_ROW_NR + " INTEGER" + ");";
 
     private static final String CREATE_TABLE_SEAT =

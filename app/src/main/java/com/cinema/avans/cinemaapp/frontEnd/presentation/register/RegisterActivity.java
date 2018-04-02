@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.UserRegister;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.logIn.MainActivity;
 

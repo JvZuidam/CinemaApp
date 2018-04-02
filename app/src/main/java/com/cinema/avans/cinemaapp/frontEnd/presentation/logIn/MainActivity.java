@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
@@ -79,8 +79,10 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
         for (int i = 0; i < 10; i++) {
 
             SeatRow seatRow = new SeatRow();
+            seatRow.setRowId(i);
             seatRow.setRowNr(i + 1);
             seatRow.setHall(hall);
+
             ArrayList<Seat> seats = new ArrayList<>();
             for (int j = 0; j < 12; j++ ) {
 
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
 
             }
             seatRow.setSeats(seats);
+
             seatRows.add(seatRow);
 
         }

@@ -1,5 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import android.util.Log;
+
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
@@ -20,6 +22,8 @@ public class SeatRepository {
     }
 
     public void createSeat(Seat seat) {
+
+        Log.i("SeatRepository", "Creating Seat:\n" + seat);
 
         databaseManager.createSeat(seat);
 

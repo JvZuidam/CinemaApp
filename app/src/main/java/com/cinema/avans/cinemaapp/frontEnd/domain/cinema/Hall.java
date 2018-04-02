@@ -9,13 +9,11 @@ import java.util.ArrayList;
 
 public class Hall implements Serializable {
 
-    private int hallId; // Done
-    private int hallNr; // Done
-    private ArrayList<SeatRow> seatRows; // Done
+    private int hallNr; // PK Hall number in cinema
+    private ArrayList<SeatRow> seatRows; // All the SeatRows of this Hall
 
     public Hall() {
 
-        this.hallId = 0;
         this.hallNr = 0;
         this.seatRows = new ArrayList<>();
 
@@ -36,9 +34,6 @@ public class Hall implements Serializable {
     }
 
     // SETTERS
-    public void setHallId(int hallId) {
-        this.hallId = hallId;
-    }
     public void setHallNr(int hallNr) {
         this.hallNr = hallNr;
     }
@@ -50,9 +45,6 @@ public class Hall implements Serializable {
     public void setSeatRows(ArrayList<SeatRow> seatRows) {
         this.seatRows = seatRows;
     }
-    public int getHallId() {
-        return hallId;
-    }
     public int getHallNr() {
         return hallNr;
     }
@@ -60,10 +52,9 @@ public class Hall implements Serializable {
     @Override
     public String toString() {
 
-        return "Hall: " + hallId + "\n" +
-                "- HallNr: " + hallNr + "\n" +
-                "- Amount of rows: " + seatRows.size() + "\n" +
-                "- Amount of seats: " + amountOfSeats();
+        return "HallNr: " + hallNr + "\n" +
+                "Amount of rows: " + seatRows.size() + "\n" +
+                "Amount of seats: " + amountOfSeats();
 
     }
 

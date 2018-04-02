@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.logic.manager.MovieFactory;
 import com.squareup.picasso.Picasso;

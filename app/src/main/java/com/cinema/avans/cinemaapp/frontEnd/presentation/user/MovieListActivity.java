@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.HallRepository;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.RepositoryFactory;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
@@ -72,7 +72,7 @@ public class MovieListActivity extends AppCompatActivity {
 
         // Create hall
         Hall hall = new Hall();
-        hall.setHallId(hallId); // PK
+        hall.setHallNr(hallId); // PK
 
         // Add seats
         ArrayList<SeatRow> seatRows = new ArrayList<>();

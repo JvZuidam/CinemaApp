@@ -1,9 +1,21 @@
-package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
+package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
 
 import android.content.Context;
 
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.HallInstanceRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.HallRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.LogInRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.ManagerRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.MovieRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.SeatInstanceRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.SeatRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.SeatRowInstanceRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.SeatRowRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.ShowingRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.TicketRepository;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.UserRepository;
 
 /**
  * Created by JanBelterman on 29 March 2018

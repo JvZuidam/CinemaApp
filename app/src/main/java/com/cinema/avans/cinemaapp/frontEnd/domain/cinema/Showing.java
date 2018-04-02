@@ -59,7 +59,7 @@ public class Showing implements Serializable {
 
         return "Showing: " + showingId + "\n" +
                 "Movie: " + movie.getTitle() + "\n" +
-                hallInstance.getHall().getHallId() + "\n" +
+                hallInstance.getHall().getHallNr() + "\n" +
                 "Date: " + date.getDate();
 
     }
