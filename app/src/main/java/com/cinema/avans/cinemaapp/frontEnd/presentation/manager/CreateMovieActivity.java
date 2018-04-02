@@ -72,6 +72,7 @@ public class CreateMovieActivity extends AppCompatActivity implements NewMovieLi
                     RepositoryFactory repositoryFactory = new RepositoryFactory(getApplicationContext());
                     repositoryFactory.getMovieRepository().createMovie(movie);
                     Toast.makeText(getApplicationContext(), "Movie added", Toast.LENGTH_SHORT).show();
+                    finish();
 
                 }
 

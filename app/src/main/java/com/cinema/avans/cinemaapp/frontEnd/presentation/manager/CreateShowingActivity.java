@@ -30,6 +30,9 @@ import java.util.Calendar;
 
 public class CreateShowingActivity extends AppCompatActivity {
 
+    private RepositoryFactory repositoryFactory;
+    private HallInstanceFactory hallInstanceFactory;
+
     // Showing
     private Showing showing;
 
@@ -54,12 +57,18 @@ public class CreateShowingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_showing);
 
+        this.repositoryFactory = new RepositoryFactory(getApplicationContext());
+        this.hallInstanceFactory = new HallInstanceFactory();
+
         // Create showing
         showing = new Showing();
 
         createMovieStuff();
         createHallStuff();
         createDateStuff();
+
+        showing.setMovie(repositoryFactory.getMovieRepository().getFirstMovie());
+        updateShowing();
 
         createSaveButton();
 
@@ -82,16 +91,6 @@ public class CreateShowingActivity extends AppCompatActivity {
         });
 
     }
-    private void updateMovie() {
-
-        if (showing.getMovie() != null) {
-
-            Picasso.with(getApplicationContext()).load(showing.getMovie().getImageUrl()).into(movieImage);
-            movieTitle.setText(showing.getMovie().getTitle());
-
-        }
-
-    }
 
     private void createHallStuff() {
 
@@ -109,30 +108,50 @@ public class CreateShowingActivity extends AppCompatActivity {
 
     }
 
+    // Catches the selected Movie and Hall
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
+
+        // If the back button is pressed in the select activity
+        if (data == null) {
+            return;
+
+        }
+
+        // If the data contains a movie
         if (requestCode == 2) {
-
             if (data.getExtras() != null) {
-
                 showing.setMovie((Movie) data.getSerializableExtra("MOVIE"));
 
             }
-
-        } else if (requestCode == 3) {
-
+        }
+        // If the data contains a hall
+        else if (requestCode == 3) {
             if (data.getExtras() != null) {
-
-                HallInstanceFactory hallInstanceFactory = new HallInstanceFactory();
                 showing.setHallInstance(hallInstanceFactory.getHallInstance((Hall) data.getSerializableExtra("HALL")));
 
             }
 
         }
 
-        updateMovie();
+        // Update the displayed values
+        updateShowing();
+
+    }
+
+    private void updateShowing() {
+
+        if (showing.getMovie() != null) {
+            Picasso.with(getApplicationContext()).load(showing.getMovie().getImageUrl()).into(movieImage);
+            movieTitle.setText(showing.getMovie().getTitle());
+
+        }
+
+        if (showing.getHallInstance() != null) {
+            hallText.setText(String.valueOf(showing.getHallInstance().getHallId()));
+
+        }
 
     }
 
@@ -189,7 +208,7 @@ public class CreateShowingActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Create showing and finish
-                new RepositoryFactory(getApplicationContext()).getShowingRepository().createShowing(showing);
+                repositoryFactory.getShowingRepository().createShowing(showing);
                 Toast.makeText(getApplicationContext(), "Showing added", Toast.LENGTH_SHORT).show();
                 finish();
 

@@ -31,7 +31,6 @@ public class HallAdapter extends ArrayAdapter<Hall> {
         Hall hall = getItem(position);
 
         if (convertView == null) {
-
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_hall, parent, false);
 
         }

@@ -180,7 +180,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(SEAT_ROW_COLUMN_HALL_ID, seatRow.getHall().getHallId());
-        values.put(SEAT_ROW_COLUMN_ROW_ID, seatRow.getRowId());
         values.put(SEAT_ROW_COLUMN_ROW_NR, seatRow.getRowNr());
 
         database.insert(TABLE_SEAT_ROW, null, values);

@@ -46,8 +46,7 @@
                 android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createShowingMovieInfo"
-                app:srcCompat="@color/available" />
+                app:layout_constraintTop_toBottomOf="@+id/createShowingMovieInfo" />
 
             <TextView
                 android:id="@+id/createShowingMovieTitle"
@@ -56,12 +55,12 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Title"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/createShowingMovieImage"
                 app:layout_constraintStart_toEndOf="@+id/createShowingMovieImage"
                 app:layout_constraintTop_toTopOf="@+id/createShowingMovieImage"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Title" />
 
             <Button
                 android:id="@+id/createShowingSelectMovieButton"
@@ -90,9 +89,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Hall 1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createShowingHallInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/createShowingHallInfo"
+                tools:text="Hall 1" />
 
             <Button
                 android:id="@+id/createShowingSelectHallButton"
@@ -121,9 +120,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="22/22/2222"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createShowingDateInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/createShowingDateInfo"
+                tools:text="22/22/2222" />
 
             <Button
                 android:id="@+id/createShowingSelectDateButton"

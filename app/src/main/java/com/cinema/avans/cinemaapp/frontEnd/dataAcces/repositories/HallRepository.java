@@ -1,5 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import android.util.Log;
+
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
@@ -47,9 +49,23 @@ public class HallRepository {
 
     }
 
-    // Returns all halls from database
+    // Returns all Halls from database
     public ArrayList<Hall> getAllHalls() {
-        return databaseManager.getAllHalls();
+
+        ArrayList<Hall> halls = databaseManager.getAllHalls();
+
+        for (Hall hall : halls) {
+            hall.setSeatRows(databaseManager.getSeatRows(hall.getHallId()));
+
+            for (SeatRow seatRow : hall.getSeatRows()) {
+                seatRow.setSeats(databaseManager.getSeats(seatRow.getRowId()));
+                Log.i("HallRepository", "Amount of seats in row: " + seatRow.getSeats().size());
+
+            }
+
+        }
+
+        return halls;
 
     }
 

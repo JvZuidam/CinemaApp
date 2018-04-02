@@ -23,7 +23,7 @@ public class ShowingRepository {
 
     public void createShowing(Showing showing) {
 
-        Log.i("ShowingRepository", "Adding showing: MovieTitle: " + showing.getMovie().getTitle());
+        Log.i("ShowingRepository", "Adding showing: MovieTitle: " + showing.getMovie().getTitle() + ", in hall: " + showing.getHallInstance().getHallId());
         databaseManager.createShowing(showing);
 
     }

@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
         manager.setUserId("Manager");
         manager.setPassword("12345");
         repositoryFactory.getManagerRepository().createManager(manager);
+
         User user = new User();
         user.setUserId("User");
         user.setPassword("12345");
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
 
         Hall hall = new Hall();
         hall.setHallId(1);
+
         ArrayList<SeatRow> seatRows = new ArrayList<>();
         for (int i = 0; i <= 10; i++) {
 
@@ -93,11 +95,12 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
 
             }
             seatRow.setSeats(seats);
+            seatRows.add(seatRow);
 
         }
+        hall.setSeatRows(seatRows);
 
-        repositoryFactory.getHallRepository().createEntireHall(hall);
-
+        repositoryFactory.getHallRepository().createHall(hall);
 
     }
 

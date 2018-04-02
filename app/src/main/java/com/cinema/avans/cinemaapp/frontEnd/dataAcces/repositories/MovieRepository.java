@@ -19,8 +19,6 @@ public class MovieRepository {
     }
 
     public void createMovie(Movie movie) {
-
-        // Create the movie
         databaseManager.createMovie(movie);
 
     }
@@ -30,7 +28,6 @@ public class MovieRepository {
         ArrayList<Movie> movies =  databaseManager.getAllMovies();
 
         for (Movie movie : movies) {
-
             movie.setShowings(databaseManager.getShowings(movie));
 
         }
@@ -47,6 +44,17 @@ public class MovieRepository {
         movie.setShowings(new ShowingRepository(databaseManager).getShowings(movie));
         // Return complete movie
         return movie;
+
+    }
+
+    public Movie getFirstMovie() {
+
+        if (databaseManager.getAllMovies().size() != 0) {
+            return databaseManager.getAllMovies().get(0);
+
+        }
+
+        return null;
 
     }
 
