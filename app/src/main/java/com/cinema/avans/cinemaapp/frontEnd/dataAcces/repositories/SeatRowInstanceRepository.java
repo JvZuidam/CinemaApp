@@ -40,14 +40,25 @@ public class SeatRowInstanceRepository {
 
     public ArrayList<SeatRowInstance> getSeatRowInstances(HallInstance hallInstance) {
 
-        ArrayList<SeatRowInstance> seatRowInstances = databaseManager.getSeatRowInstances(hallInstance);
 
+        // Log action
+        Log.i("SeatRowInstanceRepo", "Asking database for all SeatRowInstances for " + hallInstance);
+
+        // Get SeatRowInstances
+        ArrayList<SeatRowInstance> seatRowInstances = databaseManager.getSeatRowInstances(hallInstance);
+        // For each of the SeatRowInstances, also get the SeatInstances
         for (SeatRowInstance seatRowInstance : seatRowInstances) {
+
+            seatRowInstance.setSeatInstances(new SeatInstanceRepository(databaseManager).getSeatInstances(seatRowInstance));
+            // Also add the HallInstance
             seatRowInstance.setHallInstance(hallInstance);
-            seatRowInstance.setSeatInstances(databaseManager.getSeatInstances(seatRowInstance));
+
+            // Log complete SeatRowInstance
+            Log.i("SeatRowInstanceRepo", "Complete SeatRowInstance: " + seatRowInstance);
 
         }
 
+        // Return SeatRowInstances
         return seatRowInstances;
 
     }

@@ -32,17 +32,38 @@ public class SeatInstanceRepository {
 
     public ArrayList<SeatInstance> getSeatInstances(SeatRowInstance seatRowInstance) {
 
-        ArrayList<SeatInstance> seatInstances = databaseManager.getSeatInstances(seatRowInstance);
+        // Log action
+        Log.i("SeatInstanceRepository", "Asking database for all SeatInstances withing " + seatRowInstance);
 
+        // Get all SeatInstances within the SeatRowInstance given as parameter
+        ArrayList<SeatInstance> seatInstances = databaseManager.getSeatInstances(seatRowInstance);
         for (SeatInstance seatInstance : seatInstances) {
 
-            //seatInstance.setValue(); // Get from super entity
-            //seatInstance.setNr(); // Get from super entity
+            databaseManager.getSeatInstances(seatRowInstance);
+            // Also add the SeatRowInstance
             seatInstance.setSeatRowInstance(seatRowInstance);
+
+            // Log complete SeatInstance
+            Log.i("Database", "Complete SeatInstance: " + seatInstance);
 
         }
 
+        // Return SeatInstances
         return seatInstances;
+
+    }
+
+    public void updateSeats(ArrayList<SeatInstance> seatInstances) {
+
+        for (SeatInstance seatInstance : seatInstances) {
+
+            // Log
+            Log.i("SeatInstanceRepository", "Updating " + seatInstance);
+
+            databaseManager.updateSeatInstance(seatInstance);
+
+        }
+
 
     }
 

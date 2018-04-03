@@ -27,28 +27,42 @@ public class ShowingRepository {
     // - Complete HallInstance with its SeatRowInstances and SeatInstances
     public void createShowing(Showing showing) {
 
+        // Log action
         Log.i("ShowingRepository", "Adding showing:" + "\n" + showing);
 
+        // Log step
         Log.i("ShowingRepository", "First adding hall");
+        // Add HallInstance with repository (so RowInstances and SeatInstances are properly added
+        // The repository also assigns the HallInstance its HallInstanceId, that wat Showing can be created properly
+        // Otherwise the Showing would not refer to the correct HallInstance, because HallInstanceId would always be 0
         new HallInstanceRepository(databaseManager).createHallInstance(showing.getHallInstance());
 
+        // Log step
         Log.i("ShowingRepository", "Now adding Showing: " + showing);
-
+        // Create the Showing record itself
         databaseManager.createShowing(showing);
 
     }
 
     public ArrayList<Showing> getShowings(Movie movie) {
 
-        ArrayList<Showing> showings = databaseManager.getShowings(movie);
+        // Log action
+        Log.i("ShowingRepository", "Asking database all Showings for movie: " + movie);
 
+        // Get Showings
+        ArrayList<Showing> showings = databaseManager.getShowings(movie);
         for (Showing showing : showings) {
 
+            // Get HallInstance from repository (that one is complete with RowInstances and SeatInstances
+            // Add movie (parameter)
+            showing.setHallInstance(new HallInstanceRepository(databaseManager).getHallInstance(showing));
             showing.setMovie(movie);
-            showing.setHallInstance(databaseManager.getHallInstance(showing.getHallInstance().getHallInstanceId()));
+
+            Log.i("ShowingRepository", "Complete Showing: " + showing);
 
         }
 
+        // Return the showings for the given movie
         return showings;
 
     }

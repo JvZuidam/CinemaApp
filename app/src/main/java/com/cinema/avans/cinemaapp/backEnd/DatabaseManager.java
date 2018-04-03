@@ -100,6 +100,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    // HALL
     public void createHall(Hall hall) {
 
         // Log
@@ -117,69 +118,82 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
     public Hall getHall(int hallNr) {
 
+        // Log action
+        Log.i("Database", "Getting Hall with HallNr: " + hallNr);
+
+        // Get database
         SQLiteDatabase database = getReadableDatabase();
 
+        // Make query
         String query =
                 "SELECT *" + "\n"
                         + "FROM " + TABLE_HALL + "\n"
                         + "WHERE " + HALL_COLUMN_HALL_NR + " = " + hallNr;
-
+        // Log query
         Log.i("Database", query);
-
+        // Execute query
         Cursor cursor = database.rawQuery(query, null);
 
+        // Create Hall
         Hall hall = new Hall();
-
         if (cursor.moveToFirst()) {
 
+            // Set values
             hall.setHallNr(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_NR)));
 
         }
+        // Log Hall
+        Log.i("Database", "Hall found " + "\n" + hall);
 
+        // Close cursor and return Hall
         cursor.close();
-
-        Log.i("Database", "Hall found:" + "\n" + hall);
-
         return hall;
 
     }
     public ArrayList<Hall> getAllHalls() {
 
-        ArrayList<Hall> halls = new ArrayList<>();
+        // Log action
+        Log.i("Database", "Getting all Halls");
 
+        // Get database
         SQLiteDatabase database = getReadableDatabase();
 
+        // Make query
         String query =
                 "SELECT *" + "\n"
                 + "FROM " + TABLE_HALL;
-
+        // Log query
         Log.i("Database", query);
-
+        // Execute query
         Cursor cursor = database.rawQuery(query, null);
 
+        // Get Halls
+        ArrayList<Hall> halls = new ArrayList<>();
         if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
 
-            if (!cursor.isAfterLast()) {
-
+                // Create Hall
                 Hall hall = new Hall();
-
-                // Get hall
                 hall.setHallNr(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_NR)));
 
+                // Add and log Hall
                 halls.add(hall);
+                Log.i("Database", "A Hall found " + "\n" + hall);
 
-                Log.i("Database", "Hall found:" + "\n" + hall);
+                // Next
+                cursor.moveToNext();
 
             }
 
         }
 
+        // Close cursor and return Halls
         cursor.close();
-
         return halls;
 
     }
 
+    // SEAT_ROW
     public SeatRow createSeatRow(SeatRow seatRow) {
 
         // Log
@@ -274,6 +288,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    // SEAT
     public void createSeat(Seat seat) {
 
         // Log
@@ -360,6 +375,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    // HALL_INSTANCE
     public int createHallInstance(HallInstance hallInstance) {
 
         // Log
@@ -382,37 +398,35 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
     public HallInstance getHallInstance(int hallInstanceId) {
 
+        // Get database
         SQLiteDatabase database = getReadableDatabase();
 
+        // Make query
         String query =
                 "SELECT *" + "\n"
                 + "FROM " + TABLE_HALL_INSTANCE + "\n"
                 + "WHERE " + HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID + " = " + hallInstanceId;
-
+        // Log query
         Log.i("Database", query);
-
+        // Execute query
         Cursor cursor = database.rawQuery(query, null);
 
+        // Create HallInstance
+        HallInstance hallInstance = new HallInstance();
         if (cursor.moveToFirst()) {
 
-            cursor.moveToFirst();
-
-            HallInstance hallInstance = new HallInstance();
             hallInstance.setHallInstanceId(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID)));
-            hallInstance.setHall(getHall(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_NR))));
-
-            cursor.close();
-
-            return hallInstance;
+            hallInstance.setHall(getHall(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_NR)))); // Replace to repository
 
         }
 
+        // Close cursor and return HallInstance
         cursor.close();
-
-        return null;
+        return hallInstance;
 
     }
 
+    // SEAT_ROW_INSTANCE
     public int createSeatRowInstanceAndGetGeneratedId(SeatRowInstance seatRowInstance) {
 
         // Log
@@ -422,78 +436,64 @@ public class DatabaseManager extends SQLiteOpenHelper {
         // Create SeatRowInstance
         ContentValues values = new ContentValues();
         values.put(SEAT_ROW_INSTANCE_COLUMN_ROW_ID, seatRowInstance.getSeatRow().getRowId());
+        values.put(SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID, seatRowInstance.getHallInstance().getHallInstanceId());
         // Insert SeatRowInstance
-        database.insert(TABLE_SEAT_ROW_INSTANCE, null, values);
+        int genId = (int) database.insert(TABLE_SEAT_ROW_INSTANCE, null, values);
+
+        Log.i("Database", "Generated id: " + genId);
+
         // Return generated id
-        return getSeatRowIdForSeatRowInstance(seatRowInstance);
-
-    }
-    private int getSeatRowIdForSeatRowInstance(SeatRowInstance seatRowInstance) {
-
-        SQLiteDatabase database = getReadableDatabase();
-
-        String query =
-                "SELECT *" + "\n"
-                + "FROM " + TABLE_SEAT_ROW_INSTANCE + "\n"
-                + "WHERE " + SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID + " = " + seatRowInstance.getHallInstance().getHallInstanceId() + "\n"
-                + "AND " + SEAT_ROW_INSTANCE_COLUMN_ROW_ID + " = " + seatRowInstance.getSeatRow().getRowId();
-
-        Log.i("Database", query);
-
-        Cursor cursor = database.rawQuery(query, null);
-
-        if (cursor.moveToFirst()) {
-
-            int genId = cursor.getInt(cursor.getColumnIndex(SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID));
-
-            Log.i("Database", " Generated SeatRowInstanceId found: " + genId);
-
-            return genId;
-
-        }
-
-        Log.i("Database", "No generated SeatRowInstanceId found");
-
-        return 1000;
+        return genId;
 
     }
     public ArrayList<SeatRowInstance> getSeatRowInstances(HallInstance hallInstance) {
 
-        ArrayList<SeatRowInstance> seatRowInstances = new ArrayList<>();
-
+        // Get database
         SQLiteDatabase database = getReadableDatabase();
 
+        // Make query
         String query =
                 "SELECT *" + "\n"
                         + "FROM " + TABLE_SEAT_ROW_INSTANCE + "\n"
                         + "WHERE " + SEAT_ROW_INSTANCE_COLUMN_HALL_INSTANCE_ID + " = " + hallInstance.getHallInstanceId();
-
+        // Log query
         Log.i("Database", query);
-
+        // Execute query
         Cursor cursor = database.rawQuery(query, null);
 
+        // Get SeatRowInstances for database
+        ArrayList<SeatRowInstance> seatRowInstances = new ArrayList<>();
         if (cursor.moveToFirst()) {
-
             while (!cursor.isAfterLast()) {
 
+                // Create SeatRow
                 SeatRowInstance seatRowInstance = new SeatRowInstance();
                 seatRowInstance.setSeatRowInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID)));
-                seatRowInstance.setSeatRow(getSeatRow(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_INSTANCE_COLUMN_ROW_ID))));
-
+                seatRowInstance.setSeatRow(getSeatRow(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_ID))));
                 seatRowInstances.add(seatRowInstance);
 
+                Log.i("Database", "Found: " + seatRowInstance);
+
+                // Next
                 cursor.moveToNext();
 
             }
 
         }
 
-        cursor.close();
+        // Alert
+        if (seatRowInstances.size() == 0) {
+            Log.i("Database", "No SeatRowInstances found for " + hallInstance);
 
+        }
+
+        // Close cursor and return SeatRowInstances
+        cursor.close();
         return seatRowInstances;
 
     }
 
+    // SEAT_INSTANCE
     public void createSeatInstance(SeatInstance seatInstance) {
 
         // Log
@@ -502,47 +502,72 @@ public class DatabaseManager extends SQLiteOpenHelper {
         SQLiteDatabase database = getWritableDatabase();
         // Create SeatInstance
         ContentValues values = new ContentValues();
-        values.put(SEAT_INSTANCE_COLUMN_SEAT_NR, seatInstance.getSeat().getSeatId());
+        values.put(SEAT_INSTANCE_COLUMN_SEAT_ID, seatInstance.getSeat().getSeatId());
         values.put(SEAT_INSTANCE_COLUMN_STATUS, seatInstance.getStatusInt()); // 1 = Available, 2 = Reserved, 3 = Gap
-        values.put(SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID, seatInstance.getSeatInstanceId());
+        values.put(SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID, seatInstance.getSeatRowInstance().getSeatRowInstanceId());
         // Insert Seat
         database.insert(TABLE_SEAT_INSTANCE, null, values);
 
     }
+    public void updateSeatInstance(SeatInstance seatInstance) {
+
+        // Log action
+        Log.i("Database", "Updating: " + seatInstance);
+
+        // Get database
+        SQLiteDatabase database = getWritableDatabase();
+
+        ContentValues updatedValues = new ContentValues();
+        updatedValues.put(SEAT_INSTANCE_COLUMN_STATUS, seatInstance.getStatusInt());
+
+        database.update(TABLE_SEAT_INSTANCE, updatedValues,
+                SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID + "=" + seatInstance.getSeatInstanceId(),
+                null);
+
+    }
     public ArrayList<SeatInstance> getSeatInstances(SeatRowInstance seatRowInstance) {
 
-        ArrayList<SeatInstance> seatInstances = new ArrayList<>();
-
+        // Get database
         SQLiteDatabase database = getReadableDatabase();
-
+        // Make query
         String query =
                 "SELECT *" + "\n"
                         + "FROM " + TABLE_SEAT_INSTANCE + "\n"
                         + "WHERE " + SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID + " = " + seatRowInstance.getSeatRowInstanceId();
-
+        // Log query
         Log.i("Database", query);
-
+        // Execute query
         Cursor cursor = database.rawQuery(query, null);
 
+        // Get SeatInstances
+        ArrayList<SeatInstance> seatInstances = new ArrayList<>();
         if (cursor.moveToFirst()) {
-
             while (!cursor.isAfterLast()) {
 
+                // Create SeatInstance
                 SeatInstance seatInstance = new SeatInstance();
-                seatInstance.setStatus(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_STATUS)));
-                seatInstance.setSeat(getSeat(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_NR))));
                 seatInstance.setSeatInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID)));
-
+                seatInstance.setSeat(getSeat(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID))));
+                seatInstance.setStatus(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_STATUS)));
                 seatInstances.add(seatInstance);
 
+                Log.i("Database", "Found " + seatInstance);
+
+                // Next
                 cursor.moveToNext();
 
             }
 
         }
 
-        cursor.close();
+        // Alert
+        if (seatInstances.size() == 0) {
+            Log.i("Database", "No SeatInstances found for " + seatRowInstance);
 
+        }
+
+        // Close cursor and return SeatInstances
+        cursor.close();
         return seatInstances;
 
     }
@@ -565,7 +590,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
             SeatInstance seatInstance = new SeatInstance();
             seatInstance.setStatus(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_STATUS)));
-            seatInstance.setSeat(getSeat(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_NR))));
+            seatInstance.setSeat(getSeat(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID))));
             seatInstance.setSeatInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID)));
 
             cursor.close();
@@ -580,6 +605,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    // MOVIE
     public void createMovie(Movie movie) {
 
         Log.i("Database", "Creating " + movie);
@@ -666,6 +692,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    // SHOWING
     public void createShowing(Showing showing) {
 
         Log.i("Database", "Creating " + showing);
@@ -687,39 +714,48 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
     public ArrayList<Showing> getShowings(Movie movie) {
 
-        ArrayList<Showing> showings = new ArrayList<>();
+        // Log action
+        Log.i("Database", "Getting all Showings for " + movie);
 
+        // Get database
         SQLiteDatabase database = getReadableDatabase();
 
+        // Make query
         String query =
                 "SELECT *" + "\n"
                         + "FROM " + TABLE_SHOWING + "\n"
                         + "WHERE " + SHOWING_COLUMN_MOVIE_ID + " = " + movie.getMovieId();
-
+        // Log query
         Log.i("Database", query);
-
+        // Execute query
         Cursor cursor = database.rawQuery(query, null);
 
+        // Get Showings
+        ArrayList<Showing> showings = new ArrayList<>();
         if (cursor.moveToFirst()) {
-
             while (!cursor.isAfterLast()) {
 
+                // Create and add Showing
                 Showing showing = new Showing();
-                showing.setDate(cursor.getString(cursor.getColumnIndex(SHOWING_COLUMN_DATE)));
-                showing.setMovie(movie);
                 showing.setShowingId(cursor.getInt(cursor.getColumnIndex(SHOWING_COLUMN_SHOWING_ID)));
-                showing.setHallInstance(getHallInstance(showing.getShowingId()));
-
+                showing.setDate(cursor.getString(cursor.getColumnIndex(SHOWING_COLUMN_DATE)));
+                HallInstance hallInstance = new HallInstance();
+                hallInstance.setHallInstanceId(cursor.getInt(cursor.getColumnIndex(SHOWING_COLUMN_HALL_INSTANCE_ID)));
+                showing.setHallInstance(hallInstance);
                 showings.add(showing);
 
+                // Log Showing
+                Log.i("Database", "Found " + showing);
+
+                // To next Showing
                 cursor.moveToNext();
 
             }
 
         }
 
+        // Close cursor and return showings
         cursor.close();
-
         return showings;
 
     }
@@ -756,6 +792,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    // TICKET
     public void createTicket(Ticket ticket) {
 
         Log.i("Database", "Creating " + ticket);
@@ -801,6 +838,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    // USER
     public void createUser(User user) {
 
         Log.i("Database", "Creating " + user);
@@ -875,6 +913,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    // MANAGER
     public void createManager(Manager manager) {
 
         Log.i("Database", "Creating " + manager);
@@ -992,7 +1031,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String TABLE_SEAT_INSTANCE = "SeatInstance";
     // -------------------------------------------------------------------------------------------
     private static final String SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID = "SeatInstanceId"; //PK
-    private static final String SEAT_INSTANCE_COLUMN_SEAT_NR = "SeatNr"; // SeatInstance this instance originated from
+    private static final String SEAT_INSTANCE_COLUMN_SEAT_ID = "SeatId"; // SeatInstance this instance originated from
     private static final String SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID = "SeatRowInstanceId";
     private static final String SEAT_INSTANCE_COLUMN_STATUS = "Status"; // Status, RESERVED, AVAILABLE, GAP(no seat, just room)
 
@@ -1070,7 +1109,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_SEAT_INSTANCE =
             "CREATE TABLE " + TABLE_SEAT_INSTANCE + " (" + "\n"
                     + SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
-                    + SEAT_INSTANCE_COLUMN_SEAT_NR + " INTEGER," + "\n"
+                    + SEAT_INSTANCE_COLUMN_SEAT_ID + " INTEGER," + "\n"
                     + SEAT_INSTANCE_COLUMN_SEAT_ROW_INSTANCE_ID + " INTEGER," + "\n"
                     + SEAT_INSTANCE_COLUMN_STATUS + " INTEGER" + ");";
 

@@ -25,7 +25,7 @@ public class HallInstanceFactory {
 
         // Create hall instance
         HallInstance hallInstance = new HallInstance();
-        hallInstance.setHall(hall);
+        hallInstance.setHall(hall); // HallInstance 1/2
 
         // Fill hall instance with seats
         ArrayList<SeatRowInstance> seatRowInstances = new ArrayList<>();
@@ -34,10 +34,10 @@ public class HallInstanceFactory {
 
         }
         for (SeatRowInstance seatRowInstance : seatRowInstances) {
-            seatRowInstance.setHallInstance(hallInstance);
+            seatRowInstance.setHallInstance(hallInstance); // SeatRowInstance 1/3
 
         }
-        hallInstance.setSeatRowInstances(seatRowInstances);
+        hallInstance.setSeatRowInstances(seatRowInstances); // HallInstance 2/2
 
         Log.i("HallInstanceFactory", "HallInstance created: " + hallInstance);
 
@@ -51,7 +51,7 @@ public class HallInstanceFactory {
 
         // Create seat row instance
         SeatRowInstance seatRowInstance = new SeatRowInstance();
-        seatRowInstance.setSeatRow(seatRow);
+        seatRowInstance.setSeatRow(seatRow); // SeatRowInstance 2/3
 
         // Create seat row instance its seat instances
         ArrayList<SeatInstance> seatInstances = new ArrayList<>();
@@ -59,7 +59,7 @@ public class HallInstanceFactory {
             seatInstances.add(createSeatInstance(seatRowInstance, seat));
 
         }
-        seatRowInstance.setSeatInstances(seatInstances);
+        seatRowInstance.setSeatInstances(seatInstances); // SeatRowInstance 3/3
 
         // Return seat row instance
         return seatRowInstance;
@@ -70,10 +70,10 @@ public class HallInstanceFactory {
 
         SeatInstance seatInstance = new SeatInstance();
 
-        seatInstance.setSeat(seat);
-        seatInstance.setSeatRowInstance(seatRowInstance);
+        seatInstance.setSeat(seat); // SeatInstance 1/3
+        seatInstance.setSeatRowInstance(seatRowInstance); // SeatInstance 2/3
         // When hall instance is creates all seats begin available
-        seatInstance.setStatus(SeatStatus.AVAILABLE);
+        seatInstance.setStatus(SeatStatus.AVAILABLE); // SeatInstance 3/3
 
         return seatInstance;
 

@@ -57,6 +57,7 @@ public class HallRepository {
     // Returns all Halls from database
     public ArrayList<Hall> getAllHalls() {
 
+        // Log action
         Log.i("HallRepository", "Asking database for all Halls");
 
         // Halls without SeatRows and Seats

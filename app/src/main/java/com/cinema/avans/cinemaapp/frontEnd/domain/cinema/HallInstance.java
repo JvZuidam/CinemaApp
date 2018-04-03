@@ -93,7 +93,9 @@ public class HallInstance implements Serializable {
     public String toString() {
 
         return "HallInstanceId: " + hallInstanceId + "\n" +
-                "Is an instance of : " + hall;
+                "Amount of Rows: " + seatRowInstances.size() + "\n" +
+                "Amount of Seats " + amountOfSeats() + "\n" +
+                "Is an instance of HallNr: " + hall.getHallNr();
 
     }
 

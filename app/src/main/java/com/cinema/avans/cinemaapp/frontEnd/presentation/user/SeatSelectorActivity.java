@@ -1,15 +1,21 @@
 package com.cinema.avans.cinemaapp.frontEnd.presentation.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 import com.cinema.avans.cinemaapp.frontEnd.logic.user.SeatSelector;
 
 /**
@@ -35,8 +41,74 @@ public class SeatSelectorActivity extends AppCompatActivity {
                 displayHallInformation();
 
                 setUpGridView();
+
             }
         }
+
+        createSpinner();
+
+        createOkButton();
+
+    }
+
+    private void createSpinner() {
+
+        String[] amountOfSeats = new String[]{"1", "2", "3", "4", "5"};
+
+        Spinner amountOfSeatSpinner = findViewById(R.id.selectorAmountOfSeatsSpinner);
+        amountOfSeatSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, amountOfSeats));
+        amountOfSeatSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i == 0) {
+                    seatSelector.setAmount(1);
+
+                } else if (i == 1) {
+                    seatSelector.setAmount(2);
+
+                } else if (i == 2) {
+                    seatSelector.setAmount(3);
+
+                } else if (i == 3) {
+                    seatSelector.setAmount(4);
+
+                } else if (i == 4) {
+                    seatSelector.setAmount(5);
+
+                }
+
+                seatAdapter.notifyDataSetChanged();
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+    }
+
+    private void createOkButton() {
+
+        Button okButton = findViewById(R.id.selectorOkButton);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!seatSelector.isValid()) {
+                    Toast.makeText(getApplicationContext(), "Select " + seatSelector.getAmount() + " seats first!", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Intent intent = new Intent(SeatSelectorActivity.this, PayActivity.class);
+                    intent.putExtra("SELECTED_SEATS", seatSelector.getSelectedSeats());
+                    intent.putExtra("SHOWING", seatSelector.getShowing());
+                    startActivity(intent);
+
+                }
+
+            }
+        });
 
     }
 

@@ -13,6 +13,7 @@ import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
+import com.cinema.avans.cinemaapp.frontEnd.logic.user.SeatSelector;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,14 +43,19 @@ public class MovieDetailedActivity extends AppCompatActivity {
 
         // Sorter for time
         ListView movieShowingsListView = findViewById(R.id.detailedMovieShowingListView);
-        ShowingsAdapter showingsAdapter = new ShowingsAdapter(getApplicationContext(), showings);
+        final ShowingsAdapter showingsAdapter = new ShowingsAdapter(getApplicationContext(), showings);
         movieShowingsListView.setAdapter(showingsAdapter);
 
         movieShowingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                // Order screen
+                Intent intent = new Intent(MovieDetailedActivity.this, SeatSelectorActivity.class);
+                intent.putExtra("SEAT_SELECTOR", new SeatSelector(
+                        showingsAdapter.getItem(i),
+                        showingsAdapter.getItem(i).getHallInstance(),
+                        1));
+                startActivity(intent);
 
             }
         });

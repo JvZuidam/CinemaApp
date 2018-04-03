@@ -33,6 +33,7 @@ public class HallInstanceRepository {
         // Add HallInstance and add generated id
         hallInstance.setHallInstanceId(databaseManager.createHallInstance(hallInstance));
 
+        // Log again to check the generated id
         Log.i("HallInstanceRepository", "Created HallInstance: " + hallInstance);
 
         // Add all SeatRow instances
@@ -45,9 +46,20 @@ public class HallInstanceRepository {
 
     public HallInstance getHallInstance(Showing showing) {
 
+        // Log action
+        Log.i("HallInstanceRepository", "Asking database for HallInstance for : " + showing);
+
+        // Get HallInstance
         HallInstance hallInstance = databaseManager.getHallInstance(showing.getHallInstance().getHallInstanceId());
+        // Also add Hall with HallRepository, otherwise the SeatRow and SeatRows will not be added
+        new HallRepository(databaseManager).getHall(hallInstance.getHall().getHallNr());
+        // Also get SeatRows
         hallInstance.setSeatRowInstances(new SeatRowInstanceRepository(databaseManager).getSeatRowInstances(hallInstance));
 
+        // Log completed HallInstance
+        Log.i("HallInstanceRepository", "Complete HallInstance: " + hallInstance);
+
+        // Return HallInstance
         return hallInstance;
 
     }
