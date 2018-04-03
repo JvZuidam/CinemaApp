@@ -98,8 +98,11 @@ public class SeatRowInstance implements Serializable {
     @Override
     public String toString() {
 
-        return "SeatRowInstance: " + seatRowInstanceId + "\n" +
-                seatRow;
+        return "SeatRowInstanceId: " + seatRowInstanceId + "\n" +
+                "Is an instance of: " + seatRow + "\n" +
+                "HallInstance: " + hallInstance + "\n" +
+                "Amount of Seats: " + getAmountOfActualSeats();
+
 
     }
 

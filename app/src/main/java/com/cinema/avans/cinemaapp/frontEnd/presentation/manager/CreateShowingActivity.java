@@ -111,7 +111,7 @@ public class CreateShowingActivity extends AppCompatActivity {
         // If the data contains a hall
         else if (requestCode == 3) {
             if (data.getExtras() != null) {
-                showing.setHallInstance(hallInstanceFactory.getHallInstance((Hall) data.getSerializableExtra("HALL")));
+                showing.setHallInstance(hallInstanceFactory.createHallInstance((Hall) data.getSerializableExtra("HALL")));
 
             }
 

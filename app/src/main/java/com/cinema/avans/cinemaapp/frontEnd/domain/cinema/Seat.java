@@ -98,9 +98,10 @@ public class Seat implements Serializable {
     public String toString() {
 
         return "SeatId:" + seatId + "\n" +
-                "Seat in hall:\n" + seatRow.getHall() + "\n" +
-                "Seat in SeatRow:\n" + seatRow + "\n" +
-                "SeatNr: " + seatNr;
+                "Seat in hall: " + seatRow.getHall() + "\n" +
+                "Seat in SeatRow: " + seatRow + "\n" +
+                "SeatNr: " + seatNr + "\n" +
+                "SeatValue: " + seatValue;
 
     }
 

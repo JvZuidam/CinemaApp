@@ -1,7 +1,8 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import android.util.Log;
+
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRowInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
@@ -26,18 +27,17 @@ public class HallInstanceRepository {
     // - All of the SeatInstances per SeatRowInstance have to be added
     public void createHallInstance(HallInstance hallInstance) {
 
-        // Add HallInstance
-        hallInstance = databaseManager.createHallInstance(hallInstance);
+        // Log
+        Log.i("HallInstanceRepository", "Creating : " + hallInstance);
+
+        // Add HallInstance and add generated id
+        hallInstance.setHallInstanceId(databaseManager.createHallInstance(hallInstance));
+
+        Log.i("HallInstanceRepository", "Created HallInstance: " + hallInstance);
 
         // Add all SeatRow instances
         for (SeatRowInstance seatRowInstance : hallInstance.getSeatRowInstances()) {
-            databaseManager.createSeatRowInstance(seatRowInstance);
-
-            // Add all SeatInstances for a given SeatRow
-            for (SeatInstance seatInstance : seatRowInstance.getSeatInstances()) {
-                databaseManager.createSeatInstance(seatInstance);
-
-            }
+            new SeatRowInstanceRepository(databaseManager).createSeatRowInstance(seatRowInstance);
 
         }
 

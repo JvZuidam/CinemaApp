@@ -60,9 +60,9 @@ public class SeatRow implements Serializable {
     public String toString() {
 
         return "SeatRowId: " + rowId + "\n" +
-                "HallNr: " + getHall().getHallNr() + "\n" +
+                "Within Hall: " + hall + "\n" +
                 "RowNr: " + rowNr + "\n" +
-                "Amount of Seats: " + seats.size();
+                "Amount of Seats within SeatRow: " + seats.size();
 
     }
 

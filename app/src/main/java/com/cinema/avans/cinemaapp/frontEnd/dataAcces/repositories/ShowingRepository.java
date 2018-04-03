@@ -29,11 +29,12 @@ public class ShowingRepository {
 
         Log.i("ShowingRepository", "Adding showing:" + "\n" + showing);
 
-        showing.setShowingId(databaseManager.createShowing(showing).getShowingId());
-
-        showing.getHallInstance().setShowing(showing);
-
+        Log.i("ShowingRepository", "First adding hall");
         new HallInstanceRepository(databaseManager).createHallInstance(showing.getHallInstance());
+
+        Log.i("ShowingRepository", "Now adding Showing: " + showing);
+
+        databaseManager.createShowing(showing);
 
     }
 

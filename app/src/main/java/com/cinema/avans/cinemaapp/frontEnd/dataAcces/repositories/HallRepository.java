@@ -26,6 +26,7 @@ public class HallRepository {
     // Creates an entire Hall (SeatRows and Seats included)
     public void createHall(Hall hall) {
 
+        // Log
         Log.i("HallRepository", "Creating hall:\n" + hall);
 
         // Add Hall

@@ -1,5 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.logic.manager;
 
+import android.util.Log;
+
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
@@ -17,7 +19,9 @@ import java.util.ArrayList;
 public class HallInstanceFactory {
 
     // Creates a hall instance from a given hall
-    public HallInstance getHallInstance(Hall hall) {
+    public HallInstance createHallInstance(Hall hall) {
+
+        Log.i("HallInstanceFactory", "Creating HallInstance from: " + hall);
 
         // Create hall instance
         HallInstance hallInstance = new HallInstance();
@@ -29,7 +33,13 @@ public class HallInstanceFactory {
             seatRowInstances.add(createSeatRowInstance(seatRow));
 
         }
+        for (SeatRowInstance seatRowInstance : seatRowInstances) {
+            seatRowInstance.setHallInstance(hallInstance);
+
+        }
         hallInstance.setSeatRowInstances(seatRowInstances);
+
+        Log.i("HallInstanceFactory", "HallInstance created: " + hallInstance);
 
         // Return hall instance
         return hallInstance;

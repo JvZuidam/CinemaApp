@@ -62,8 +62,8 @@ public class Movie implements Serializable {
     }
 
     public String toString() {
-        return "Movie: " + "\n" +
-                "- Title: " + title;
+        return "MovieId: " + movieId + "\n" +
+                "Title: " + title;
     }
 
 }

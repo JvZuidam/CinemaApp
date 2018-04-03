@@ -1,5 +1,7 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
+import android.util.Log;
+
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
@@ -22,8 +24,11 @@ public class SeatRowInstanceRepository {
 
     public void createSeatRowInstance(SeatRowInstance seatRowInstance) {
 
+        // Log
+        Log.i("SeatRowInstanceRepo", "Creating: " + seatRowInstance);
+
         // Add the seat row instance
-        databaseManager.createSeatRowInstance(seatRowInstance);
+        seatRowInstance.setSeatRowInstanceId(databaseManager.createSeatRowInstanceAndGetGeneratedId(seatRowInstance));
 
         // Add the SeatInstances within the SeatRow
         for (SeatInstance seatInstance : seatRowInstance.getSeatInstances()) {

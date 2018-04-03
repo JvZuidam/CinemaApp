@@ -16,7 +16,7 @@ public class Showing implements Serializable {
     public Showing() {
 
         this.showingId = 0;
-        this.hallInstance = null;
+        this.hallInstance = new HallInstance();
         this.movie = null;
         this.date = new Date();
 
@@ -57,9 +57,9 @@ public class Showing implements Serializable {
     @Override
     public String toString() {
 
-        return "Showing: " + showingId + "\n" +
-                "Movie: " + movie.getTitle() + "\n" +
-                "HallNr: " + hallInstance.getHall().getHallNr() + "\n" +
+        return "ShowingId: " + showingId + "\n" +
+                "Movie: " + movie + "\n" +
+                "Showing is in: " + hallInstance + "\n" +
                 "Date: " + date.getDate();
 
     }

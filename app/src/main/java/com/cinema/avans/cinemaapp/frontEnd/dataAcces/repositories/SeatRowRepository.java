@@ -24,6 +24,7 @@ public class SeatRowRepository {
 
     public void createSeatRow(SeatRow seatRow) {
 
+        // Log
         Log.i("SeatRowRepository", "Creating SeatRow:\n" + seatRow);
 
         // Add the seat row

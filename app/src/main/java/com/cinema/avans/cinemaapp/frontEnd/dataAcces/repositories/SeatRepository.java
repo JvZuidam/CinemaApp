@@ -23,8 +23,9 @@ public class SeatRepository {
 
     public void createSeat(Seat seat) {
 
+        // Log
         Log.i("SeatRepository", "Creating Seat:\n" + seat);
-
+        // Create Seat
         databaseManager.createSeat(seat);
 
     }
