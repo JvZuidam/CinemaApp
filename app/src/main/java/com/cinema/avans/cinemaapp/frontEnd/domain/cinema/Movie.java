@@ -14,7 +14,7 @@ public class Movie implements Serializable {
     private String description;
     private String runtime;
     private String releaseDate;
-    private double rating;
+    private String rating;
     private String imageUrl;
     private ArrayList<Showing> showings;
 
@@ -25,7 +25,7 @@ public class Movie implements Serializable {
         this.description = "";
         this.runtime = "";
         this.releaseDate = "";
-        this.rating = 0.0;
+        this.rating = "";
         this.imageUrl = "";
         this.showings = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class Movie implements Serializable {
         this.releaseDate = releaseDate;
     }
     public void setRating(String rating) {
-        this.rating = Double.parseDouble(rating);
+        this.rating = rating;
     }
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
@@ -73,13 +73,13 @@ public class Movie implements Serializable {
     public String getReleaseDate() {
         return releaseDate;
     }
-    public Double getRating() {
+    public String getRating() {
         return rating;
     }
     public String getImageUrl() {
         return imageUrl;
     }
-    public ArrayList<Showing> getShowing() {
+    public ArrayList<Showing> getShowings() {
         return showings;
     }
 

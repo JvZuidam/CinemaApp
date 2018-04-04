@@ -63,10 +63,27 @@
                 android:id="@+id/detailedMovieDurationText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:text="120 minutes"
                 app:layout_constraintStart_toStartOf="@+id/detailedMovieTitle"
                 app:layout_constraintTop_toBottomOf="@+id/detailedMovieTitle" />
+
+            <TextView
+                android:id="@+id/detailedMovieRatingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Rating 8.6"
+                app:layout_constraintStart_toStartOf="@+id/detailedMovieDurationText"
+                app:layout_constraintTop_toBottomOf="@+id/detailedMovieDurationText" />
+
+            <TextView
+                android:id="@+id/detailedMovieReleaseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02 aug 2018"
+                app:layout_constraintStart_toStartOf="@+id/detailedMovieImage"
+                app:layout_constraintTop_toBottomOf="@+id/detailedMovieImage" />
 
             <TextView
                 android:id="@+id/detailedMovieDescription"
@@ -77,19 +94,33 @@
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieImage"
+                app:layout_constraintTop_toBottomOf="@+id/detailedMovieReleaseDate"
                 tools:text='"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam' />
 
-            <ListView
-                android:id="@+id/detailedMovieShowingListView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+            <Button
+                android:id="@+id/detailedMovieShowingsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="Showings"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailedMovieDescription" />
+
+            <ProgressBar
+                android:id="@+id/detailedMovieProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/detailedMovieShowingsButton"
+                app:layout_constraintEnd_toStartOf="@+id/detailedMovieShowingsButton"
+                app:layout_constraintTop_toTopOf="@+id/detailedMovieShowingsButton" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

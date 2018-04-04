@@ -19,31 +19,17 @@ public class MovieRepository {
     }
 
     public void createMovie(Movie movie) {
+
         databaseManager.createMovie(movie);
 
     }
 
-    public ArrayList<Movie> getAllMovies() {
+    public ArrayList<Movie> getAllMovieWithoutTheirShowings() {
 
+        // Get movies
         ArrayList<Movie> movies =  databaseManager.getAllMovies();
 
-        for (Movie movie : movies) {
-            movie.setShowings(databaseManager.getShowings(movie));
-
-        }
-
         return movies;
-
-    }
-
-    public Movie getMovie(int movieId) {
-
-        // Get movie from database
-        Movie movie = databaseManager.getMovie(movieId);
-        // Get showings of the movie from database
-        movie.setShowings(new ShowingRepository(databaseManager).getShowings(movie));
-        // Return complete movie
-        return movie;
 
     }
 

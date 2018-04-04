@@ -44,6 +44,10 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             Picasso.with(getContext()).load(movie.getImageUrl()).into(movieImage);
             TextView movieTitle = convertView.findViewById(R.id.movieListTitle);
             movieTitle.setText(movie.getTitle());
+            TextView movieRuntime = convertView.findViewById(R.id.movieListRuntime);
+            movieRuntime.setText(movie.getRuntime());
+            TextView ratingText = convertView.findViewById(R.id.movieListRating);
+            ratingText.setText("Rating: " + movie.getRating());
 
         }
 

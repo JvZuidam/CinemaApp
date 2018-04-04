@@ -51,9 +51,7 @@ public class HallInstanceRepository {
 
         // Get HallInstance
         HallInstance hallInstance = databaseManager.getHallInstance(showing.getHallInstance().getHallInstanceId());
-        // Also add Hall with HallRepository, otherwise the SeatRow and SeatRows will not be added
-        new HallRepository(databaseManager).getHall(hallInstance.getHall().getHallNr());
-        // Also get SeatRows
+        // Also get SeatRowInstances
         hallInstance.setSeatRowInstances(new SeatRowInstanceRepository(databaseManager).getSeatRowInstances(hallInstance));
 
         // Log completed HallInstance

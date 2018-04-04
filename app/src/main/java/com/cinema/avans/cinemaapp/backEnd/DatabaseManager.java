@@ -416,7 +416,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
 
             hallInstance.setHallInstanceId(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID)));
-            hallInstance.setHall(getHall(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_NR)))); // Replace to repository
 
         }
 
@@ -469,7 +468,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 // Create SeatRow
                 SeatRowInstance seatRowInstance = new SeatRowInstance();
                 seatRowInstance.setSeatRowInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_INSTANCE_COLUMN_ROW_INSTANCE_ID)));
-                seatRowInstance.setSeatRow(getSeatRow(cursor.getInt(cursor.getColumnIndex(SEAT_ROW_COLUMN_ROW_ID))));
                 seatRowInstances.add(seatRowInstance);
 
                 Log.i("Database", "Found: " + seatRowInstance);
@@ -547,7 +545,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 // Create SeatInstance
                 SeatInstance seatInstance = new SeatInstance();
                 seatInstance.setSeatInstanceId(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_INSTANCE_ID)));
-                seatInstance.setSeat(getSeat(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID))));
                 seatInstance.setStatus(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_STATUS)));
                 seatInstances.add(seatInstance);
 
@@ -621,43 +618,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         values.put(MOVIE_COLUMN_IMAGE_URL, movie.getImageUrl());
 
         database.insert(TABLE_MOVIE, null, values);
-
-    }
-    public Movie getMovie(int movieId) {
-
-        SQLiteDatabase database = getReadableDatabase();
-
-        String query =
-                "SELECT *" + "\n"
-                        + "FROM " + TABLE_MOVIE + "\n"
-                        + "WHERE " + MOVIE_COLUMN_MOVIE_ID + " = " + movieId;
-
-        Log.i("Database", query);
-
-        Cursor cursor = database.rawQuery(query, null);
-
-        if (cursor.moveToFirst()) {
-
-            cursor.moveToFirst();
-
-            Movie movie = new Movie();
-            movie.setMovieId(cursor.getInt(cursor.getColumnIndex(MOVIE_COLUMN_MOVIE_ID)));
-            movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_TITLE)));
-            movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
-            movie.setRuntime(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RUNTIME)));
-            movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RELEASE_DATE)));
-            movie.setRating(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RATING)));
-            movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
-
-            cursor.close();
-
-            return movie;
-
-        }
-
-        cursor.close();
-
-        return null;
 
     }
     public ArrayList<Movie> getAllMovies() {
@@ -1132,7 +1092,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                     + MOVIE_COLUMN_DESCRIPTION + " TEXT," + "\n"
                     + MOVIE_COLUMN_RUNTIME + " TEXT," + "\n"
                     + MOVIE_COLUMN_RELEASE_DATE + " TEXT," + "\n"
-                    + MOVIE_COLUMN_RATING + " REAL," + "\n"
+                    + MOVIE_COLUMN_RATING + " TEXT," + "\n"
                     + MOVIE_COLUMN_IMAGE_URL + " TEXT" + ");";
 
     private static final String CREATE_TABLE_SHOWING =

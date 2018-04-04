@@ -27,7 +27,7 @@ public class CreateShowingSelectMovieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_showing_select_movie);
 
         // Get movies
-        ArrayList<Movie> movies = new RepositoryFactory(getApplicationContext()).getMovieRepository().getAllMovies();
+        ArrayList<Movie> movies = new RepositoryFactory(getApplicationContext()).getMovieRepository().getAllMovieWithoutTheirShowings();
 
         // Display movies
         final MovieAdapter movieAdapter = new MovieAdapter(getApplicationContext(), movies);
