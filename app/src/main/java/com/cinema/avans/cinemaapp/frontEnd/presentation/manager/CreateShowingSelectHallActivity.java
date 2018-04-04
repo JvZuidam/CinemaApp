@@ -25,10 +25,10 @@ public class CreateShowingSelectHallActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_showing_select_hall);
 
-        // Get movies
-        ArrayList<Hall> halls = new RepositoryFactory(getApplicationContext()).getHallRepository().getAllHalls();
+        // Get halls
+        ArrayList<Hall> halls = (ArrayList<Hall>) getIntent().getSerializableExtra("HALLS");
 
-        // Display movies
+        // Display halls
         final HallAdapter hallAdapter = new HallAdapter(getApplicationContext(), halls);
         ListView hallListView = findViewById(R.id.createShowingSelectHallListView);
         hallListView.setAdapter(hallAdapter);
@@ -38,6 +38,7 @@ public class CreateShowingSelectHallActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                // Send selected hall back
                 Hall hall = hallAdapter.getItem(i);
                 Intent intent = new Intent();
                 intent.putExtra("HALL", hall);

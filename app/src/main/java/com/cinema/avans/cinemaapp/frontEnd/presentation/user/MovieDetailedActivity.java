@@ -104,30 +104,39 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
             @Override
             public void onClick(View view) {
 
-                // Start loading indicator
-                startLoader();
+                // If Showings still have to be added to the Movie
+                if (movie.getShowings().size() == 0) {
 
-                // Now add the showings to the movie
-                showingsGetter.execute(movie);
-//                movie.setShowings(new RepositoryFactory(getApplicationContext()).getShowingRepository().getShowings(movie));
+                    // Start loading indicator
+                    startLoader();
+                    // Start async task to get Showings for the Movie
+                    showingsGetter.execute(movie);
 
-//                // Stop loading indicator
-//                progressBar.setVisibility(View.GONE);
-//
-//                // Start the intent and pass the movie trough
-//                Intent intent = new Intent(MovieDetailedActivity.this, MovieDetailedShowingsActivity.class);
-//                intent.putExtra("MOVIE", movie);
-//                startActivity(intent);
+                }
+                // If user pressed the back button and no Showings have to be found
+                else {
+
+                    // Start the intent and pass the movie trough
+                    Intent intent = new Intent(MovieDetailedActivity.this, MovieDetailedShowingsActivity.class);
+                    intent.putExtra("MOVIE", movie);
+                    stopLoader();
+                    startActivity(intent);
+
+                }
 
             }
         });
 
     }
 
+    // Interface method to continue when Showings have been found
     public void showingsFound(ArrayList<Showing> showings) {
 
-        // Add the Showings
+        // Add the Showings to the Movie
         movie.setShowings(showings);
+
+        // Stop the loader
+        stopLoader();
 
         // Start the intent and pass the movie trough
         Intent intent = new Intent(MovieDetailedActivity.this, MovieDetailedShowingsActivity.class);
@@ -136,11 +145,11 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
 
     }
 
+    // Helper methods to start and stop loader
     private void startLoader() {
         progressBar.setVisibility(View.VISIBLE);
 
     }
-
     private void stopLoader() {
         progressBar.setVisibility(View.GONE);
 

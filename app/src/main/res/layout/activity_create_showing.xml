@@ -14,15 +14,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <android.support.constraint.Guideline
+                android:id="@+id/createShowingGuideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
             <TextView
                 android:id="@+id/createShowingInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Create a new showing"
                 android:textColor="@android:color/white"
-                android:textSize="30sp"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,11 +38,12 @@
                 android:id="@+id/createShowingMovieInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="Movie"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/createShowingInfo" />
 
@@ -42,24 +51,28 @@
                 android:id="@+id/createShowingMovieImage"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createShowingMovieInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/createShowingMovieTitle" />
 
             <TextView
                 android:id="@+id/createShowingMovieTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:textAlignment="center"
                 android:textColor="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/createShowingMovieImage"
-                app:layout_constraintStart_toEndOf="@+id/createShowingMovieImage"
-                app:layout_constraintTop_toTopOf="@+id/createShowingMovieImage"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createShowingMovieInfo"
                 tools:text="Title" />
 
             <Button
@@ -67,28 +80,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="Select movie"
-                app:layout_constraintBottom_toBottomOf="@+id/createShowingMovieImage"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createShowingMovieImage" />
 
             <TextView
                 android:id="@+id/createShowingHallInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="Hall"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createShowingMovieImage" />
+                app:layout_constraintTop_toBottomOf="@+id/createShowingSelectMovieButton" />
 
             <TextView
                 android:id="@+id/createShowingHallText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/createShowingHallInfo"
                 tools:text="Hall 1" />
@@ -97,29 +116,35 @@
                 android:id="@+id/createShowingSelectHallButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
                 android:text="Select hall"
-                app:layout_constraintBottom_toBottomOf="@+id/createShowingHallText"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createShowingHallText" />
 
             <TextView
                 android:id="@+id/createShowingDateInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="Date"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/createShowingGuideline1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createShowingHallText" />
+                app:layout_constraintTop_toBottomOf="@+id/createShowingSelectHallButton" />
 
             <TextView
                 android:id="@+id/createShowingDateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/createShowingGuideline1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/createShowingDateInfo"
                 tools:text="22/22/2222" />
@@ -129,21 +154,87 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="Select date"
-                app:layout_constraintBottom_toBottomOf="@+id/createShowingDateText"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/createShowingGuideline1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createShowingDateText" />
+
+            <TextView
+                android:id="@+id/createShowingTimeInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="Time"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/createShowingGuideline1"
+                app:layout_constraintTop_toTopOf="@+id/createShowingDateInfo" />
+
+            <TextView
+                android:id="@+id/createShowingTimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/createShowingGuideline1"
+                app:layout_constraintTop_toBottomOf="@+id/createShowingTimeInfo"
+                tools:text="17:30" />
+
+            <Button
+                android:id="@+id/createShowingSelectTimeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Select time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/createShowingGuideline1"
+                app:layout_constraintTop_toBottomOf="@+id/createShowingTimeText" />
 
             <Button
                 android:id="@+id/createShowingSaveButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
                 android:text="Save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createShowingDateText" />
+                app:layout_constraintTop_toBottomOf="@+id/createShowingSelectTimeButton" />
+
+            <ProgressBar
+                android:id="@+id/createShowingCreateShowingProgressbar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/createShowingSaveButton"
+                app:layout_constraintEnd_toEndOf="@+id/createShowingSaveButton"
+                app:layout_constraintStart_toStartOf="@+id/createShowingSaveButton" />
+
+            <ProgressBar
+                android:id="@+id/createShowingSelectHallProgressbar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/createShowingSelectHallButton"
+                app:layout_constraintStart_toStartOf="@+id/createShowingSelectHallButton"
+                app:layout_constraintTop_toBottomOf="@+id/createShowingSelectHallButton" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

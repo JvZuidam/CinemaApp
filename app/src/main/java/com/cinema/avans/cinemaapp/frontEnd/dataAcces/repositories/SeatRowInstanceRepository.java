@@ -38,6 +38,7 @@ public class SeatRowInstanceRepository {
 
     }
 
+    // Gets everything except the SeatRow
     public ArrayList<SeatRowInstance> getSeatRowInstances(HallInstance hallInstance) {
 
 

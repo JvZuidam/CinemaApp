@@ -22,6 +22,7 @@ import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInManager;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.user.MovieListActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.manager.ManagerHubActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.register.RegisterActivity;
+import com.cinema.avans.cinemaapp.frontEnd.presentation.user.UserHubActivity;
 
 import java.util.ArrayList;
 
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
     public void userLogIn(User user) {
 
         // Go to movie list screen for user
-        Intent intent = new Intent(MainActivity.this, MovieListActivity.class);
+        Intent intent = new Intent(MainActivity.this, UserHubActivity.class);
         intent.putExtra("USER", user);
         startActivity(intent);
 

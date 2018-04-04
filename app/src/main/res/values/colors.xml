@@ -4,6 +4,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#00303f9f</color>
     <color name="colorAccent">#FF4081</color>
+    
+    <!-- Colors for navigation bar -->
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorWhiteTransparent">#80ffffff</color>
 
     <!-- Colors to display selector information -->
     <color name="available">#f5f54e</color>

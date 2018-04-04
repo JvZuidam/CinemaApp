@@ -43,7 +43,7 @@ public class PayActivity extends AppCompatActivity {
                     seatInstance.setStatus(SeatStatus.RESERVED);
                 }
                 seatInstanceRepository.updateSeats(seatInstancesForUser);
-                Intent intent = new Intent(PayActivity.this, MovieListActivity.class);
+                Intent intent = new Intent(PayActivity.this, UserHubActivity.class); // Give user back to UserHub otherwise no user?
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 

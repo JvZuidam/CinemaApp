@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.ShowingRepository;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
+import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * Created by JanBelterman on 04 April 2018
  */
 
-public class ShowingsGetter extends AsyncTask<Movie, Void, Void> {
+public class ShowingsGetter extends AsyncTask<Movie, Void, ArrayList<Showing>> {
 
     private ShowingRepository showingRepository;
     private ShowingsListener showingsListener;
@@ -23,13 +24,18 @@ public class ShowingsGetter extends AsyncTask<Movie, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Movie... movies) {
+    protected ArrayList<Showing> doInBackground(Movie... movies) {
 
         Movie movie = movies[0];
 
-        showingsListener.showingsFound(showingRepository.getShowings(movie));
+        return showingRepository.getShowings(movie);
 
-        return null;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<Showing> showings) {
+
+        showingsListener.showingsFound(showings);
 
     }
 

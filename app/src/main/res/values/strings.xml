@@ -3,4 +3,10 @@
     <string name="AVAILABLE">AVAILABLE</string>
     <string name="SELECTED">SELECTED</string>
     <string name="RESERVED">RESERVED</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_user">User</string>
+    <string name="nav_Movies">Movies</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

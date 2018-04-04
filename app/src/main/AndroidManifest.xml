@@ -41,6 +41,8 @@
         </activity>
 
         <!-- User -->
+        <activity android:name=".frontEnd.presentation.user.UserHubActivity">
+        </activity>
         <activity android:name=".frontEnd.presentation.user.MovieListActivity">
         </activity>
         <activity android:name=".frontEnd.presentation.user.MovieDetailedActivity">
