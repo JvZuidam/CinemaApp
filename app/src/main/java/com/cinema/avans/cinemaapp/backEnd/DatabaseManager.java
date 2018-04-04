@@ -615,6 +615,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(MOVIE_COLUMN_TITLE, movie.getTitle());
         values.put(MOVIE_COLUMN_DESCRIPTION, movie.getDescription());
+        values.put(MOVIE_COLUMN_RUNTIME, movie.getRuntime());
+        values.put(MOVIE_COLUMN_RELEASE_DATE, movie.getReleaseDate());
+        values.put(MOVIE_COLUMN_RATING, movie.getRating());
         values.put(MOVIE_COLUMN_IMAGE_URL, movie.getImageUrl());
 
         database.insert(TABLE_MOVIE, null, values);
@@ -641,6 +644,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
             movie.setMovieId(cursor.getInt(cursor.getColumnIndex(MOVIE_COLUMN_MOVIE_ID)));
             movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_TITLE)));
             movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
+            movie.setRuntime(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RUNTIME)));
+            movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RELEASE_DATE)));
+            movie.setRating(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RATING)));
             movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
 
             cursor.close();
@@ -673,10 +679,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
             while (!cursor.isAfterLast()) {
 
                 Movie movie = new Movie();
-                movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
-                movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
                 movie.setMovieId(cursor.getInt(cursor.getColumnIndex(MOVIE_COLUMN_MOVIE_ID)));
                 movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_TITLE)));
+                movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
+                movie.setRuntime(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RUNTIME)));
+                movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RELEASE_DATE)));
+                movie.setRating(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RATING)));
+                movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
 
                 movies.add(movie);
 
@@ -1041,6 +1050,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String MOVIE_COLUMN_MOVIE_ID = "MovieId";
     private static final String MOVIE_COLUMN_TITLE = "Title";
     private static final String MOVIE_COLUMN_DESCRIPTION = "Description";
+    private static final String MOVIE_COLUMN_RUNTIME = "Runtime";
+    private static final String MOVIE_COLUMN_RELEASE_DATE = "ReleaseDate";
+    private static final String MOVIE_COLUMN_RATING = "Rating";
     private static final String MOVIE_COLUMN_IMAGE_URL = "ImageUr";
 
     // Showing table
@@ -1118,6 +1130,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
                     + MOVIE_COLUMN_MOVIE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
                     + MOVIE_COLUMN_TITLE + " TEXT," + "\n"
                     + MOVIE_COLUMN_DESCRIPTION + " TEXT," + "\n"
+                    + MOVIE_COLUMN_RUNTIME + " TEXT," + "\n"
+                    + MOVIE_COLUMN_RELEASE_DATE + " TEXT," + "\n"
+                    + MOVIE_COLUMN_RATING + " REAL," + "\n"
                     + MOVIE_COLUMN_IMAGE_URL + " TEXT" + ");";
 
     private static final String CREATE_TABLE_SHOWING =

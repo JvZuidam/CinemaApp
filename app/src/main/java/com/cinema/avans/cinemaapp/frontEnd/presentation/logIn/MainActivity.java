@@ -72,36 +72,6 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
         user.setPassword("12345");
         repositoryFactory.getUserRepository().createUser(user);
 
-        Hall hall = new Hall();
-        hall.setHallNr(1);
-
-        ArrayList<SeatRow> seatRows = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-
-            SeatRow seatRow = new SeatRow();
-            seatRow.setRowId(i);
-            seatRow.setRowNr(i + 1);
-            seatRow.setHall(hall);
-
-            ArrayList<Seat> seats = new ArrayList<>();
-            for (int j = 0; j < 12; j++ ) {
-
-                Seat seat = new Seat();
-                seat.setSeatRow(seatRow);
-                seat.setSeatValue(SeatValue.OK);
-                seat.setSeatNr(j + 1);
-                seats.add(seat);
-
-            }
-            seatRow.setSeats(seats);
-
-            seatRows.add(seatRow);
-
-        }
-        hall.setSeatRows(seatRows);
-
-        repositoryFactory.getHallRepository().createHall(hall);
-
     }
 
     private void setUpButtons() {

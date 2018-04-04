@@ -30,6 +30,7 @@
         <activity android:name=".frontEnd.presentation.manager.CreateShowingSelectMovieActivity"></activity>
         <activity android:name=".frontEnd.presentation.manager.CreateShowingSelectHallActivity"></activity>
         <activity android:name=".frontEnd.presentation.user.PayActivity"></activity>
+        <activity android:name=".frontEnd.presentation.manager.CreateHallActivity"></activity>
     </application>
 
 </manifest>

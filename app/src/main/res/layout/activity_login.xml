@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="Enter username.."
+        android:nextFocusForward="@+id/registerPasswordConfirmInput"
         app:layout_constraintStart_toStartOf="@+id/logInLogInInfo"
         app:layout_constraintTop_toBottomOf="@+id/logInLogInInfo" />
 

@@ -48,6 +48,17 @@ public class ManagerHubActivity extends AppCompatActivity {
             }
         });
 
+        Button hallButton = findViewById(R.id.mHubCreateHallButton);
+        hallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(ManagerHubActivity.this, CreateHallActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
 }

@@ -101,13 +101,18 @@ public class MovieApiManager extends AsyncTask<String, Void, String> {
             // Get the title
             String title = movieJSON.getString("Title");
             String description = movieJSON.getString("Plot");
+            String runtime = movieJSON.getString("Runtime");
+            String releaseDate = movieJSON.getString("Released");
+            String rating = movieJSON.getString("imdbRating");
             String imageUrl = movieJSON.getString("Poster");
-
 
             // Create a new movie
             Movie movie = new Movie();
             movie.setTitle(title);
             movie.setDescription(description);
+            movie.setRuntime(runtime);
+            movie.setReleaseDate(releaseDate);
+            movie.setRating(rating);
             movie.setImageUrl(imageUrl);
 
             // Log data to check
