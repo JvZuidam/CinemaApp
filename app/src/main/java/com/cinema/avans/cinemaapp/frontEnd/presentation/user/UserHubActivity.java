@@ -37,8 +37,6 @@ public class UserHubActivity extends AppCompatActivity {
 
         user = (User) getIntent().getSerializableExtra("USER");
 
-        user = new RepositoryFactory(getApplicationContext()).getUserRepository().getUser(user.getUsername());
-
         Log.i("UserHubActivity", "User gotten: " + user);
 
         navBar = findViewById(R.id.userHubNavBar);

@@ -1,12 +1,14 @@
 package com.cinema.avans.cinemaapp.frontEnd.presentation.user;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.SeatInstanceRepository;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatStatus;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Ticket;
+import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 
 import java.util.ArrayList;
 
@@ -14,29 +16,28 @@ import java.util.ArrayList;
  * Created by JanBelterman on 05 April 2018
  */
 
-public class TicketBoughtManager extends AsyncTask<Ticket, Void, Void> {
+public class TicketBoughtManager extends AsyncTask<Ticket, Void, User> {
 
     private TicketManagerFinishedListener ticketManagerFinishedListener;
     private RepositoryFactory repositoryFactory;
 
     private ArrayList<SeatInstance> seatInstances;
+    private User user;
 
     public TicketBoughtManager(TicketManagerFinishedListener ticketManagerFinishedListener,
-                               RepositoryFactory repositoryFactory) {
+                               RepositoryFactory repositoryFactory, ArrayList<SeatInstance> seatInstances, User user) {
 
         this.ticketManagerFinishedListener = ticketManagerFinishedListener;
         this.repositoryFactory = repositoryFactory;
-
-    }
-
-    public void setSeatInstances(ArrayList<SeatInstance> seatInstances) {
-
         this.seatInstances = seatInstances;
+        this.user = user;
 
     }
 
     @Override
-    protected Void doInBackground(Ticket... tickets) {
+    protected User doInBackground(Ticket... tickets) {
+
+        Log.i("TicketBoughtManager", "First ticket: " + tickets[0]);
 
         // Create ticket
         for (Ticket ticket : tickets) {
@@ -50,14 +51,15 @@ public class TicketBoughtManager extends AsyncTask<Ticket, Void, Void> {
         }
         seatInstanceRepository.updateSeats(seatInstances);
 
-        return null;
+        //User from mainAct
+        return repositoryFactory.getUserRepository().getUser(user.getUsername());
 
     }
 
     @Override
-    protected void onPostExecute(Void v) {
+    protected void onPostExecute(User user) {
 
-        ticketManagerFinishedListener.ticketManagerFinished();
+        ticketManagerFinishedListener.ticketManagerFinished(user);
 
     }
 

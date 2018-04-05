@@ -47,15 +47,15 @@ public class PayActivity extends AppCompatActivity implements TicketManagerFinis
         seatInstancesForUser = (ArrayList<SeatInstance>) getIntent().getSerializableExtra("SELECTED_SEATS");
         showing = (Showing) getIntent().getSerializableExtra("SHOWING");
 
-        ticketBoughtManager = new TicketBoughtManager(this, new RepositoryFactory(getApplicationContext()));
-        ticketBoughtManager.setSeatInstances(seatInstancesForUser);
+        ticketBoughtManager = new TicketBoughtManager(this,
+                new RepositoryFactory(getApplicationContext()),
+                seatInstancesForUser,
+                user);
 
         Button payButton = findViewById(R.id.payPayButton);
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                startLoader();
 
                 Ticket[] tickets = new Ticket[seatInstancesForUser.size()];
 
@@ -63,9 +63,12 @@ public class PayActivity extends AppCompatActivity implements TicketManagerFinis
                 for (SeatInstance seatInstance : seatInstancesForUser) {
 
                     tickets[i] = createTicket(i);
+                    Log.i("PayActivity", "Created ticket: " + tickets[i]);
                     i++;
 
                 }
+
+                startLoader();
 
                 ticketBoughtManager.execute(tickets);
 
@@ -87,7 +90,7 @@ public class PayActivity extends AppCompatActivity implements TicketManagerFinis
     }
 
     @Override
-    public void ticketManagerFinished() {
+    public void ticketManagerFinished(User user) {
 
         stopLoader();
 

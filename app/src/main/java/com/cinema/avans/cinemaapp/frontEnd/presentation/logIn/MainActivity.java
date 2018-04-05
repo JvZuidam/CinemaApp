@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,13 +15,15 @@ import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.Manager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
+import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.GetUserAsync;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInActivity;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInManager;
+import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.UserGottenListener;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.manager.ManagerHubActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.register.RegisterActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.user.UserHubActivity;
 
-public class MainActivity extends AppCompatActivity implements LogInActivity {
+public class MainActivity extends AppCompatActivity implements LogInActivity, UserGottenListener {
 
     // Manager
     private LogInManager logInManager;
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        stopLoader();
 
         //  Setup manager
         this.logInManager = new LogInManager(
@@ -123,10 +128,37 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
     @Override
     public void userLogIn(User user) {
 
+        startLoader();
+
+        GetUserAsync getUserAsync = new GetUserAsync(this, new RepositoryFactory(getApplicationContext()).getUserRepository());
+
+        getUserAsync.execute(user);
+
+    }
+
+    @Override
+    public void userGotten(User user) {
+
+        stopLoader();
+
         // Go to movie list screen for user
         Intent intent = new Intent(MainActivity.this, UserHubActivity.class);
         intent.putExtra("USER", user);
         startActivity(intent);
+
+    }
+
+    private void startLoader() {
+
+        ProgressBar progressBar = findViewById(R.id.logInProg);
+        progressBar.setVisibility(View.VISIBLE);
+
+    }
+
+    private void stopLoader() {
+
+        ProgressBar progressBar = findViewById(R.id.logInProg);
+        progressBar.setVisibility(View.GONE);
 
     }
 
