@@ -1,30 +1,18 @@
 package com.cinema.avans.cinemaapp.frontEnd.presentation.manager;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Date;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
-import com.cinema.avans.cinemaapp.frontEnd.logic.manager.HallInstanceFactory;
-import com.cinema.avans.cinemaapp.frontEnd.logic.manager.HallRetriever;
-import com.cinema.avans.cinemaapp.frontEnd.logic.manager.HallsRetrievedListener;
 import com.cinema.avans.cinemaapp.frontEnd.logic.manager.ShowingAddedListener;
 import com.cinema.avans.cinemaapp.frontEnd.logic.manager.ShowingAdder;
 import com.squareup.picasso.Picasso;
@@ -37,7 +25,9 @@ import java.util.Calendar;
  */
 
 // Step 4: Checking and saving
-public class CreateShowingConfirmActivity extends AppCompatActivity {
+public class CreateShowingConfirmActivity extends AppCompatActivity implements ShowingAddedListener {
+
+    private ShowingAdder showingAdder;
 
     private Showing showing;
 
@@ -58,9 +48,13 @@ public class CreateShowingConfirmActivity extends AppCompatActivity {
 
     private void setupActivity() {
 
+        stopLoader();
+
         Intent intent = getIntent();
 
         showing = (Showing) intent.getSerializableExtra("SHOWING");
+
+        showingAdder = new ShowingAdder(this, new RepositoryFactory(getApplicationContext()).getShowingRepository());
 
     }
 
@@ -84,14 +78,41 @@ public class CreateShowingConfirmActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(CreateShowingConfirmActivity.this, ManagerHubActivity.class);
-                // Pass halls and movies so no exception when manager wants to add another showing??
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                startLoader();
+
+                // Add showing
+                showingAdder.execute(showing);
 
             }
         });
+
+    }
+
+    @Override
+    public void showingAdded() {
+
+        stopLoader();
+
+        Toast.makeText(getApplicationContext(), getString(R.string.showingAdded), Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(CreateShowingConfirmActivity.this, ManagerHubActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+    }
+
+    private void stopLoader() {
+
+        ProgressBar loader = findViewById(R.id.createShowingConfirmLoader);
+        loader.setVisibility(View.GONE);
+
+    }
+
+    private void startLoader() {
+
+        ProgressBar loader = findViewById(R.id.createShowingConfirmLoader);
+        loader.setVisibility(View.VISIBLE);
 
     }
 

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
@@ -23,7 +24,9 @@ import java.util.ArrayList;
  * Created by JanBelterman on 03 April 2018
  */
 
-public class PayActivity extends AppCompatActivity {
+public class PayActivity extends AppCompatActivity implements TicketManagerFinishedListener {
+
+    private TicketBoughtManager ticketBoughtManager;
 
     private ArrayList<SeatInstance> seatInstancesForUser;
     private User user;
@@ -39,43 +42,74 @@ public class PayActivity extends AppCompatActivity {
 
         Log.i("PaymentActivity", "User gotten: " + user);
 
+        stopLoader();
+
         seatInstancesForUser = (ArrayList<SeatInstance>) getIntent().getSerializableExtra("SELECTED_SEATS");
         showing = (Showing) getIntent().getSerializableExtra("SHOWING");
+
+        ticketBoughtManager = new TicketBoughtManager(this, new RepositoryFactory(getApplicationContext()));
+        ticketBoughtManager.setSeatInstances(seatInstancesForUser);
 
         Button payButton = findViewById(R.id.payPayButton);
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                // Create ticket
-                new RepositoryFactory(getApplicationContext()).getTicketRepository().createTicket(createTicket());
+                startLoader();
 
-                // Update Seats to RESERVED in database
-                SeatInstanceRepository seatInstanceRepository = new RepositoryFactory(getApplicationContext()).getSeatInstanceRepositoryFactory();
+                Ticket[] tickets = new Ticket[seatInstancesForUser.size()];
+
+                int i = 0;
                 for (SeatInstance seatInstance : seatInstancesForUser) {
-                    seatInstance.setStatus(SeatStatus.RESERVED);
+
+                    tickets[i] = createTicket(i);
+                    i++;
+
                 }
-                seatInstanceRepository.updateSeats(seatInstancesForUser);
-                Intent intent = new Intent(PayActivity.this, UserHubActivity.class);
-                intent.putExtra("USER", user);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+
+                ticketBoughtManager.execute(tickets);
 
             }
         });
 
     }
 
-    public Ticket createTicket() {
+    public Ticket createTicket(int seatInstanceIndex) {
 
         // Create Ticket
         Ticket ticket = new Ticket();
         ticket.setUser(user);
         ticket.setShowing(showing);
-        ticket.setSeatInstance(seatInstancesForUser.get(0));
+        ticket.setSeatInstance(seatInstancesForUser.get(seatInstanceIndex));
         // Return Ticket
         return ticket;
+
+    }
+
+    @Override
+    public void ticketManagerFinished() {
+
+        stopLoader();
+
+        Intent intent = new Intent(PayActivity.this, UserHubActivity.class);
+        intent.putExtra("USER", user);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+
+    }
+
+    private void startLoader() {
+
+        ProgressBar progressBar = findViewById(R.id.payProgress);
+        progressBar.setVisibility(View.VISIBLE);
+
+    }
+
+    private void stopLoader() {
+
+        ProgressBar progressBar = findViewById(R.id.payProgress);
+        progressBar.setVisibility(View.GONE);
 
     }
 

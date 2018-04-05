@@ -7,14 +7,14 @@
     <string name="nav_user">User</string>
     <string name="nav_Movies">Movies</string>
     <string name="nav_tickets">Tickets</string>
-    <string name="createANewHall">Create a new Hall</string>
+    <string name="createANewHall">CREATE A NEW HALL</string>
     <string name="HallNr_withSemiColon">HallNr:</string>
     <string name="howManyRowsDoesTheHallContain">How many rows does the hall contain?</string>
     <string name="howManySeatsInEachRow">How many seats within each row?</string>
     <string name="save">Save</string>
-    <string name="enterMovieTitle">Enter a movie title</string>
+    <string name="enterMovieTitle">ENTER A MOVIE TITLE</string>
     <string name="search">Search</string>
-    <string name="createANewShowing">Create a new showing</string>
+    <string name="createANewShowing">CREATE A NEW SHOWING</string>
     <string name="movie">Movie</string>
     <string name="title">Title</string>
     <string name="selectMovie">Select movie</string>
@@ -78,6 +78,8 @@
     <string name="stepSelectHall">STEP 2: SELECT A HALL</string>
     <string name="stepConfirm">STEP 4: CONFIRM SHOWING</string>
     <string name="confirm">Confirm</string>
+    <string name="hallNrToLowError">HallNr needs to be above 0</string>
+    <string name="hallNrToHighError">Does the cinema have more than 20 halls?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.MovieRepository;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.logic.manager.MovieFactory;
 import com.squareup.picasso.Picasso;
@@ -23,8 +24,9 @@ import com.squareup.picasso.Picasso;
 public class CreateMovieActivity extends AppCompatActivity implements NewMovieListener {
 
     private MovieFactory movieFactory;
+    private MovieRepository movieRepository;
+
     private Movie movie;
-    private EditText movieTitleInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,45 +34,53 @@ public class CreateMovieActivity extends AppCompatActivity implements NewMovieLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_movie);
 
-        // Set up movie factory
-        movieFactory = new MovieFactory(this);
-
-        setUpViews();
+        setupActivity();
 
         setUpButtons();
 
     }
 
-    private void setUpViews() {
+    private void setupActivity() {
 
-        movieTitleInput = findViewById(R.id.createMovieTitleInput);
+        // Set up movie factory
+        movieFactory = new MovieFactory(this);
+        // Set up movie repository
+        movieRepository = new RepositoryFactory(getApplicationContext()).getMovieRepository();
 
     }
 
     private void setUpButtons() {
 
+        // Search button
         Button searchButton = findViewById(R.id.createMovieSearchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                movieFactory.getNewMovie(movieTitleInput.getText().toString());
+                // Ask manager to ask async task to get new movie
+                EditText movieSearchInput = findViewById(R.id.createMovieTitleInput);
+                movieFactory.getNewMovie(movieSearchInput.getText().toString());
 
             }
         });
 
+        // Save button
         Button saveButton = findViewById(R.id.createMovieSaveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (movie == null) {
+
+                    // Alert error
                     Toast.makeText(getApplicationContext(), R.string.chooseAMovieFirst, Toast.LENGTH_SHORT).show();
 
                 } else {
+
                     // Add movie to database
-                    RepositoryFactory repositoryFactory = new RepositoryFactory(getApplicationContext());
-                    repositoryFactory.getMovieRepository().createMovie(movie);
+                    movieRepository.createMovie(movie);
+
+                    // Show message and finish activity
                     Toast.makeText(getApplicationContext(), R.string.movieAdded, Toast.LENGTH_SHORT).show();
                     finish();
 
@@ -81,19 +91,21 @@ public class CreateMovieActivity extends AppCompatActivity implements NewMovieLi
 
     }
 
+    // Listener for when async task found a new movie
     @Override
     public void newApiMovie(Movie movie) {
 
         this.movie = movie;
         displayMovie();
 
-
     }
 
+    // Displays movie information
     private void displayMovie() {
 
         ImageView movieImage = findViewById(R.id.createMovieImage);
         Picasso.with(getApplicationContext()).load(movie.getImageUrl()).into(movieImage);
+
         TextView movieTitle = findViewById(R.id.createMovieTitleText);
         movieTitle.setText(movie.getTitle());
 

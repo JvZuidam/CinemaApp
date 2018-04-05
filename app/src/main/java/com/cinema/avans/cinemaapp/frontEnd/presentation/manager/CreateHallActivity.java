@@ -28,67 +28,36 @@ public class CreateHallActivity extends AppCompatActivity {
 
     private RepositoryFactory repositoryFactory;
 
-    private int amountOfRows;
-    private int amountOfSeatsInEachRow;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_hall);
 
-        repositoryFactory = new RepositoryFactory(getApplicationContext());
+        setupActivity();
 
-        amountOfRows = 0;
-        amountOfSeatsInEachRow = 0;
-
-        createRowSpinner();
-
-        createSeatSpinner();
+        createSpinners();
 
         createSaveButton();
 
     }
 
-    private void createRowSpinner() {
+    private void setupActivity() {
 
-        final Integer[] rows = new Integer[]{8, 9, 10, 11, 12, 13, 14, 15, 16};
-
-        Spinner rowSpinner = findViewById(R.id.createHallAmountOfRowsSpinner);
-        rowSpinner.setAdapter(new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, rows));
-        rowSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                amountOfRows = rows[i];
-                Log.i("CreateHallActivity", "Amount of rows in hall: " + amountOfRows);
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
+        repositoryFactory = new RepositoryFactory(getApplicationContext());
 
     }
 
-    private void createSeatSpinner() {
+    private void createSpinners() {
 
+        // Amount of rows spinner
+        final Integer[] rows = new Integer[]{8, 9, 10, 11, 12, 13, 14, 15, 16};
+        Spinner rowSpinner = findViewById(R.id.createHallAmountOfRowsSpinner);
+        rowSpinner.setAdapter(new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, rows));
+
+        // Amount of seats spinner
         final Integer[] seats = new Integer[]{8, 9, 10, 11, 12, 13, 14, 15, 16};
-
-        Spinner rowSpinner = findViewById(R.id.createHallAmountOfSeatsSpinner);
-        rowSpinner.setAdapter(new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, seats));
-        rowSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                amountOfSeatsInEachRow = seats[i];
-                Log.i("CreateHallActivity", "Amount of seats in each row: " + amountOfSeatsInEachRow);
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
+        Spinner seatSpinner = findViewById(R.id.createHallAmountOfSeatsSpinner);
+        seatSpinner.setAdapter(new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, seats));
 
     }
 
@@ -99,44 +68,83 @@ public class CreateHallActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                EditText hallNrInput = findViewById(R.id.createHallHallNrInput);
-                int hallNr = Integer.parseInt(String.valueOf(hallNrInput.getText()));
-
-                Hall hall = new Hall();
-                hall.setHallNr(hallNr);
-
-                ArrayList<SeatRow> seatRows = new ArrayList<>();
-                for (int i = 0; i < amountOfRows; i++) {
-
-                    SeatRow seatRow = new SeatRow();
-                    seatRow.setRowId(i);
-                    seatRow.setRowNr(i + 1);
-                    seatRow.setHall(hall);
-
-                    ArrayList<Seat> seats = new ArrayList<>();
-                    for (int j = 0; j < amountOfSeatsInEachRow; j++ ) {
-
-                        Seat seat = new Seat();
-                        seat.setSeatRow(seatRow);
-                        seat.setSeatValue(SeatValue.OK);
-                        seat.setSeatNr(j + 1);
-                        seats.add(seat);
-
-                    }
-                    seatRow.setSeats(seats);
-
-                    seatRows.add(seatRow);
-
+                // Check user input
+                if (!validateInput()) {
+                    return;
                 }
-                hall.setSeatRows(seatRows);
 
+                // Get hallNr
+                EditText hallNrInput = findViewById(R.id.createHallHallNrInput);
+                int hallNr = Integer.parseInt(hallNrInput.getText().toString());
+                // Get amount of rows
+                Spinner amountOfRowsSpinner = findViewById(R.id.createHallAmountOfRowsSpinner);
+                int amountOfRows = (int) amountOfRowsSpinner.getSelectedItem();
+                // Get amount of seats in each row
+                Spinner amountOfSeatsInEachRowSpinner = findViewById(R.id.createHallAmountOfSeatsSpinner);
+                int amountOfSeatsInEachRow = (int) amountOfSeatsInEachRowSpinner.getSelectedItem();
+
+                // Create Hall
+                Hall hall = createHall(hallNr, amountOfRows, amountOfSeatsInEachRow);
+                // Add Hall to database
                 repositoryFactory.getHallRepository().createHall(hall);
-
+                // Show message
                 Toast.makeText(getApplicationContext(), R.string.hallAdded, Toast.LENGTH_SHORT).show();
+                // Finish activity
                 finish();
 
             }
         });
+
+    }
+
+    private boolean validateInput() {
+
+        // Check hallNr
+        EditText hallNrInput = findViewById(R.id.createHallHallNrInput);
+        String hallNrStr = String.valueOf(hallNrInput.getText());
+        if (!hallNrStr.matches("\\d+")) {
+            return false;
+        }
+        int hallNr = Integer.parseInt(hallNrStr);
+        if (hallNr < 1) {
+            Toast.makeText(getApplicationContext(), getString(R.string.hallNrToLowError), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (hallNr > 20) {
+            Toast.makeText(getApplicationContext(), getString(R.string.hallNrToHighError), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public Hall createHall(int hallNr, int amountOfRows, int amountOfSeatsInEachRow) {
+
+        Hall hall = new Hall();
+        hall.setHallNr(hallNr);
+        ArrayList<SeatRow> seatRows = new ArrayList<>();
+        for (int i = 0; i < amountOfRows; i++) {
+            SeatRow seatRow = new SeatRow();
+            seatRow.setRowId(i);
+            seatRow.setRowNr(i + 1);
+            seatRow.setHall(hall);
+
+            ArrayList<Seat> seats = new ArrayList<>();
+            for (int j = 0; j < amountOfSeatsInEachRow; j++ ) {
+                Seat seat = new Seat();
+                seat.setSeatRow(seatRow);
+                seat.setSeatValue(SeatValue.OK);
+                seat.setSeatNr(j + 1);
+                seats.add(seat);
+
+            }
+            seatRow.setSeats(seats);
+            seatRows.add(seatRow);
+
+        }
+        hall.setSeatRows(seatRows);
+
+        return hall;
 
     }
 
