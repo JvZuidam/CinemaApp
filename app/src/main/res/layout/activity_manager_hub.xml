@@ -35,4 +35,5 @@
         android:text="@string/newHall"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mHubCreateMovieButton" />
+
 </android.support.constraint.ConstraintLayout>

@@ -24,7 +24,7 @@
     <string name="time">Time</string>
     <string name="selectDate">Select date</string>
     <string name="selectTime">Select Time</string>
-    <string name="logIn">Log in</string>
+    <string name="logIn">LOG IN</string>
     <string name="enterUsernameWithDots">Enter username..</string>
     <string name="enterPasswordWithDots">Enter password..</string>
     <string name="createAnAccount">Create an account</string>
@@ -42,7 +42,7 @@
     <string name="stepOneChooseSeats">STEP 1: CHOOSE YOUR SEATS</string>
     <string name="howManySeatsUWant">How many seats do you want?</string>
     <string name="whereDoYouWantToSit">Where do you want to sit?</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="fillUsernameFirst">Fill in username first</string>
     <string name="fillPasswordFirst">Fill in password first</string>
     <string name="invalidCredentials">Invalid credentials</string>
@@ -71,6 +71,13 @@
     <string name="hallNrWithSemiColon">HallNr:</string>
     <string name="rowNrWithSemiColon">RowNr:</string>
     <string name="seatNrWithSemiColon">SeatNr:</string>
+    <string name="stepDate">STEP 3: SELECT A DATE AND TIME</string>
+    <string name="change">Change</string>
+    <string name="next">Next</string>
+    <string name="stepMovie">STEP 1: SELECT A MOVIE</string>
+    <string name="stepSelectHall">STEP 2: SELECT A HALL</string>
+    <string name="stepConfirm">STEP 4: CONFIRM SHOWING</string>
+    <string name="confirm">Confirm</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

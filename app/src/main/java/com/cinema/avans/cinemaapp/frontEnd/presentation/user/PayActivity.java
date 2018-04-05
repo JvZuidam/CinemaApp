@@ -60,6 +60,7 @@ public class PayActivity extends AppCompatActivity {
                 intent.putExtra("USER", user);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
 
             }
         });
