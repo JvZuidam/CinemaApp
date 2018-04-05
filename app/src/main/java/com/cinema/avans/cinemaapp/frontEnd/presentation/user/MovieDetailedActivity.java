@@ -16,6 +16,7 @@ import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
+import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 import com.cinema.avans.cinemaapp.frontEnd.logic.user.SeatSelector;
 import com.cinema.avans.cinemaapp.frontEnd.logic.user.ShowingsGetter;
 import com.cinema.avans.cinemaapp.frontEnd.logic.user.ShowingsListener;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 public class MovieDetailedActivity extends AppCompatActivity implements ShowingsListener {
 
     private Movie movie;
+    private User user;
 
     private ShowingsGetter showingsGetter;
 
@@ -52,6 +54,9 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
 
         // Get movie
         movie = (Movie) getIntent().getExtras().getSerializable("MOVIE");
+        user = (User) getIntent().getSerializableExtra("USER");
+
+        Log.i("MovieDetailedActivity", "User gotten: " + user);
 
         // Create ShowingsGetter
         showingsGetter = new ShowingsGetter(new RepositoryFactory(getApplicationContext()).getShowingRepository(), this);
@@ -119,6 +124,7 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
                     // Start the intent and pass the movie trough
                     Intent intent = new Intent(MovieDetailedActivity.this, MovieDetailedShowingsActivity.class);
                     intent.putExtra("MOVIE", movie);
+                    intent.putExtra("USER", user);
                     stopLoader();
                     startActivity(intent);
 
@@ -141,6 +147,7 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
         // Start the intent and pass the movie trough
         Intent intent = new Intent(MovieDetailedActivity.this, MovieDetailedShowingsActivity.class);
         intent.putExtra("MOVIE", movie);
+        intent.putExtra("USER", user);
         startActivity(intent);
 
     }

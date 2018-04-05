@@ -2,6 +2,7 @@ package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
+import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 
 import java.io.Serializable;
 
@@ -11,15 +12,16 @@ import java.io.Serializable;
 
 public class Ticket implements Serializable {
 
-    private int ticketId; // Done
-    private Showing showing; // Done
-    private SeatInstance seatInstance; // Done
+    private int ticketId;
+    private Showing showing;
+    private SeatInstance seatInstance;
+    private User user;
 
     public Ticket() {
 
         this.ticketId = 0;
-        this.showing = null;
-        this.seatInstance = null;
+        this.showing = new Showing();
+        this.seatInstance = new SeatInstance();
 
     }
 
@@ -33,6 +35,9 @@ public class Ticket implements Serializable {
     public void setSeatInstance(SeatInstance seatInstance) {
         this.seatInstance = seatInstance;
     }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     // GETTERS
     public int getTicketId() {
@@ -43,6 +48,18 @@ public class Ticket implements Serializable {
     }
     public SeatInstance getSeatInstance() {
         return seatInstance;
+    }
+    public User getUser() {
+        return user;
+    }
+
+    @Override
+    public String toString() {
+
+        return "TicketId: " + ticketId + "\n"
+                + "ShowingId: " + showing.getShowingId() + "\n"
+                + "SeatInstanceId: " + seatInstance.getSeatInstanceId();
+
     }
 
 }

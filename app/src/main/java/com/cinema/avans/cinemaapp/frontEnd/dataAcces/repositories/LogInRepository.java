@@ -31,7 +31,8 @@ public class LogInRepository {
         login = databaseManager.getUser(username);
 
         if (login != null) {
-            Log.i("LogInRepository", "User found");
+            Log.i("LogInRepository", "User found so filling user with its tickets");
+            login = new UserRepository(databaseManager).getUser(login.getUsername());
             return login;
 
         }

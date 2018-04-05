@@ -67,4 +67,20 @@ public class ShowingRepository {
 
     }
 
+    public Showing getShowing(int showingId) {
+
+        // Log action
+        Log.i("ShowingRepository", "Asking database for Showing with ShowingId: " + showingId);
+
+        // Get Showing
+        Showing showing = databaseManager.getShowing(showingId);
+        // Also add HallInstance and Movie
+        showing.setHallInstance(new HallInstanceRepository(databaseManager).getHallInstance(showing));
+        showing.setMovie(new MovieRepository(databaseManager).getMovie(showing.getMovie().getMovieId()));
+
+        // Return Showing
+        return showing;
+
+    }
+
 }

@@ -8,6 +8,7 @@ import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by JanBelterman on 28 March 2018
@@ -31,6 +32,15 @@ public class SeatSelector implements Serializable {
     }
 
     public HallInstance getHallInstance() {
+        return hallInstance;
+
+    }
+
+    // Because the SeatSelector has to be bottom up like a normal cinema hall
+    public HallInstance getHallInstanceToShow() {
+
+        Collections.reverse(hallInstance.getSeatRowInstances());
+
         return hallInstance;
 
     }

@@ -415,7 +415,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
         HallInstance hallInstance = new HallInstance();
         if (cursor.moveToFirst()) {
 
+            // Get values
             hallInstance.setHallInstanceId(cursor.getInt(cursor.getColumnIndex(HALL_INSTANCE_COLUMN_HALL_INSTANCE_ID)));
+            // Also set the Hall of which this HallInstance is an instance of its hallNr
+            Hall hall = new Hall();
+            hall.setHallNr(cursor.getInt(cursor.getColumnIndex(HALL_COLUMN_HALL_NR)));
+            hallInstance.setHall(hall);
 
         }
 
@@ -583,8 +588,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
 
-            cursor.moveToFirst();
-
             SeatInstance seatInstance = new SeatInstance();
             seatInstance.setStatus(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_STATUS)));
             seatInstance.setSeat(getSeat(cursor.getInt(cursor.getColumnIndex(SEAT_INSTANCE_COLUMN_SEAT_ID))));
@@ -622,22 +625,24 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
     public ArrayList<Movie> getAllMovies() {
 
-        ArrayList<Movie> movies = new ArrayList<>();
-
+        // Get database
         SQLiteDatabase database = getReadableDatabase();
 
+        // Make query
         String query =
                 "SELECT *" + "\n"
                 + "FROM " + TABLE_MOVIE;
-
+        // Log query
         Log.i("Database", query);
-
+        // Execute query
         Cursor cursor = database.rawQuery(query, null);
 
+        // Get movies
+        ArrayList<Movie> movies = new ArrayList<>();
         if (cursor.moveToFirst()) {
-
             while (!cursor.isAfterLast()) {
 
+                // Get and add movie
                 Movie movie = new Movie();
                 movie.setMovieId(cursor.getInt(cursor.getColumnIndex(MOVIE_COLUMN_MOVIE_ID)));
                 movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_TITLE)));
@@ -646,18 +651,67 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RELEASE_DATE)));
                 movie.setRating(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RATING)));
                 movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
-
                 movies.add(movie);
 
+                // Log
+                Log.i("Database", "Found: " + movie);
+
+                // Next
                 cursor.moveToNext();
 
             }
 
         }
 
-        cursor.close();
+        // Alert if no movies have been found
+        if (movies.size() == 0) {
+            Log.i("Database", "No movies found");
+        }
 
+        // Close cursor and return movies
+        cursor.close();
         return movies;
+
+    }
+    public Movie getMovie(int movieId) {
+
+        // Log action
+        Log.i("Database", "Looking in database for movie with movieId: " + movieId);
+
+        // Get database
+        SQLiteDatabase database = getReadableDatabase();
+
+        // Make query
+        String query =
+                "SELECT *" + "\n"
+                + "FROM " + TABLE_MOVIE + "\n"
+                + "WHERE " + MOVIE_COLUMN_MOVIE_ID + " = " + movieId;
+        // Log query
+        Log.i("Database", query);
+        // Execute query
+        Cursor cursor = database.rawQuery(query, null);
+
+        // Get movie
+        Movie movie = new Movie();
+        if (cursor.moveToFirst()) {
+
+            // Get movie values
+            movie.setMovieId(cursor.getInt(cursor.getColumnIndex(MOVIE_COLUMN_MOVIE_ID)));
+            movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_TITLE)));
+            movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
+            movie.setRuntime(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RUNTIME)));
+            movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RELEASE_DATE)));
+            movie.setRating(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RATING)));
+            movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
+
+        }
+
+        // Log
+        Log.i("Database", "Found " + movie);
+
+        // Close cursor and return movie
+        cursor.close();
+        return movie;
 
     }
 
@@ -708,6 +762,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 Showing showing = new Showing();
                 showing.setShowingId(cursor.getInt(cursor.getColumnIndex(SHOWING_COLUMN_SHOWING_ID)));
                 showing.setDate(cursor.getString(cursor.getColumnIndex(SHOWING_COLUMN_DATE)));
+                // Set hallInstance its id (so the ShowingRepository can get the complete HallInstance)
                 HallInstance hallInstance = new HallInstance();
                 hallInstance.setHallInstanceId(cursor.getInt(cursor.getColumnIndex(SHOWING_COLUMN_HALL_INSTANCE_ID)));
                 showing.setHallInstance(hallInstance);
@@ -728,36 +783,48 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return showings;
 
     }
-    private Showing getShowing(int showingId) {
+    public Showing getShowing(int showingId) {
 
+        // Log action
+        Log.i("Database", "Searching database for Showing with ShowingId: " + showingId);
+
+        // Get database
         SQLiteDatabase database = getReadableDatabase();
 
+        // Make query
         String query =
                 "SELECT *" + "\n"
                         + "FROM " + TABLE_SHOWING + "\n"
                         + "WHERE " + SHOWING_COLUMN_SHOWING_ID + " = " + showingId;
-
+        // Log query
         Log.i("Database", query);
-
+        // Execute query
         Cursor cursor = database.rawQuery(query, null);
 
+        // Get Showing
+        Showing showing = new Showing();
         if (cursor.moveToFirst()) {
 
-            cursor.moveToFirst();
-
-            Showing showing = new Showing();
-            showing.setDate(cursor.getString(cursor.getColumnIndex(SHOWING_COLUMN_DATE)));
+            // Get values
             showing.setShowingId(cursor.getInt(cursor.getColumnIndex(SHOWING_COLUMN_SHOWING_ID)));
-
-            cursor.close();
-
-            return showing;
+            showing.setDate(cursor.getString(cursor.getColumnIndex(SHOWING_COLUMN_DATE)));
+            // Set hallInstance its id (so the ShowingRepository can get the complete HallInstance)
+            HallInstance hallInstance = new HallInstance();
+            hallInstance.setHallInstanceId(cursor.getInt(cursor.getColumnIndex(SHOWING_COLUMN_HALL_INSTANCE_ID)));
+            showing.setHallInstance(hallInstance);
+            // Set Movie its id (so the ShowingRepository can get the complete Movie)
+            Movie movieToAdd = new Movie();
+            movieToAdd.setMovieId(cursor.getInt(cursor.getColumnIndex(SHOWING_COLUMN_MOVIE_ID)));
+            showing.setMovie(movieToAdd);
 
         }
 
-        cursor.close();
+        // Log
+        Log.i("Database", "Found " + showing);
 
-        return null;
+        // Close cursor and return Showing
+        cursor.close();
+        return showing;
 
     }
 
@@ -771,6 +838,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(TICKET_COLUMN_SHOWING_ID, ticket.getShowing().getShowingId());
         values.put(TICKET_COLUMN_SEAT_INSTANCE_ID, ticket.getSeatInstance().getSeatInstanceId());
+        values.put(TICKET_COLUMN_USER_ID, ticket.getUser().getUsername());
 
         database.insert(TABLE_TICKET, null, values);
 
@@ -804,6 +872,60 @@ public class DatabaseManager extends SQLiteOpenHelper {
         cursor.close();
 
         return null;
+
+    }
+    public ArrayList<Ticket> getTickets(String userId) {
+
+        // Log action
+        Log.i("Database", "Getting tickets for user: " + userId);
+
+        // Get database
+        SQLiteDatabase database = getReadableDatabase();
+
+        // Make query
+        String query =
+                "SELECT *" + "\n"
+                + "FROM " + TABLE_TICKET + "\n"
+                + "WHERE " + TICKET_COLUMN_USER_ID + " = '" + userId + "'";
+        // Log query
+        Log.i("Database", query);
+        // Execute query
+        Cursor cursor = database.rawQuery(query, null);
+
+        // Get tickets
+        ArrayList<Ticket> tickets = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+
+                // Get ticket and add
+                Ticket ticket = new Ticket();
+                ticket.setTicketId(cursor.getInt(cursor.getColumnIndex(TICKET_COLUMN_TICKET_ID)));
+                ticket.setSeatInstance(getSeatInstance(cursor.getInt(cursor.getColumnIndex(TICKET_COLUMN_SEAT_INSTANCE_ID))));
+                // Also add a showing with the showingId for this ticket (so the ShowingRepository can find the complete Showing)
+                Showing showing = new Showing();
+                showing.setShowingId(cursor.getInt(cursor.getColumnIndex(TICKET_COLUMN_SHOWING_ID)));
+                ticket.setShowing(showing);
+                tickets.add(ticket);
+
+                // Log
+                Log.i("Database", "Found " + ticket);
+
+                // Next
+                cursor.moveToNext();
+
+            }
+
+        }
+
+        // Alert
+        if (tickets.size() == 0) {
+            Log.i("Database", "No tickets have been found");
+
+        }
+
+        // Close cursor and return tickets
+        cursor.close();
+        return tickets;
 
     }
 
@@ -1028,6 +1150,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     // -------------------------------------------------------------------------------------------
     private static final String TICKET_COLUMN_TICKET_ID = "TicketId";
     private static final String TICKET_COLUMN_SHOWING_ID = "ShowingId";
+    private static final String TICKET_COLUMN_USER_ID = "UserId";
     private static final String TICKET_COLUMN_SEAT_INSTANCE_ID = "SeatInstance";
 
     // LogIn table
@@ -1106,7 +1229,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_TICKET + " (" + "\n"
                     + TICKET_COLUMN_TICKET_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + "\n"
                     + TICKET_COLUMN_SHOWING_ID + " INTEGER," + "\n"
-                    + TICKET_COLUMN_SEAT_INSTANCE_ID + " INTEGER" + ");";
+                    + TICKET_COLUMN_SEAT_INSTANCE_ID + " INTEGER," + "\n"
+                    + TICKET_COLUMN_USER_ID + " TEXT" + ");";
 
     private static final String CREATE_TABLE_LOG_IN =
             "CREATE TABLE " + TABLE_LOG_IN + " (" + "\n"

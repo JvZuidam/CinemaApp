@@ -27,9 +27,12 @@ public class MovieRepository {
     public ArrayList<Movie> getAllMovieWithoutTheirShowings() {
 
         // Get movies
-        ArrayList<Movie> movies =  databaseManager.getAllMovies();
+        return databaseManager.getAllMovies();
 
-        return movies;
+    }
+
+    public Movie getMovie(int movieId) {
+        return databaseManager.getMovie(movieId);
 
     }
 

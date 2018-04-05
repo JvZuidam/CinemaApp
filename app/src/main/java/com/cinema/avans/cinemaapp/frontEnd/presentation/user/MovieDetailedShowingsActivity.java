@@ -3,6 +3,7 @@ package com.cinema.avans.cinemaapp.frontEnd.presentation.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,6 +12,7 @@ import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
+import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 import com.cinema.avans.cinemaapp.frontEnd.logic.user.SeatSelector;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 public class MovieDetailedShowingsActivity extends AppCompatActivity {
 
     private Movie movie;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,9 @@ public class MovieDetailedShowingsActivity extends AppCompatActivity {
 
         // Get Movie from MovieDetailedActivity
         movie = (Movie) getIntent().getExtras().getSerializable("MOVIE");
+        user = (User) getIntent().getSerializableExtra("USER");
+
+        Log.i("MovieDetailedShowAct", "User gotten: " + user);
 
         // fix Sorter for time
         ListView movieShowingsListView = findViewById(R.id.detailedMovieShowingsListView);
@@ -46,6 +52,7 @@ public class MovieDetailedShowingsActivity extends AppCompatActivity {
                         showingsAdapter.getItem(i),
                         showingsAdapter.getItem(i).getHallInstance(),
                         1));
+                intent.putExtra("USER", user);
                 startActivity(intent);
 
             }

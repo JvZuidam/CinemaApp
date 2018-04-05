@@ -28,7 +28,14 @@ public class UserRepository {
 
     public User getUser(String username) {
 
-        return databaseManager.getUser(username);
+        Log.i("UserRepository", "Getting user for username: " + username);
+
+        // Get User
+        User user = databaseManager.getUser(username);
+        // Also get all of its tickets
+        user.setTickets(new TicketRepository(databaseManager).getTickets(user));
+        // Return
+        return user;
 
     }
 

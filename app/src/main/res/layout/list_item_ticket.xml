@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/ticketItemQrCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="QR code"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ticketItemRowNr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Row nr: 1"
+        android:textColor="@color/colorTextMedium"
+        app:layout_constraintStart_toStartOf="@+id/ticketItemHallText"
+        app:layout_constraintTop_toBottomOf="@+id/ticketItemHallText" />
+
+    <TextView
+        android:id="@+id/ticketItemSeatNr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="SeatNr: 6"
+        android:textColor="@color/colorTextMedium"
+        app:layout_constraintStart_toStartOf="@+id/ticketItemRowNr"
+        app:layout_constraintTop_toBottomOf="@+id/ticketItemRowNr" />
+
+    <TextView
+        android:id="@+id/ticketItemMovieText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Pacific Rim"
+        android:textColor="@color/colorTextMedium"
+        app:layout_constraintStart_toStartOf="@+id/ticketItemQrCode"
+        app:layout_constraintTop_toBottomOf="@+id/ticketItemQrCode" />
+
+    <TextView
+        android:id="@+id/ticketItemHallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Hall: 5"
+        android:textColor="@color/colorTextMedium"
+        app:layout_constraintStart_toStartOf="@+id/ticketItemMovieText"
+        app:layout_constraintTop_toBottomOf="@+id/ticketItemMovieText" />
+</android.support.constraint.ConstraintLayout>

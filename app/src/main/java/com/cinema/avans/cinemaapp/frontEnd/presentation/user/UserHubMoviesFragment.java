@@ -4,7 +4,7 @@ package com.cinema.avans.cinemaapp.frontEnd.presentation.user;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
+import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,8 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class UserHubMoviesFragment extends Fragment {
+
+    private User user;
 
     private RepositoryFactory repositoryFactory;
     private MovieAdapter movieAdapter;
@@ -48,7 +51,6 @@ public class UserHubMoviesFragment extends Fragment {
         // Create repository factory and get movies
         repositoryFactory = new RepositoryFactory(view.getContext());
         ArrayList<Movie> movies = repositoryFactory.getMovieRepository().getAllMovieWithoutTheirShowings();
-        Log.i("MovieListActivity", "Movie 1, Title: " + movies.get(0).getTitle());
 
         ListView movieListView = getView().findViewById(R.id.userHubMoviesMovieListView);
         movieAdapter = new MovieAdapter(view.getContext(), movies);
@@ -59,11 +61,17 @@ public class UserHubMoviesFragment extends Fragment {
 
                 Intent intent = new Intent(view.getContext(), MovieDetailedActivity.class);
                 intent.putExtra("MOVIE", movieAdapter.getItem(i));
+                intent.putExtra("USER", user);
                 startActivity(intent);
 
             }
         });
 
+    }
+
+    public void setUser(User user) {
+        Log.i("UserHubMoviesFrag", "User gotten: " + user);
+        this.user = user;
     }
 
 }

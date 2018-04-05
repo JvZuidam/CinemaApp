@@ -3,6 +3,7 @@ package com.cinema.avans.cinemaapp.frontEnd.presentation.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
+import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 import com.cinema.avans.cinemaapp.frontEnd.logic.user.SeatSelector;
 
 /**
@@ -23,6 +25,8 @@ import com.cinema.avans.cinemaapp.frontEnd.logic.user.SeatSelector;
  */
 
 public class SeatSelectorActivity extends AppCompatActivity {
+
+    private User user;
 
     private SeatSelector seatSelector;
     private SeatAdapter seatAdapter;
@@ -44,6 +48,10 @@ public class SeatSelectorActivity extends AppCompatActivity {
 
             }
         }
+
+        user = (User) getIntent().getSerializableExtra("USER");
+
+        Log.i("SeatSelectorActivity", "User gotten: " + user);
 
         createSpinner();
 
@@ -103,6 +111,7 @@ public class SeatSelectorActivity extends AppCompatActivity {
                     Intent intent = new Intent(SeatSelectorActivity.this, PayActivity.class);
                     intent.putExtra("SELECTED_SEATS", seatSelector.getSelectedSeats());
                     intent.putExtra("SHOWING", seatSelector.getShowing());
+                    intent.putExtra("USER", user);
                     startActivity(intent);
 
                 }
@@ -126,7 +135,7 @@ public class SeatSelectorActivity extends AppCompatActivity {
     private void setUpGridView() {
 
         // Adapter to display a cinemaHall in a gridView
-        seatAdapter = new SeatAdapter(this, seatSelector.getHallInstance());
+        seatAdapter = new SeatAdapter(this, seatSelector.getHallInstanceToShow());
 
         // GridView with properties
         GridView gridView = findViewById(R.id.selectorHallGridView);

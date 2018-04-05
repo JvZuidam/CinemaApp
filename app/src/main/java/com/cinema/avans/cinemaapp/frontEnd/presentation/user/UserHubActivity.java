@@ -1,15 +1,17 @@
 package com.cinema.avans.cinemaapp.frontEnd.presentation.user;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.cinema.avans.cinemaapp.R;
+import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 
 /**
@@ -35,12 +37,19 @@ public class UserHubActivity extends AppCompatActivity {
 
         user = (User) getIntent().getSerializableExtra("USER");
 
+        user = new RepositoryFactory(getApplicationContext()).getUserRepository().getUser(user.getUsername());
+
+        Log.i("UserHubActivity", "User gotten: " + user);
+
         navBar = findViewById(R.id.userHubNavBar);
         frameLayout = findViewById(R.id.userHubFrame);
 
         userHubHomeFragment = new UserHubHomeFragment();
+        userHubHomeFragment.setUser(user);
         userHubMoviesFragment = new UserHubMoviesFragment();
+        userHubMoviesFragment.setUser(user);
         userHubUserFragment = new UserHubUserFragment();
+        userHubUserFragment.setUser(user);
 
         setFragment(userHubHomeFragment);
 
@@ -74,8 +83,11 @@ public class UserHubActivity extends AppCompatActivity {
 
     private void setFragment(Fragment fragment) {
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        // Fix transition orientation
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
         fragmentTransaction.replace(R.id.userHubFrame, fragment);
+        fragmentTransaction.addToBackStack(fragment.getTag());
         fragmentTransaction.commit();
 
     }

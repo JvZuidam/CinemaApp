@@ -8,8 +8,8 @@
         android:title="@string/nav_home" />
     <item
         android:id="@+id/navUser"
-        android:icon="@drawable/ic_person_pin_white_24dp"
-        android:title="@string/nav_user" />
+        android:icon="@drawable/ic_credit_card_white_24dp"
+        android:title="@string/nav_tickets" />
     <item
         android:id="@+id/navMovies"
         android:icon="@drawable/ic_movie_white_24dp"
