@@ -32,9 +32,9 @@ public class Showing implements Serializable {
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
-    public void setDate(Date date) {
-        this.date = date;
-    }
+//    public void setDate(Date date) {
+//        this.date = date;
+//    }
     public void setDate(String date) {
         this.date.setDate(date);
 

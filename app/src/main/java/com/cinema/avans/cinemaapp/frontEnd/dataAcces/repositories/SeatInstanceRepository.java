@@ -21,7 +21,7 @@ public class SeatInstanceRepository {
 
     }
 
-    public void createSeatInstance(SeatInstance seatInstance) {
+    void createSeatInstance(SeatInstance seatInstance) {
 
         // Log
         Log.i("SeatInstanceRepository", "Creating : " + seatInstance);
@@ -30,7 +30,7 @@ public class SeatInstanceRepository {
 
     }
 
-    public ArrayList<SeatInstance> getSeatInstances(SeatRowInstance seatRowInstance) {
+    ArrayList<SeatInstance> getSeatInstances(SeatRowInstance seatRowInstance) {
 
         // Log action
         Log.i("SeatInstanceRepository", "Asking database for all SeatInstances withing " + seatRowInstance);

@@ -47,7 +47,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             TextView movieRuntime = convertView.findViewById(R.id.movieListRuntime);
             movieRuntime.setText(movie.getRuntime());
             TextView ratingText = convertView.findViewById(R.id.movieListRating);
-            ratingText.setText("Rating: " + movie.getRating());
+            ratingText.setText(getContext().getString(R.string.ratingWithSemiColon) + " " + movie.getRating());
 
         }
 

@@ -1,7 +1,6 @@
 package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.LogIn;

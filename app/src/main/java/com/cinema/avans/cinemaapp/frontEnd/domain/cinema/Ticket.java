@@ -1,7 +1,5 @@
 package com.cinema.avans.cinemaapp.frontEnd.domain.cinema;
 
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 
 import java.io.Serializable;

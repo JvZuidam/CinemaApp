@@ -9,9 +9,9 @@ import java.io.Serializable;
 public abstract class LogIn implements Serializable {
 
     protected String username;
-    protected String password;
+    String password;
 
-    public LogIn() {
+    LogIn() {
 
         this.username = "";
         this.password = "";

@@ -132,7 +132,7 @@ public class CreateHallActivity extends AppCompatActivity {
 
                 repositoryFactory.getHallRepository().createHall(hall);
 
-                Toast.makeText(getApplicationContext(), "Hall added", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.hallAdded, Toast.LENGTH_SHORT).show();
                 finish();
 
             }

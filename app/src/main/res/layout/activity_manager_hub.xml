@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="New movie"
+        android:text="@string/newMovie"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,9 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="New showing"
+        android:text="@string/newShowing"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mHubCreateMovieButton" />
+        app:layout_constraintTop_toBottomOf="@+id/mHubCreateHallButton" />
 
     <Button
         android:id="@+id/mHubCreateHallButton"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="New hall"
+        android:text="@string/newHall"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mHubCreateShowingButton" />
+        app:layout_constraintTop_toBottomOf="@+id/mHubCreateMovieButton" />
 </android.support.constraint.ConstraintLayout>

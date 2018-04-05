@@ -31,7 +31,7 @@ public class MovieApiManager extends AsyncTask<String, Void, String> {
         Log.i("Api", "Sending api request");
 
         BufferedReader bufferedReader = null;
-        String response = "";
+        StringBuilder response = new StringBuilder();
 
         try {
 
@@ -47,14 +47,14 @@ public class MovieApiManager extends AsyncTask<String, Void, String> {
                     ));
 
             // Defining the response string
-            response = bufferedReader.readLine();
+            response.append(bufferedReader.readLine());
 
             // Declaring the string line
             String line;
 
             // Lopping through the buffered reader's lines
             while ((line = bufferedReader.readLine()) != null) {
-                response += line; // Adding each line
+                response.append(line); // Adding each line
 
             }
 
@@ -72,7 +72,6 @@ public class MovieApiManager extends AsyncTask<String, Void, String> {
                 } catch (Exception e) {
                     // Print error and return a null value
                     e.printStackTrace();
-                    return null;
 
                 }
 
@@ -83,7 +82,7 @@ public class MovieApiManager extends AsyncTask<String, Void, String> {
         Log.i("Api", "Response received");
 
         // Return the JSON response which is received
-        return response;
+        return response.toString();
 
     }
 

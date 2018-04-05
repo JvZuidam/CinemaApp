@@ -11,6 +11,5 @@ public interface LogInActivity {
 
     void managerLogIn(Manager manager);
     void userLogIn(User user);
-    void showError(String error);
 
 }

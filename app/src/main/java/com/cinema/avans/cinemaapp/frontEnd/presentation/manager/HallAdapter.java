@@ -38,9 +38,9 @@ public class HallAdapter extends ArrayAdapter<Hall> {
         if (hall != null) {
 
             TextView hallText = convertView.findViewById(R.id.hallItemHallText);
-            hallText.setText("Hall: " + hall.getHallNr());
+            hallText.setText(getContext().getString(R.string.hallWithSemiColon) + " " + hall.getHallNr());
             TextView amountOfSeatsText = convertView.findViewById(R.id.hallItemAmountOfSeatsText);
-            amountOfSeatsText.setText("Amount of seats: " + hall.amountOfSeats());
+            amountOfSeatsText.setText(getContext().getString(R.string.amountOfSeatsWithSemiColon) + " " + hall.amountOfSeats());
 
         }
 

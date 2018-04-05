@@ -22,7 +22,7 @@ public class SeatRowInstanceRepository {
 
     }
 
-    public void createSeatRowInstance(SeatRowInstance seatRowInstance) {
+    void createSeatRowInstance(SeatRowInstance seatRowInstance) {
 
         // Log
         Log.i("SeatRowInstanceRepo", "Creating: " + seatRowInstance);
@@ -39,7 +39,7 @@ public class SeatRowInstanceRepository {
     }
 
     // Gets everything except the SeatRow
-    public ArrayList<SeatRowInstance> getSeatRowInstances(HallInstance hallInstance) {
+    ArrayList<SeatRowInstance> getSeatRowInstances(HallInstance hallInstance) {
 
 
         // Log action

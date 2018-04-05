@@ -235,7 +235,7 @@ public class CreateShowingActivity extends AppCompatActivity implements ShowingA
                 date.setYear(year);
 
                 // Display date
-                dateText.setText(day + "/" + month + "/" + year);
+                dateText.setText(day + getString(R.string.slash) + month + getString(R.string.slash) + year);
 
             }};
 
@@ -315,22 +315,22 @@ public class CreateShowingActivity extends AppCompatActivity implements ShowingA
 
         // Check if user selected a movie
         if (showing.getMovie() == null) {
-            Toast.makeText(getApplicationContext(), "Select a movie first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.selectMovieFirst, Toast.LENGTH_SHORT).show();
 
         }
         // Check if user selected a hall
         else if (showing.getHallInstance() == null) {
-            Toast.makeText(getApplicationContext(), "Select a hall first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.selectAHallFirst, Toast.LENGTH_SHORT).show();
 
         }
         // Check if user selected a date
         else if (dateText.getText().length() == 0) {
-            Toast.makeText(getApplicationContext(), "Select a date first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.selectDateFirst, Toast.LENGTH_SHORT).show();
 
         }
         // Check if user selected a time
         else if (timeText.getText().length() == 0) {
-            Toast.makeText(getApplicationContext(), "Select a time first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.selectTimeFirst, Toast.LENGTH_SHORT).show();
 
         }
         // If none of the above were true
@@ -350,7 +350,7 @@ public class CreateShowingActivity extends AppCompatActivity implements ShowingA
         stopCreateShowingLoader();
 
         // Display message and finish activity
-        Toast.makeText(getApplicationContext(), "Showing added", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.showingAdded, Toast.LENGTH_SHORT).show();
         finish();
 
     }

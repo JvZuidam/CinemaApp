@@ -23,7 +23,7 @@ public class SeatRow implements Serializable {
 
     }
 
-    public int amountOfSeats() {
+    int amountOfSeats() {
         return seats.size();
 
     }

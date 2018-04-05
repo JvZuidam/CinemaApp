@@ -14,7 +14,7 @@ public class Date implements Serializable {
     private int hours;
     private int minutes;
 
-    public Date() {
+    Date() {
 
         this.day = 0;
         this.month = 0;
@@ -25,7 +25,7 @@ public class Date implements Serializable {
     }
 
     // ALTERED SETTER
-    public void setDate(String date) {
+    void setDate(String date) {
 
         String[] dateParts = date.split("-");
 
@@ -55,21 +55,21 @@ public class Date implements Serializable {
     }
 
     // GETTERS
-    public int getDay() {
-        return day;
-    }
-    public int getMonth() {
-        return month;
-    }
-    public int getYear() {
-        return year;
-    }
-    public int getHours() {
-        return hours;
-    }
-    public int getMinutes() {
-        return minutes;
-    }
+//    public int getDay() {
+//        return day;
+//    }
+//    public int getMonth() {
+//        return month;
+//    }
+//    public int getYear() {
+//        return year;
+//    }
+//    public int getHours() {
+//        return hours;
+//    }
+//    public int getMinutes() {
+//        return minutes;
+//    }
 
     public String getDate() {
         return year + "-" + month + "-" + day + "-" + hours + "-" + minutes;

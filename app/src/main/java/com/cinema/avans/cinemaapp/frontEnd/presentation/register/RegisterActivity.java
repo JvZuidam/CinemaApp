@@ -58,26 +58,26 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean validInputs = true;
 
                 if (username.length() <= 0) {
-                    Toast.makeText(getApplicationContext(), "Enter a username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.enterUsernameFirst, Toast.LENGTH_SHORT).show();
                     validInputs = false;
 
                 } else if (password.length() <= 0) {
-                    Toast.makeText(getApplicationContext(), "Enter a password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.enterPasswordFirst, Toast.LENGTH_SHORT).show();
                     validInputs = false;
 
                 } else if (passwordConfirm.length() <= 0) {
-                    Toast.makeText(getApplicationContext(), "Confirm password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.confirmPasswordFirst, Toast.LENGTH_SHORT).show();
                     validInputs = false;
 
                 } else if (!password.equals(passwordConfirm)) {
-                    Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.passwordsDoNotMatch, Toast.LENGTH_SHORT).show();
                     validInputs = false;
 
                 }
 
                 if (validInputs) {
 
-                    Toast.makeText(getApplicationContext(), "User created!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.userCreated, Toast.LENGTH_LONG).show();
 
                     userRegister.createUser(usernameInput.getText().toString(), passwordConfirmInput.getText().toString());
 

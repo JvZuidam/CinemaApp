@@ -1,5 +1,6 @@
 package com.cinema.avans.cinemaapp.frontEnd.presentation.logIn;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,20 +12,13 @@ import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Hall;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Seat;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRow;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatValue;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.Manager;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInActivity;
 import com.cinema.avans.cinemaapp.frontEnd.logic.logIn.LogInManager;
-import com.cinema.avans.cinemaapp.frontEnd.presentation.user.MovieListActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.manager.ManagerHubActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.register.RegisterActivity;
 import com.cinema.avans.cinemaapp.frontEnd.presentation.user.UserHubActivity;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LogInActivity {
 
@@ -87,15 +81,17 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
                 String password = String.valueOf(passwordInput.getText());
 
                 if (username.length() <= 0) {
-                    Toast.makeText(getApplicationContext(), "Fill in username first", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.fillUsernameFirst, Toast.LENGTH_LONG).show();
                     return;
                 } else if (password.length() <= 0) {
-                    Toast.makeText(getApplicationContext(), "Fill in password first", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.fillPasswordFirst, Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 // Try logging in, logInManager calls this class back with appropriate method
-                logInManager.logIn(username, password);
+                if (!logInManager.logIn(username, password)) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.invalidCredentials), Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -131,12 +127,6 @@ public class MainActivity extends AppCompatActivity implements LogInActivity {
         Intent intent = new Intent(MainActivity.this, UserHubActivity.class);
         intent.putExtra("USER", user);
         startActivity(intent);
-
-    }
-
-    public void showError(String error) {
-
-        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
 
     }
 

@@ -31,7 +31,7 @@ public class MovieRepository {
 
     }
 
-    public Movie getMovie(int movieId) {
+    Movie getMovie(int movieId) {
         return databaseManager.getMovie(movieId);
 
     }

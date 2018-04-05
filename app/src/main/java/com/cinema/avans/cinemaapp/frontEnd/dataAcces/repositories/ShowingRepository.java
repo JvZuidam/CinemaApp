@@ -3,7 +3,6 @@ package com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories;
 import android.util.Log;
 
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 
@@ -67,7 +66,7 @@ public class ShowingRepository {
 
     }
 
-    public Showing getShowing(int showingId) {
+    Showing getShowing(int showingId) {
 
         // Log action
         Log.i("ShowingRepository", "Asking database for Showing with ShowingId: " + showingId);

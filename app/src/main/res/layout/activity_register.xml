@@ -13,6 +13,13 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.35" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/registerGuideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.16" />
+
     <ImageView
         android:id="@+id/registerLogo"
         android:layout_width="0dp"
@@ -26,33 +33,38 @@
 
     <EditText
         android:id="@+id/registerUsernameInput"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Enter a username"
+        android:hint="@string/enterAUserNameWithDots"
         android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/registerDevider"
         app:layout_constraintStart_toStartOf="@+id/registerCreateInfo"
         app:layout_constraintTop_toBottomOf="@+id/registerCreateInfo" />
 
     <EditText
         android:id="@+id/registerPasswordInput"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Enter a password"
+        android:hint="@string/enterAPasswordWithDots"
         android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/registerDevider"
         app:layout_constraintStart_toStartOf="@+id/registerUsernameInput"
         app:layout_constraintTop_toBottomOf="@+id/registerUsernameInput" />
 
     <EditText
         android:id="@+id/registerPasswordConfirmInput"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Confirm password"
+        android:hint="@string/confirmPasswordWithDots"
         android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/registerDevider"
         app:layout_constraintStart_toStartOf="@+id/registerUsernameInput"
         app:layout_constraintTop_toBottomOf="@+id/registerPasswordInput" />
 
@@ -64,18 +76,26 @@
         android:text="Button"
         app:layout_constraintStart_toStartOf="@+id/registerCreateInfo"
         app:layout_constraintTop_toBottomOf="@+id/registerPasswordConfirmInput"
-        tools:text="Register" />
+        tools:text="@string/register" />
 
     <TextView
         android:id="@+id/registerCreateInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Create an account"
+        android:text="@string/createAnAccount"
+        android:textColor="@android:color/white"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/registerGuideline2"
         app:layout_constraintTop_toBottomOf="@+id/registerLogo" />
+
+    <ImageView
+        android:id="@+id/registerDevider"
+        android:layout_width="250dp"
+        android:layout_height="2dp"
+        app:layout_constraintStart_toStartOf="@+id/registerCreateInfo"
+        app:layout_constraintTop_toBottomOf="@+id/registerCreateInfo"
+        app:srcCompat="@android:color/white" />
 
 </android.support.constraint.ConstraintLayout>

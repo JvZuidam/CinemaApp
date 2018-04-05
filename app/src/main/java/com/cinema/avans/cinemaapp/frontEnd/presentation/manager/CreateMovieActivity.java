@@ -65,13 +65,13 @@ public class CreateMovieActivity extends AppCompatActivity implements NewMovieLi
             public void onClick(View view) {
 
                 if (movie == null) {
-                    Toast.makeText(getApplicationContext(), "Choose a movie to add first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.chooseAMovieFirst, Toast.LENGTH_SHORT).show();
 
                 } else {
                     // Add movie to database
                     RepositoryFactory repositoryFactory = new RepositoryFactory(getApplicationContext());
                     repositoryFactory.getMovieRepository().createMovie(movie);
-                    Toast.makeText(getApplicationContext(), "Movie added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.movieAdded, Toast.LENGTH_SHORT).show();
                     finish();
 
                 }

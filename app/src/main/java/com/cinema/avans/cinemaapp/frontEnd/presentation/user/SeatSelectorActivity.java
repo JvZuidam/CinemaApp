@@ -104,7 +104,7 @@ public class SeatSelectorActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!seatSelector.isValid()) {
-                    Toast.makeText(getApplicationContext(), "Select " + seatSelector.getAmount() + " seats first!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.select) + " " + seatSelector.getAmount() + " " + getString(R.string.seatsFirst), Toast.LENGTH_SHORT).show();
 
                 } else {
 
@@ -126,9 +126,9 @@ public class SeatSelectorActivity extends AppCompatActivity {
         HallInstance hall = seatSelector.getHallInstance();
 
         TextView totalCapacity = findViewById(R.id.selectorCapacityText);
-        totalCapacity.setText("Total capacity: " + hall.amountOfSeats());
+        totalCapacity.setText(getString(R.string.totalCapacityWithSemiColon) + " " + hall.amountOfSeats());
         TextView availableSeats = findViewById(R.id.selectorAvailableText);
-        availableSeats.setText(hall.amountOfAvailableSeats() + " seats still available");
+        availableSeats.setText(hall.amountOfAvailableSeats() + " " + getString(R.string.seatsStillAvailable));
 
     }
 

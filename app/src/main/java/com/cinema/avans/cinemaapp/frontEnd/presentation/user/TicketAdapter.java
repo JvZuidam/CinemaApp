@@ -40,15 +40,15 @@ public class TicketAdapter extends ArrayAdapter<Ticket> {
 
             // SeatSelector is turned upside down
             TextView qrText = convertView.findViewById(R.id.ticketItemQrCode);
-            qrText.setText("QR code: " + ticket.getTicketId());
+            qrText.setText(getContext().getString(R.string.qrCode) + " " + ticket.getTicketId());
             TextView movieText = convertView.findViewById(R.id.ticketItemMovieText);
             movieText.setText(ticket.getShowing().getMovie().getTitle());
             TextView hallText = convertView.findViewById(R.id.ticketItemHallText);
-            hallText.setText("HallNr: " + ticket.getShowing().getHallInstance().getHall().getHallNr());
+            hallText.setText(getContext().getString(R.string.hallNrWithSemiColon) + " " + ticket.getShowing().getHallInstance().getHall().getHallNr());
             TextView rowText = convertView.findViewById(R.id.ticketItemRowNr);
-            rowText.setText("RowNr: " + ticket.getSeatInstance().getSeat().getSeatRow().getRowNr());
+            rowText.setText(getContext().getString(R.string.rowNrWithSemiColon) + " " + ticket.getSeatInstance().getSeat().getSeatRow().getRowNr());
             TextView seatNrText = convertView.findViewById(R.id.ticketItemSeatNr);
-            seatNrText.setText("SeatNr: " + ticket.getSeatInstance().getSeat().getSeatNr());
+            seatNrText.setText(getContext().getString(R.string.seatNrWithSemiColon) + " " + ticket.getSeatInstance().getSeat().getSeatNr());
 
         }
 

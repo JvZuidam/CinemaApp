@@ -26,10 +26,4 @@ public class ManagerRepository {
 
     }
 
-    public Manager getManager(String username) {
-
-        return databaseManager.getManager(username);
-
-    }
-
 }

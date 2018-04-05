@@ -3,16 +3,11 @@ package com.cinema.avans.cinemaapp.frontEnd.dataAcces;
 import android.content.Context;
 
 import com.cinema.avans.cinemaapp.backEnd.DatabaseManager;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.NewMovieListener;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.HallInstanceRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.HallRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.LogInRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.ManagerRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.MovieRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.SeatInstanceRepository;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.SeatRepository;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.SeatRowInstanceRepository;
-import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.SeatRowRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.ShowingRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.TicketRepository;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.UserRepository;
@@ -23,7 +18,7 @@ import com.cinema.avans.cinemaapp.frontEnd.dataAcces.repositories.UserRepository
 
 public class RepositoryFactory {
 
-    DatabaseManager databaseManager;
+    private DatabaseManager databaseManager;
 
     public RepositoryFactory(Context context) {
 
@@ -36,25 +31,25 @@ public class RepositoryFactory {
 
     }
 
-    public SeatRowRepository getSeatRowRepository() {
-        return new SeatRowRepository(databaseManager);
+//    public SeatRowRepository getSeatRowRepository() {
+//        return new SeatRowRepository(databaseManager);
+//
+//    }
 
-    }
+//    public SeatRepository getSeatRepository() {
+//        return new SeatRepository(databaseManager);
+//
+//    }
 
-    public SeatRepository getSeatRepository() {
-        return new SeatRepository(databaseManager);
+//    public HallInstanceRepository getHallInstanceRepository() {
+//        return new HallInstanceRepository(databaseManager);
+//
+//    }
 
-    }
-
-    public HallInstanceRepository getHallInstanceRepository() {
-        return new HallInstanceRepository(databaseManager);
-
-    }
-
-    public SeatRowInstanceRepository getSeatRowInstanceRepository() {
-        return new SeatRowInstanceRepository(databaseManager);
-
-    }
+//    public SeatRowInstanceRepository getSeatRowInstanceRepository() {
+//        return new SeatRowInstanceRepository(databaseManager);
+//
+//    }
 
     public SeatInstanceRepository getSeatInstanceRepositoryFactory() {
         return new SeatInstanceRepository(databaseManager);

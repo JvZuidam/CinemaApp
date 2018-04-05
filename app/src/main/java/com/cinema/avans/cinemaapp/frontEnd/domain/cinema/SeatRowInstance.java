@@ -24,13 +24,13 @@ public class SeatRowInstance implements Serializable {
     }
 
     // Returns the amount of seatInstances in the row
-    public int getAmountOfSeats() {
+    int getAmountOfSeats() {
         return seatInstances.size();
 
     }
 
     // Returns the amount of actual seats (excluding gaps)
-    public int getAmountOfActualSeats() {
+    int getAmountOfActualSeats() {
 
         int amountOfActualSeats = 0;
 
@@ -49,7 +49,7 @@ public class SeatRowInstance implements Serializable {
     }
 
     // Returns the amount of available seats
-    public int getAmountOfAvailableSeats() {
+    int getAmountOfAvailableSeats() {
 
         int amountOfAvailableSeats = 0;
 

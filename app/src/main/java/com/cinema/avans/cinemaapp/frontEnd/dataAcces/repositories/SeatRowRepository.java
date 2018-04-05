@@ -22,7 +22,7 @@ public class SeatRowRepository {
 
     }
 
-    public void createSeatRow(SeatRow seatRow) {
+    void createSeatRow(SeatRow seatRow) {
 
         // Log
         Log.i("SeatRowRepository", "Creating SeatRow:\n" + seatRow);
@@ -38,7 +38,7 @@ public class SeatRowRepository {
 
     }
 
-    public ArrayList<SeatRow> getSeatRows(Hall hall) {
+    ArrayList<SeatRow> getSeatRows(Hall hall) {
 
         // Get SeatRows without Seats
         ArrayList<SeatRow> seatRows = databaseManager.getSeatRows(hall.getHallNr());

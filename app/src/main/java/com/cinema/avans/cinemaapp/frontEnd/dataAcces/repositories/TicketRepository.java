@@ -27,12 +27,7 @@ public class TicketRepository {
 
     }
 
-    public Ticket getTicket(int ticketId) {
-        return databaseManager.getTicket(ticketId);
-
-    }
-
-    public ArrayList<Ticket> getTickets(User user) {
+    ArrayList<Ticket> getTickets(User user) {
 
         // Get tickets from database
         ArrayList<Ticket> tickets = databaseManager.getTickets(user.getUsername());

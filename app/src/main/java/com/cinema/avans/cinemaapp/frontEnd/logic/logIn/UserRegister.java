@@ -17,15 +17,13 @@ public class UserRegister {
 
     }
 
-    public boolean createUser(String username, String password) {
+    public void createUser(String username, String password) {
 
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
 
         repositoryFactory.getUserRepository().createUser(user);
-
-        return true;
 
     }
 

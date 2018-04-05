@@ -1,5 +1,9 @@
 package com.cinema.avans.cinemaapp.frontEnd.logic.logIn;
 
+import android.content.Context;
+import android.content.res.Resources;
+
+import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.LogIn;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.Manager;
@@ -20,13 +24,12 @@ public class LogInManager {
 
     }
 
-    public void logIn(String userName, String password) {
+    public boolean logIn(String userName, String password) {
 
         LogIn logIn = repositoryFactory.getLogInRepository().getLogIn(userName);
 
         if (logIn == null) {
-            logInActivity.showError("Invalid credentials");
-            return;
+            return false;
 
         }
 
@@ -34,19 +37,19 @@ public class LogInManager {
 
             if (logIn.getUsername().equals(userName) && logIn.getPassword().equals(password)) {
                 logInActivity.managerLogIn((Manager) logIn);
-                return;
+                return true;
             }
 
         } if (logIn.getId() == 1) {
 
             if (logIn.getUsername().equals(userName) && logIn.getPassword().equals(password)) {
                 logInActivity.userLogIn((User) logIn);
-                return;
+                return true;
             }
 
         }
 
-        logInActivity.showError("Invalid credentials!");
+        return false;
 
     }
 

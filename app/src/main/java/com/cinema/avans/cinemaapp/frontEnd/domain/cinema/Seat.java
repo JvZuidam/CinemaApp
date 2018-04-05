@@ -67,9 +67,9 @@ public class Seat implements Serializable {
     public SeatRow getSeatRow() {
         return seatRow;
     }
-    public SeatValue getSeatValue() {
-        return seatValue;
-    }
+//    public SeatValue getSeatValue() {
+//        return seatValue;
+//    }
     // ALTERED GETTERS
     public int getSeatValueInt() {
 

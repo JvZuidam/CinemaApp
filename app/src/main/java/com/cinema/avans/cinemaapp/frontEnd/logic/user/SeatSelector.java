@@ -2,7 +2,6 @@ package com.cinema.avans.cinemaapp.frontEnd.logic.user;
 
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.HallInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatInstance;
-import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatRowInstance;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.SeatStatus;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 

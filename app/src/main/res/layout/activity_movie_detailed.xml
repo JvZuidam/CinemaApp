@@ -51,7 +51,6 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,26 +63,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="120 minutes"
                 app:layout_constraintStart_toStartOf="@+id/detailedMovieTitle"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/detailedMovieTitle"
+                tools:text="120 minutes" />
 
             <TextView
                 android:id="@+id/detailedMovieRatingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Rating 8.6"
                 app:layout_constraintStart_toStartOf="@+id/detailedMovieDurationText"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieDurationText" />
+                app:layout_constraintTop_toBottomOf="@+id/detailedMovieDurationText"
+                tools:text="Rating 8.6" />
 
             <TextView
                 android:id="@+id/detailedMovieReleaseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="02 aug 2018"
                 app:layout_constraintStart_toStartOf="@+id/detailedMovieImage"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieImage" />
+                app:layout_constraintTop_toBottomOf="@+id/detailedMovieImage"
+                tools:text="02 aug 2018" />
 
             <TextView
                 android:id="@+id/detailedMovieDescription"
@@ -92,7 +91,6 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Showings"
+                android:text="@string/showings"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailedMovieDescription" />
 

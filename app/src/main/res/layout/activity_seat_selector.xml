@@ -41,7 +41,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectorAmountOfSeatsSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:srcCompat="@color/available" />
 
     <TextView
@@ -91,7 +91,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:text="Ok"
+        android:text="@string/ok"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -102,7 +102,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="STEP 1: CHOOSE YOUR SEATS"
+        android:text="@string/stepOneChooseSeats"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -111,26 +112,24 @@
         android:id="@+id/selectorCapacityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Total capcity: 120"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/selectorStepInfo"
-        app:layout_constraintTop_toBottomOf="@+id/selectorStepInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/selectorStepInfo"
+        tools:text="Total capcity: 120" />
 
     <TextView
         android:id="@+id/selectorAvailableText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Available seats: 67"
         app:layout_constraintStart_toStartOf="@+id/selectorCapacityText"
-        app:layout_constraintTop_toBottomOf="@+id/selectorCapacityText" />
+        app:layout_constraintTop_toBottomOf="@+id/selectorCapacityText"
+        tools:text="Available seats: 67" />
 
     <Spinner
         android:id="@+id/selectorAmountOfSeatsSpinner"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectorHowManySeatsInfo" />
 
@@ -140,7 +139,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="How many seats do you want?"
+        android:text="@string/howManySeatsUWant"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectorAvailableText" />
 
@@ -154,5 +155,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@color/colorWhite" />
+
+    <ImageView
+        android:id="@+id/selectorDevider"
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        app:layout_constraintStart_toStartOf="@+id/selectorStepInfo"
+        app:layout_constraintTop_toBottomOf="@+id/selectorStepInfo"
+        app:srcCompat="@color/colorWhite" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/whereDoYouWantToSit"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectorAmountOfSeatsSpinner" />
 
 </android.support.constraint.ConstraintLayout>

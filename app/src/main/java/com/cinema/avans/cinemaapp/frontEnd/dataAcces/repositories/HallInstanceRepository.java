@@ -25,7 +25,7 @@ public class HallInstanceRepository {
     // - The HallInstance itself has to be added
     // - All of the SeatRowInstances have to be added
     // - All of the SeatInstances per SeatRowInstance have to be added
-    public void createHallInstance(HallInstance hallInstance) {
+    void createHallInstance(HallInstance hallInstance) {
 
         // Log
         Log.i("HallInstanceRepository", "Creating : " + hallInstance);
