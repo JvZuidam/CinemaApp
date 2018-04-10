@@ -116,4 +116,11 @@ public class PayActivity extends AppCompatActivity implements TicketManagerFinis
 
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+
+    }
+
 }

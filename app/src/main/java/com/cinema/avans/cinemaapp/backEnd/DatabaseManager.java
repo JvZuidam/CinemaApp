@@ -616,6 +616,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
         values.put(MOVIE_COLUMN_TITLE, movie.getTitle());
         values.put(MOVIE_COLUMN_DESCRIPTION, movie.getDescription());
         values.put(MOVIE_COLUMN_RUNTIME, movie.getRuntime());
+        values.put(MOVIE_COLUMN_GENRE, movie.getRuntime());
+        values.put(MOVIE_COLUMN_DIRECTOR, movie.getDirector());
+        values.put(MOVIE_COLUMN_ACTORS, movie.getActors());
+        values.put(MOVIE_COLUMN_PRODUCTION, movie.getProduction());
         values.put(MOVIE_COLUMN_RELEASE_DATE, movie.getReleaseDate());
         values.put(MOVIE_COLUMN_RATING, movie.getRating());
         values.put(MOVIE_COLUMN_IMAGE_URL, movie.getImageUrl());
@@ -643,14 +647,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             while (!cursor.isAfterLast()) {
 
                 // Get and add movie
-                Movie movie = new Movie();
-                movie.setMovieId(cursor.getInt(cursor.getColumnIndex(MOVIE_COLUMN_MOVIE_ID)));
-                movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_TITLE)));
-                movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
-                movie.setRuntime(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RUNTIME)));
-                movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RELEASE_DATE)));
-                movie.setRating(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RATING)));
-                movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
+                Movie movie = getMovie(cursor.getInt(cursor.getColumnIndex(MOVIE_COLUMN_MOVIE_ID)));
                 movies.add(movie);
 
                 // Log
@@ -700,6 +697,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
             movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_TITLE)));
             movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DESCRIPTION)));
             movie.setRuntime(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RUNTIME)));
+            movie.setGenre(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_GENRE)));
+            movie.setDirector(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_DIRECTOR)));
+            movie.setActors(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_ACTORS)));
+            movie.setProduction(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_PRODUCTION)));
             movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RELEASE_DATE)));
             movie.setRating(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_RATING)));
             movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_COLUMN_IMAGE_URL)));
@@ -1133,6 +1134,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String MOVIE_COLUMN_TITLE = "Title";
     private static final String MOVIE_COLUMN_DESCRIPTION = "Description";
     private static final String MOVIE_COLUMN_RUNTIME = "Runtime";
+    private static final String MOVIE_COLUMN_GENRE = "Genre";
+    private static final String MOVIE_COLUMN_DIRECTOR = "Director";
+    private static final String MOVIE_COLUMN_ACTORS = "Actors";
+    private static final String MOVIE_COLUMN_PRODUCTION = "Production";
     private static final String MOVIE_COLUMN_RELEASE_DATE = "ReleaseDate";
     private static final String MOVIE_COLUMN_RATING = "Rating";
     private static final String MOVIE_COLUMN_IMAGE_URL = "ImageUr";
@@ -1214,6 +1219,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
                     + MOVIE_COLUMN_TITLE + " TEXT," + "\n"
                     + MOVIE_COLUMN_DESCRIPTION + " TEXT," + "\n"
                     + MOVIE_COLUMN_RUNTIME + " TEXT," + "\n"
+                    + MOVIE_COLUMN_GENRE + " TEXT," + "\n"
+                    + MOVIE_COLUMN_DIRECTOR + " TEXT," + "\n"
+                    + MOVIE_COLUMN_ACTORS + " TEXT," + "\n"
+                    + MOVIE_COLUMN_PRODUCTION + " TEXT," + "\n"
                     + MOVIE_COLUMN_RELEASE_DATE + " TEXT," + "\n"
                     + MOVIE_COLUMN_RATING + " TEXT," + "\n"
                     + MOVIE_COLUMN_IMAGE_URL + " TEXT" + ");";

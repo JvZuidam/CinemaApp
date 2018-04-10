@@ -9,117 +9,211 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <android.support.constraint.Guideline
-                android:id="@+id/detailedMovieGuideline1"
+                android:id="@+id/daMovieGuideline1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="123dp" />
+                app:layout_constraintGuide_begin="150dp" />
 
             <ImageView
-                android:id="@+id/detailedMovieHeaderImage"
+                android:id="@+id/daMovieHeaderImage"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toTopOf="@+id/detailedMovieGuideline1"
+                app:layout_constraintBottom_toTopOf="@+id/daMovieGuideline1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:color/holo_blue_bright" />
 
             <ImageView
-                android:id="@+id/detailedMovieImage"
+                android:id="@+id/daMovieImage"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/detailedMovieHeaderImage"
+                android:layout_marginTop="100dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieHeaderImage"
+                app:layout_constraintTop_toTopOf="@+id/daMovieHeaderImage"
                 app:srcCompat="@color/available" />
 
             <TextView
-                android:id="@+id/detailedMovieTitle"
+                android:id="@+id/maMovieTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/detailedMovieImage"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieHeaderImage"
+                app:layout_constraintStart_toEndOf="@+id/daMovieImage"
+                app:layout_constraintTop_toTopOf="@+id/daMovieGuideline1"
                 tools:text="Movie Title" />
 
             <TextView
-                android:id="@+id/detailedMovieDurationText"
+                android:id="@+id/daMovieDuration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                app:layout_constraintStart_toStartOf="@+id/detailedMovieTitle"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieTitle"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/maMovieTitle"
+                app:layout_constraintTop_toBottomOf="@+id/maMovieTitle"
                 tools:text="120 minutes" />
 
             <TextView
-                android:id="@+id/detailedMovieRatingText"
+                android:id="@+id/daMovieRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                app:layout_constraintStart_toStartOf="@+id/detailedMovieDurationText"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieDurationText"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/daMovieDuration"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieDuration"
                 tools:text="Rating 8.6" />
 
             <TextView
-                android:id="@+id/detailedMovieReleaseDate"
+                android:id="@+id/daMovieReleaseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/detailedMovieImage"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieImage"
+                android:layout_marginTop="2dp"
+                app:layout_constraintStart_toStartOf="@+id/daMovieImage"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieImage"
                 tools:text="02 aug 2018" />
 
             <TextView
-                android:id="@+id/detailedMovieDescription"
+                android:id="@+id/daMovieSummaryInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Summary"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/daMovieReleaseDate"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieReleaseDate" />
+
+            <TextView
+                android:id="@+id/daMovieDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieReleaseDate"
+                app:layout_constraintStart_toStartOf="@+id/daMovieSummaryInfo"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieSummaryInfo"
                 tools:text='"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam' />
 
-            <Button
-                android:id="@+id/detailedMovieShowingsButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/showings"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailedMovieDescription" />
-
             <ProgressBar
-                android:id="@+id/detailedMovieProgressBar"
+                android:id="@+id/daLoadingShowingsProgressbar"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="8dp"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@+id/detailedMovieShowingsButton"
-                app:layout_constraintEnd_toStartOf="@+id/detailedMovieShowingsButton"
-                app:layout_constraintTop_toTopOf="@+id/detailedMovieShowingsButton" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieDescription" />
 
+            <Button
+                android:id="@+id/daMovieShowingsButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/reserved"
+                android:text="@string/showings"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daLoadingShowingsProgressbar" />
+
+            <TextView
+                android:id="@+id/daMovieGenreInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/genre"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieShowingsButton" />
+
+            <TextView
+                android:id="@+id/daMovieGenre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/daMovieGenreInfo"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieGenreInfo"
+                tools:text="Action, Comedy" />
+
+            <TextView
+                android:id="@+id/daMovieDirectorInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/director"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/daMovieGenreInfo"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieGenre" />
+
+            <TextView
+                android:id="@+id/daMovieDirector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/daMovieGenreInfo"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieDirectorInfo"
+                tools:text="Stephen Spielberg" />
+
+            <TextView
+                android:id="@+id/daMovieActorsInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/actors"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/daMovieGenreInfo"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieDirector" />
+
+            <TextView
+                android:id="@+id/daMovieActors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/daMovieActorsInfo"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieActorsInfo"
+                tools:text="Kevin Hart, Dwane Johnsen" />
+
+            <TextView
+                android:id="@+id/daMovieProductionInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/production"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/daMovieGenreInfo"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieActors" />
+
+            <TextView
+                android:id="@+id/daMovieProduction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintStart_toStartOf="@+id/daMovieProductionInfo"
+                app:layout_constraintTop_toBottomOf="@+id/daMovieProductionInfo"
+                tools:text="Hollewood inc." />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

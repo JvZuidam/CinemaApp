@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cinema.avans.cinemaapp.R;
 import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
@@ -38,6 +39,11 @@ public class MovieDetailedShowingsActivity extends AppCompatActivity {
 
         Log.i("MovieDetailedShowAct", "User gotten: " + user);
 
+        if (movie.getShowings().size() == 0) {
+            Toast.makeText(getApplicationContext(), "No showings for: " + movie.getTitle(), Toast.LENGTH_LONG).show();
+
+        }
+
         // fix Sorter for time
         ListView movieShowingsListView = findViewById(R.id.detailedMovieShowingsListView);
         final ShowingsAdapter showingsAdapter = new ShowingsAdapter(getApplicationContext(), movie.getShowings());
@@ -54,9 +60,17 @@ public class MovieDetailedShowingsActivity extends AppCompatActivity {
                         1));
                 intent.putExtra("USER", user);
                 startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
 
             }
         });
+
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
 
     }
 

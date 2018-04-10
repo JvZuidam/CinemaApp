@@ -5,10 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,7 +15,6 @@ import com.cinema.avans.cinemaapp.frontEnd.dataAcces.RepositoryFactory;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Movie;
 import com.cinema.avans.cinemaapp.frontEnd.domain.cinema.Showing;
 import com.cinema.avans.cinemaapp.frontEnd.domain.login.User;
-import com.cinema.avans.cinemaapp.frontEnd.logic.user.SeatSelector;
 import com.cinema.avans.cinemaapp.frontEnd.logic.user.ShowingsGetter;
 import com.cinema.avans.cinemaapp.frontEnd.logic.user.ShowingsListener;
 import com.squareup.picasso.Picasso;
@@ -62,8 +59,8 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
         showingsGetter = new ShowingsGetter(new RepositoryFactory(getApplicationContext()).getShowingRepository(), this);
 
         // Progressbar gone
-        progressBar = findViewById(R.id.detailedMovieProgressBar);
-        progressBar.setVisibility(View.GONE);
+        progressBar = findViewById(R.id.daLoadingShowingsProgressbar);
+        stopLoader();
 
     }
 
@@ -71,32 +68,48 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
     private void displayMovie() {
 
         // Header image
-        ImageView movieHeaderImage = findViewById(R.id.detailedMovieHeaderImage);
+        ImageView movieHeaderImage = findViewById(R.id.daMovieHeaderImage);
         Picasso.with(getApplicationContext()).load(movie.getImageUrl()).into(movieHeaderImage);
 
         // Small image
-        ImageView movieImage = findViewById(R.id.detailedMovieImage);
+        ImageView movieImage = findViewById(R.id.daMovieImage);
         Picasso.with(getApplicationContext()).load(movie.getImageUrl()).into(movieImage);
 
         // Title
-        TextView movieTitle = findViewById(R.id.detailedMovieTitle);
+        TextView movieTitle = findViewById(R.id.maMovieTitle);
         movieTitle.setText(movie.getTitle());
 
         // Runtime
-        TextView movieRuntime = findViewById(R.id.detailedMovieDurationText);
+        TextView movieRuntime = findViewById(R.id.daMovieDuration);
         movieRuntime.setText(movie.getRuntime());
 
         // Rating
-        TextView movieRating = findViewById(R.id.detailedMovieRatingText);
-        movieRating.setText(movie.getRating());
+        TextView movieRating = findViewById(R.id.daMovieRating);
+        movieRating.setText("Rated " + movie.getRating() + " by IMDB");
 
         // Release date
-        TextView releaseDate = findViewById(R.id.detailedMovieReleaseDate);
+        TextView releaseDate = findViewById(R.id.daMovieReleaseDate);
         releaseDate.setText(movie.getReleaseDate());
 
         // Description
-        TextView movieDescription = findViewById(R.id.detailedMovieDescription);
+        TextView movieDescription = findViewById(R.id.daMovieDescription);
         movieDescription.setText(movie.getDescription());
+
+        // Genre
+        TextView genre = findViewById(R.id.daMovieGenre);
+        genre.setText(movie.getGenre());
+
+        // Director
+        TextView director = findViewById(R.id.daMovieDirector);
+        director.setText(movie.getDirector());
+
+        // Actors
+        TextView actors = findViewById(R.id.daMovieActors);
+        actors.setText(movie.getActors());
+
+        // Production
+        TextView production = findViewById(R.id.daMovieProduction);
+        production.setText(movie.getProduction());
 
     }
 
@@ -104,7 +117,7 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
     private void setupShowingButton() {
 
         // Setup listener
-        Button showingsButton = findViewById(R.id.detailedMovieShowingsButton);
+        Button showingsButton = findViewById(R.id.daMovieShowingsButton);
         showingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +140,7 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
                     intent.putExtra("USER", user);
                     stopLoader();
                     startActivity(intent);
+                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
 
                 }
 
@@ -149,6 +163,7 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
         intent.putExtra("MOVIE", movie);
         intent.putExtra("USER", user);
         startActivity(intent);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
 
     }
 
@@ -158,7 +173,14 @@ public class MovieDetailedActivity extends AppCompatActivity implements Showings
 
     }
     private void stopLoader() {
-        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.INVISIBLE);
+
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
 
     }
 

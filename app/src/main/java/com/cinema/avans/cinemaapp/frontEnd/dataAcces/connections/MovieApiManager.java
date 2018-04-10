@@ -101,6 +101,10 @@ public class MovieApiManager extends AsyncTask<String, Void, String> {
             String title = movieJSON.getString("Title");
             String description = movieJSON.getString("Plot");
             String runtime = movieJSON.getString("Runtime");
+            String genre = movieJSON.getString("Genre");
+            String director = movieJSON.getString("Director");
+            String actors = movieJSON.getString("Actors");
+            String production = movieJSON.getString("Production");
             String releaseDate = movieJSON.getString("Released");
             String rating = movieJSON.getString("imdbRating");
             String imageUrl = movieJSON.getString("Poster");
@@ -110,6 +114,10 @@ public class MovieApiManager extends AsyncTask<String, Void, String> {
             movie.setTitle(title);
             movie.setDescription(description);
             movie.setRuntime(runtime);
+            movie.setGenre(genre);
+            movie.setDirector(director);
+            movie.setActors(actors);
+            movie.setProduction(production);
             movie.setReleaseDate(releaseDate);
             movie.setRating(rating);
             movie.setImageUrl(imageUrl);

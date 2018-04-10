@@ -80,6 +80,10 @@
     <string name="confirm">Confirm</string>
     <string name="hallNrToLowError">HallNr needs to be above 0</string>
     <string name="hallNrToHighError">Does the cinema have more than 20 halls?</string>
+    <string name="director">Director</string>
+    <string name="actors">Actors</string>
+    <string name="genre">Genre</string>
+    <string name="production">Production</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

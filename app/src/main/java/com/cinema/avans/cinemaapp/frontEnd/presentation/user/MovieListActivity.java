@@ -49,6 +49,7 @@ public class MovieListActivity extends AppCompatActivity {
                 Intent intent = new Intent(MovieListActivity.this, MovieDetailedActivity.class);
                 intent.putExtra("MOVIE", movieAdapter.getItem(i));
                 startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
 
             }
         });

@@ -40,7 +40,7 @@ public class TicketAdapter extends ArrayAdapter<Ticket> {
 
             // SeatSelector is turned upside down
             TextView qrText = convertView.findViewById(R.id.ticketItemQrCode);
-            qrText.setText(getContext().getString(R.string.qrCode) + " " + ticket.getTicketId());
+            qrText.setText(String.valueOf(ticket.getTicketId()));
             TextView movieText = convertView.findViewById(R.id.ticketItemMovieText);
             movieText.setText(ticket.getShowing().getMovie().getTitle());
             TextView hallText = convertView.findViewById(R.id.ticketItemHallText);

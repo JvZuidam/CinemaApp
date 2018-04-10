@@ -11,11 +11,16 @@ public class Movie implements Serializable {
 
     private int movieId;
     private String title;
-    private String description;
-    private String runtime;
     private String releaseDate;
+    private String runtime;
+    private String genre;
+    private String director;
+    private String actors;
+    private String description;
     private String rating;
     private String imageUrl;
+    private String production;
+
     private ArrayList<Showing> showings;
 
     public Movie() {
@@ -44,6 +49,18 @@ public class Movie implements Serializable {
     public void setRuntime(String runtime) {
         this.runtime = runtime;
     }
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+    public void setDirector(String director) {
+        this.director = director;
+    }
+    public void setActors(String actors) {
+        this.actors = actors;
+    }
+    public void setProduction(String production) {
+        this.production = production;
+    }
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
@@ -69,6 +86,18 @@ public class Movie implements Serializable {
     }
     public String getRuntime() {
         return runtime;
+    }
+    public String getGenre() {
+        return genre;
+    }
+    public String getDirector() {
+        return director;
+    }
+    public String getActors() {
+        return actors;
+    }
+    public String getProduction() {
+        return production;
     }
     public String getReleaseDate() {
         return releaseDate;

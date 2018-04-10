@@ -113,6 +113,7 @@ public class SeatSelectorActivity extends AppCompatActivity {
                     intent.putExtra("SHOWING", seatSelector.getShowing());
                     intent.putExtra("USER", user);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
 
                 }
 
@@ -156,6 +157,13 @@ public class SeatSelectorActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
 
     }
 
